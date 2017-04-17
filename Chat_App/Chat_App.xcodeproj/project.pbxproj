@@ -13,6 +13,8 @@
 		7D202D941EA49BEF0018FCAD /* Chat_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202D931EA49BEF0018FCAD /* Chat_AppTests.swift */; };
 		7D202D9F1EA49BEF0018FCAD /* Chat_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202D9E1EA49BEF0018FCAD /* Chat_AppUITests.swift */; };
 		7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DB71EA49CDA0018FCAD /* Info.plist */; };
+		7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202DBE1EA4A4410018FCAD /* welcome.swift */; };
+		7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DC21EA4A46B0018FCAD /* welcome.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		7D202D9E1EA49BEF0018FCAD /* Chat_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat_AppUITests.swift; sourceTree = "<group>"; };
 		7D202DA01EA49BEF0018FCAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D202DB71EA49CDA0018FCAD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Chat_App/Info.plist; sourceTree = SOURCE_ROOT; };
+		7D202DBE1EA4A4410018FCAD /* welcome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = welcome.swift; sourceTree = "<group>"; };
+		7D202DC21EA4A46B0018FCAD /* welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = welcome.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,7 @@
 		7D202DAE1EA49CB20018FCAD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7D202DBE1EA4A4410018FCAD /* welcome.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 		7D202DB01EA49CB20018FCAD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7D202DC21EA4A46B0018FCAD /* welcome.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,6 +305,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */,
 				7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
 				7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */,
@@ -326,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */,
 				7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -569,6 +577,7 @@
 				7D202DA51EA49BEF0018FCAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7D202DA61EA49BEF0018FCAD /* Build configuration list for PBXNativeTarget "Chat_AppTests" */ = {
 			isa = XCConfigurationList;
@@ -577,6 +586,7 @@
 				7D202DA81EA49BEF0018FCAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7D202DA91EA49BEF0018FCAD /* Build configuration list for PBXNativeTarget "Chat_AppUITests" */ = {
 			isa = XCConfigurationList;
@@ -585,6 +595,7 @@
 				7D202DAB1EA49BEF0018FCAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
