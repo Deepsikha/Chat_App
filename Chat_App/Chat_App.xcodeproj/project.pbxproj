@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CEF5A821EA4A80000E92BF8 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A801EA4A80000E92BF8 /* HomeController.swift */; };
+		5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A841EA4A84300E92BF8 /* HomeController.xib */; };
+		5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */; };
+		5CEF5A8B1EA4AAB500E92BF8 /* ChatController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A8A1EA4AAB500E92BF8 /* ChatController.xib */; };
+		5CEF5A8D1EA4AB9000E92BF8 /* chaticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A8C1EA4AB9000E92BF8 /* chaticon.png */; };
+		5CEF5A901EA4B65600E92BF8 /* CallsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A8E1EA4B65600E92BF8 /* CallsController.swift */; };
+		5CEF5A931EA4B67C00E92BF8 /* CallsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A921EA4B67C00E92BF8 /* CallsController.xib */; };
+		5CEF5A951EA4B73700E92BF8 /* Calls.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A941EA4B73700E92BF8 /* Calls.png */; };
+		5CEF5A981EA4B78800E92BF8 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A961EA4B78800E92BF8 /* CameraController.swift */; };
+		5CEF5A9B1EA4B7BF00E92BF8 /* CameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A9A1EA4B7BF00E92BF8 /* CameraController.xib */; };
+		5CEF5A9E1EA4B7EE00E92BF8 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A9D1EA4B7EE00E92BF8 /* Camera.png */; };
+		5CEF5AA11EA4B86B00E92BF8 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A9F1EA4B86B00E92BF8 /* SettingsController.swift */; };
+		5CEF5AA41EA4B88C00E92BF8 /* SettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AA31EA4B88C00E92BF8 /* SettingsController.xib */; };
+		5CEF5AA71EA4B8CF00E92BF8 /* StatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5AA51EA4B8CF00E92BF8 /* StatusController.swift */; };
+		5CEF5AAA1EA4B8EA00E92BF8 /* StatusController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AA91EA4B8EA00E92BF8 /* StatusController.xib */; };
+		5CEF5AAC1EA4B9CD00E92BF8 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAB1EA4B9CD00E92BF8 /* Settings.png */; };
+		5CEF5AAE1EA4BAFA00E92BF8 /* Edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAD1EA4BAFA00E92BF8 /* Edit.png */; };
+		5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAF1EA4CD4100E92BF8 /* AddStatus.png */; };
 		7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202D7E1EA49BEF0018FCAD /* AppDelegate.swift */; };
 		7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D202D851EA49BEF0018FCAD /* Assets.xcassets */; };
 		7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D202D871EA49BEF0018FCAD /* LaunchScreen.storyboard */; };
@@ -35,6 +53,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5CEF5A801EA4A80000E92BF8 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		5CEF5A841EA4A84300E92BF8 /* HomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeController.xib; sourceTree = "<group>"; };
+		5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		5CEF5A8A1EA4AAB500E92BF8 /* ChatController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatController.xib; sourceTree = "<group>"; };
+		5CEF5A8C1EA4AB9000E92BF8 /* chaticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chaticon.png; sourceTree = "<group>"; };
+		5CEF5A8E1EA4B65600E92BF8 /* CallsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallsController.swift; sourceTree = "<group>"; };
+		5CEF5A921EA4B67C00E92BF8 /* CallsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallsController.xib; sourceTree = "<group>"; };
+		5CEF5A941EA4B73700E92BF8 /* Calls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Calls.png; sourceTree = "<group>"; };
+		5CEF5A961EA4B78800E92BF8 /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		5CEF5A9A1EA4B7BF00E92BF8 /* CameraController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraController.xib; sourceTree = "<group>"; };
+		5CEF5A9D1EA4B7EE00E92BF8 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera.png; sourceTree = "<group>"; };
+		5CEF5A9F1EA4B86B00E92BF8 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		5CEF5AA31EA4B88C00E92BF8 /* SettingsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsController.xib; sourceTree = "<group>"; };
+		5CEF5AA51EA4B8CF00E92BF8 /* StatusController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusController.swift; sourceTree = "<group>"; };
+		5CEF5AA91EA4B8EA00E92BF8 /* StatusController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusController.xib; sourceTree = "<group>"; };
+		5CEF5AAB1EA4B9CD00E92BF8 /* Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings.png; sourceTree = "<group>"; };
+		5CEF5AAD1EA4BAFA00E92BF8 /* Edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Edit.png; sourceTree = "<group>"; };
+		5CEF5AAF1EA4CD4100E92BF8 /* AddStatus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddStatus.png; sourceTree = "<group>"; };
 		7D202D7B1EA49BEF0018FCAD /* Chat_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D202D7E1EA49BEF0018FCAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D202D851EA49BEF0018FCAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -148,6 +184,12 @@
 			isa = PBXGroup;
 			children = (
 				7D202DBE1EA4A4410018FCAD /* welcome.swift */,
+				5CEF5A801EA4A80000E92BF8 /* HomeController.swift */,
+				5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */,
+				5CEF5A8E1EA4B65600E92BF8 /* CallsController.swift */,
+				5CEF5A961EA4B78800E92BF8 /* CameraController.swift */,
+				5CEF5A9F1EA4B86B00E92BF8 /* SettingsController.swift */,
+				5CEF5AA51EA4B8CF00E92BF8 /* StatusController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -162,6 +204,12 @@
 		7D202DB01EA49CB20018FCAD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5CEF5AA91EA4B8EA00E92BF8 /* StatusController.xib */,
+				5CEF5AA31EA4B88C00E92BF8 /* SettingsController.xib */,
+				5CEF5A9A1EA4B7BF00E92BF8 /* CameraController.xib */,
+				5CEF5A921EA4B67C00E92BF8 /* CallsController.xib */,
+				5CEF5A8A1EA4AAB500E92BF8 /* ChatController.xib */,
+				5CEF5A841EA4A84300E92BF8 /* HomeController.xib */,
 				7D202DC21EA4A46B0018FCAD /* welcome.xib */,
 			);
 			path = Views;
@@ -179,6 +227,12 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				5CEF5AAF1EA4CD4100E92BF8 /* AddStatus.png */,
+				5CEF5AAD1EA4BAFA00E92BF8 /* Edit.png */,
+				5CEF5AAB1EA4B9CD00E92BF8 /* Settings.png */,
+				5CEF5A9D1EA4B7EE00E92BF8 /* Camera.png */,
+				5CEF5A941EA4B73700E92BF8 /* Calls.png */,
+				5CEF5A8C1EA4AB9000E92BF8 /* chaticon.png */,
 			);
 			path = Icon;
 			sourceTree = "<group>";
@@ -305,10 +359,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CEF5AAC1EA4B9CD00E92BF8 /* Settings.png in Resources */,
 				7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */,
+				5CEF5A9E1EA4B7EE00E92BF8 /* Camera.png in Resources */,
+				5CEF5A8B1EA4AAB500E92BF8 /* ChatController.xib in Resources */,
+				5CEF5A8D1EA4AB9000E92BF8 /* chaticon.png in Resources */,
+				5CEF5AA41EA4B88C00E92BF8 /* SettingsController.xib in Resources */,
 				7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */,
+				5CEF5A9B1EA4B7BF00E92BF8 /* CameraController.xib in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
+				5CEF5AAA1EA4B8EA00E92BF8 /* StatusController.xib in Resources */,
+				5CEF5A951EA4B73700E92BF8 /* Calls.png in Resources */,
+				5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */,
+				5CEF5AAE1EA4BAFA00E92BF8 /* Edit.png in Resources */,
+				5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */,
 				7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */,
+				5CEF5A931EA4B67C00E92BF8 /* CallsController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,8 +399,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CEF5A981EA4B78800E92BF8 /* CameraController.swift in Sources */,
+				5CEF5AA71EA4B8CF00E92BF8 /* StatusController.swift in Sources */,
 				7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */,
 				7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */,
+				5CEF5AA11EA4B86B00E92BF8 /* SettingsController.swift in Sources */,
+				5CEF5A821EA4A80000E92BF8 /* HomeController.swift in Sources */,
+				5CEF5A901EA4B65600E92BF8 /* CallsController.swift in Sources */,
+				5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
