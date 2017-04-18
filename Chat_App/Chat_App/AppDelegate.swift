@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import SocketRocket
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    static var websocket: SRWebSocket!
+    static var senderId = "9610555504"
+    static var senderDisplayName = "Master"
+    static let app = UIApplication.shared
+    static var count : Int!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
 

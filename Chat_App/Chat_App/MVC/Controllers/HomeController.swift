@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import SocketRocket
 
-class HomeController: UITabBarController, UITabBarControllerDelegate {
+class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSocketDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         tabBarController?.delegate = self
+        connect()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.tabBarController?.selectedIndex = 2
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +41,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate {
         self.viewControllers = [tabOne,tabTwo,tabThree,tabFour,tabFive]
         
         //tabBarController?.selectedViewController = ChatController()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,7 +48,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate {
         
     }
     
-    //MARK :- Tabbar Methods
+    //MARK: Tabbar Methods
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         switch viewController {
@@ -88,5 +88,35 @@ class HomeController: UITabBarController, UITabBarControllerDelegate {
         }
     }
     
-
+    //MARK: Socket Methods
+    
+    func connect() {
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://kdylspfuyn.localtunnel.me"))
+        AppDelegate.websocket.delegate = self
+        AppDelegate.websocket.open()
+    }
+    
+    func webSocketDidOpen(_ webSocket: SRWebSocket!) {
+        print("Connected")
+        if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+            sendInitMsg()
+        }
+    }
+    
+    func sendInitMsg(){
+        do {
+            var dic:[String:Any]!
+            dic = ["senderId": "9610555504","type":"initConnection"]
+            
+            let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+            AppDelegate.websocket.send(NSData(data: jsonData))
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
+        
+    }
+    
 }
