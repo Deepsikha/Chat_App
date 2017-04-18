@@ -1,5 +1,6 @@
 
 import UIKit
+import FMDB
 
 let sharedInstance = ModelManager()
 
@@ -20,7 +21,7 @@ class ModelManager: NSObject {
         sharedInstance.database!.open()
         let val = String(values.characters.filter { !"\n".characters.contains($0) })
 
-        let isInserted = sharedInstance.database!.executeUpdate("INSERT INTO \(tblName) (\(columns)) VALUES (\(val))")
+        let isInserted = sharedInstance.database!.executeStatements("INSERT INTO \(tblName) (\(columns)) VALUES (\(val))")
         sharedInstance.database!.close()
             return isInserted
         
@@ -28,7 +29,7 @@ class ModelManager: NSObject {
    
     func updateData(_ tblName: String,_ changeField: String,_ condition: String) -> Bool {
         sharedInstance.database!.open()
-        let isUpdated = sharedInstance.database!.executeUpdate("UPDATE \(tblName) set \(changeField) WHERE \(condition)")
+        let isUpdated = sharedInstance.database!.executeStatements("UPDATE \(tblName) set \(changeField) WHERE \(condition)")
         sharedInstance.database!.close()
         return isUpdated
     }

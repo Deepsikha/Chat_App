@@ -19,7 +19,14 @@
 		5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80591EA5FBF900B88F3F /* Starred Messages.png */; };
 		5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */; };
 		5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */; };
-		5CCE80651EA6191C00B88F3F /* fmdb in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80641EA6191C00B88F3F /* fmdb */; };
+		5CCE80681EA61A3E00B88F3F /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE80661EA61A3E00B88F3F /* ModelManager.swift */; };
+		5CCE80691EA61A3E00B88F3F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE80671EA61A3E00B88F3F /* Util.swift */; };
+		5CCE806C1EA6303A00B88F3F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE806A1EA6303A00B88F3F /* CollectionViewCell.swift */; };
+		5CCE806D1EA6303A00B88F3F /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE806B1EA6303A00B88F3F /* CollectionViewCell.xib */; };
+		5CCE806F1EA6336700B88F3F /* SendAttachment.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE806E1EA6336700B88F3F /* SendAttachment.png */; };
+		5CCE80711EA6371200B88F3F /* SendPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80701EA6371200B88F3F /* SendPhoto.png */; };
+		5CCE80731EA6374500B88F3F /* audiosend.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80721EA6374500B88F3F /* audiosend.png */; };
+		5CCE80751EA637C100B88F3F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCE80741EA637C100B88F3F /* libsqlite3.0.tbd */; };
 		5CEF5A821EA4A80000E92BF8 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A801EA4A80000E92BF8 /* HomeController.swift */; };
 		5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A841EA4A84300E92BF8 /* HomeController.xib */; };
 		5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */; };
@@ -84,7 +91,14 @@
 		5CCE80591EA5FBF900B88F3F /* Starred Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Starred Messages.png"; sourceTree = "<group>"; };
 		5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tell a Friend.png"; sourceTree = "<group>"; };
 		5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Web:Desktop.png"; sourceTree = "<group>"; };
-		5CCE80641EA6191C00B88F3F /* fmdb */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fmdb; sourceTree = "<group>"; };
+		5CCE80661EA61A3E00B88F3F /* ModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
+		5CCE80671EA61A3E00B88F3F /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		5CCE806A1EA6303A00B88F3F /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		5CCE806B1EA6303A00B88F3F /* CollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		5CCE806E1EA6336700B88F3F /* SendAttachment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SendAttachment.png; sourceTree = "<group>"; };
+		5CCE80701EA6371200B88F3F /* SendPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SendPhoto.png; sourceTree = "<group>"; };
+		5CCE80721EA6374500B88F3F /* audiosend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audiosend.png; sourceTree = "<group>"; };
+		5CCE80741EA637C100B88F3F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		5CEF5A801EA4A80000E92BF8 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5CEF5A841EA4A84300E92BF8 /* HomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeController.xib; sourceTree = "<group>"; };
 		5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
@@ -128,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CCE80751EA637C100B88F3F /* libsqlite3.0.tbd in Frameworks */,
 				DF00F00EA5FB3EAC66FB856D /* Pods_Chat_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +171,8 @@
 			children = (
 				5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */,
 				5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */,
+				5CCE806A1EA6303A00B88F3F /* CollectionViewCell.swift */,
+				5CCE806B1EA6303A00B88F3F /* CollectionViewCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -219,7 +236,6 @@
 		7D202DAC1EA49CB20018FCAD /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				5CCE80641EA6191C00B88F3F /* fmdb */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -251,6 +267,8 @@
 		7D202DAF1EA49CB20018FCAD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5CCE80661EA61A3E00B88F3F /* ModelManager.swift */,
+				5CCE80671EA61A3E00B88F3F /* Util.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -281,6 +299,9 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				5CCE80721EA6374500B88F3F /* audiosend.png */,
+				5CCE80701EA6371200B88F3F /* SendPhoto.png */,
+				5CCE806E1EA6336700B88F3F /* SendAttachment.png */,
 				5CCE80541EA5FBF900B88F3F /* Account.png */,
 				5CCE80551EA5FBF900B88F3F /* Chat.png */,
 				5CCE80561EA5FBF900B88F3F /* Data and Storage Usage.png */,
@@ -331,6 +352,7 @@
 		98E71D75CDD3C3242020B53D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5CCE80741EA637C100B88F3F /* libsqlite3.0.tbd */,
 				F77C88991DD33768CA723214 /* Pods_Chat_App.framework */,
 				BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */,
 				09321A4FB2B425702074C58E /* Pods_Chat_AppUITests.framework */,
@@ -415,6 +437,7 @@
 				TargetAttributes = {
 					7D202D7A1EA49BEF0018FCAD = {
 						CreatedOnToolsVersion = 8.3;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 					};
 					7D202D8E1EA49BEF0018FCAD = {
@@ -458,24 +481,27 @@
 				5CEF5AAC1EA4B9CD00E92BF8 /* Settings.png in Resources */,
 				7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */,
 				5CCE805E1EA5FBF900B88F3F /* Data and Storage Usage.png in Resources */,
+				5CCE80711EA6371200B88F3F /* SendPhoto.png in Resources */,
+				5CCE80731EA6374500B88F3F /* audiosend.png in Resources */,
 				5CEF5A9E1EA4B7EE00E92BF8 /* Camera.png in Resources */,
 				5CCE80601EA5FBF900B88F3F /* Notifications.png in Resources */,
 				5CEF5A8B1EA4AAB500E92BF8 /* ChatController.xib in Resources */,
 				5CEF5A8D1EA4AB9000E92BF8 /* chaticon.png in Resources */,
 				5CEF5AA41EA4B88C00E92BF8 /* SettingsController.xib in Resources */,
 				7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */,
-				5CCE80651EA6191C00B88F3F /* fmdb in Resources */,
 				5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */,
 				5CEF5A9B1EA4B7BF00E92BF8 /* CameraController.xib in Resources */,
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
 				5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
 				5CCE805C1EA5FBF900B88F3F /* Account.png in Resources */,
+				5CCE806F1EA6336700B88F3F /* SendAttachment.png in Resources */,
 				5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */,
 				5CEF5AAA1EA4B8EA00E92BF8 /* StatusController.xib in Resources */,
 				5CEF5A951EA4B73700E92BF8 /* Calls.png in Resources */,
 				5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */,
 				5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */,
+				5CCE806D1EA6303A00B88F3F /* CollectionViewCell.xib in Resources */,
 				5CCE80501EA5ED0500B88F3F /* SettingsCell.xib in Resources */,
 				5CEF5AAE1EA4BAFA00E92BF8 /* Edit.png in Resources */,
 				5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */,
@@ -643,13 +669,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CCE80691EA61A3E00B88F3F /* Util.swift in Sources */,
 				5CEF5A981EA4B78800E92BF8 /* CameraController.swift in Sources */,
+				5CCE806C1EA6303A00B88F3F /* CollectionViewCell.swift in Sources */,
 				5CEF5AA71EA4B8CF00E92BF8 /* StatusController.swift in Sources */,
 				5CCE804F1EA5ED0500B88F3F /* SettingsCell.swift in Sources */,
 				7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */,
 				7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */,
 				5CEF5AA11EA4B86B00E92BF8 /* SettingsController.swift in Sources */,
 				5CEF5A821EA4A80000E92BF8 /* HomeController.swift in Sources */,
+				5CCE80681EA61A3E00B88F3F /* ModelManager.swift in Sources */,
 				5CEF5A901EA4B65600E92BF8 /* CallsController.swift in Sources */,
 				5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */,
 			);
@@ -798,12 +827,20 @@
 			baseConfigurationReference = BCDBAD47DCAE8DF62930BC06 /* Pods-Chat_App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Chat_App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"SocketRocket\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "lanet.Chat-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -813,9 +850,16 @@
 			baseConfigurationReference = 695E83FB6EE03FD4666AFD05 /* Pods-Chat_App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Chat_App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"SocketRocket\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "lanet.Chat-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

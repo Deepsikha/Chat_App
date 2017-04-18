@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import QuartzCore
 
 class ChatController: UIViewController {
 
+    @IBOutlet weak var chatbox: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        chatbox.layer.cornerRadius = 20
         self.navigationController?.isNavigationBarHidden = false
         
     }

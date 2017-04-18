@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
 
-        let rootVC = HomeController()
+        let rootVC = ChatController()
         let nav = UINavigationController(rootViewController: rootVC)
         window?.rootViewController = nav
         
