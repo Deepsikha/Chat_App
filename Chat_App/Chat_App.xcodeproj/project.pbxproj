@@ -15,6 +15,9 @@
 		7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DB71EA49CDA0018FCAD /* Info.plist */; };
 		7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202DBE1EA4A4410018FCAD /* welcome.swift */; };
 		7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DC21EA4A46B0018FCAD /* welcome.xib */; };
+		7D202DC51EA4A9720018FCAD /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DC41EA4A9720018FCAD /* Gradient.png */; };
+		7D202DC81EA4BFC50018FCAD /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202DC61EA4BFC50018FCAD /* Register.swift */; };
+		7D202DCB1EA4BFEF0018FCAD /* Register.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DCA1EA4BFEF0018FCAD /* Register.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		7D202DB71EA49CDA0018FCAD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Chat_App/Info.plist; sourceTree = SOURCE_ROOT; };
 		7D202DBE1EA4A4410018FCAD /* welcome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = welcome.swift; sourceTree = "<group>"; };
 		7D202DC21EA4A46B0018FCAD /* welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = welcome.xib; sourceTree = "<group>"; };
+		7D202DC41EA4A9720018FCAD /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
+		7D202DC61EA4BFC50018FCAD /* Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		7D202DCA1EA4BFEF0018FCAD /* Register.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Register.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				7D202DBE1EA4A4410018FCAD /* welcome.swift */,
+				7D202DC61EA4BFC50018FCAD /* Register.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -163,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				7D202DC21EA4A46B0018FCAD /* welcome.xib */,
+				7D202DCA1EA4BFEF0018FCAD /* Register.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +194,7 @@
 		7D202DB31EA49CB20018FCAD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7D202DC41EA4A9720018FCAD /* Gradient.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -308,6 +317,8 @@
 				7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */,
 				7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
+				7D202DC51EA4A9720018FCAD /* Gradient.png in Resources */,
+				7D202DCB1EA4BFEF0018FCAD /* Register.xib in Resources */,
 				7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D202DC81EA4BFC50018FCAD /* Register.swift in Sources */,
 				7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */,
 				7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */,
 			);
