@@ -38,12 +38,18 @@ class Register: UIViewController,UITextFieldDelegate {
         self.view.addGestureRecognizer(tap)
         
         //status bar color
-        self.navDone.frame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: 64)
+        
         let statusBarBackground = UIView(frame: UIApplication.shared.statusBarFrame)
         let statusBarColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 0.7)
         statusBarBackground.backgroundColor = statusBarColor
         view.addSubview(statusBarBackground)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        self.txfNumber.becomeFirstResponder()
+
     }
     //MARK:- TextField Delegate
     
@@ -71,11 +77,14 @@ class Register: UIViewController,UITextFieldDelegate {
             }
         }
         if string == "" {
-            if isValidNumber(textField.text!, length: 10) {
+            if isValidNumber(textField.text!, length: 11) {
+                self.btnDone.isEnabled = true
+            } else {
                 self.btnDone.isEnabled = false
             }
         } else {
             if isValidNumber(textField.text!, length: 9) {
+
                 self.btnDone.isEnabled = true
             } else {
                 self.btnDone.isEnabled = false
@@ -101,8 +110,11 @@ class Register: UIViewController,UITextFieldDelegate {
         let alert = UIAlertController(title: "NUMBER CONFIRMATION: \n\n \(self.lblCCode.text!) \(self.txfNumber.text!) \n\nIs your phone number above correct?", message: "", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) {
             UIAlertAction in
+            let nav = Verification()
+            self.navigationController?.pushViewController(nav, animated: true)
             print("yes Pressed")
         })
+        Verification.no = self.lblCCode.text! + " " + txfNumber.text!
         
         alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.cancel) {
             UIAlertAction in
@@ -111,8 +123,7 @@ class Register: UIViewController,UITextFieldDelegate {
             
         })
         self.present(alert, animated: true, completion: nil)
-//        let vw = Verification()
-//        vw.no = self.txfNumber.text
+        
     }
     
     //MARK:- Custom Method
