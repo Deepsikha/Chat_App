@@ -14,15 +14,19 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        tabBarController?.delegate = self
         connect()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.tabBarController?.selectedIndex = 2
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        self.title = "Chat"
+        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(ChatController.edit))
+        self.navigationItem.titleView = nil
+        self.navigationItem.rightBarButtonItem = button1
+
         
         let tabOne = StatusController()
         tabOne.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
@@ -40,7 +44,8 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         tabFive.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 5)
         self.viewControllers = [tabOne,tabTwo,tabThree,tabFour,tabFive]
         
-        //tabBarController?.selectedViewController = ChatController()
+        
+        self.selectedViewController = tabFour
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,7 +96,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     //MARK: Socket Methods
     
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://kdylspfuyn.localtunnel.me"))
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://ixtmvrmipl.localtunnel.me"))
         AppDelegate.websocket.delegate = self
         AppDelegate.websocket.open()
     }

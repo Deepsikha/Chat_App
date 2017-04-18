@@ -3,3 +3,4 @@
 //
 
 #import<SRWebSocket/SRWebSocket.h>
+#import "FMDatabase.h"

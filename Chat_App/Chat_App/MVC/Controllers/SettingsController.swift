@@ -34,7 +34,6 @@ class SettingsController: UIViewController , UITableViewDelegate , UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tblvw.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsCell
-        print(indexPath.row)
         let titles = list[indexPath.section][indexPath.row]
         cell.arrimg.image = UIImage(named: "arrright")
         cell.listlbl.text = titles
@@ -43,7 +42,7 @@ class SettingsController: UIViewController , UITableViewDelegate , UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 20
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,9 +63,6 @@ class SettingsController: UIViewController , UITableViewDelegate , UITableViewDa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-    }
-    
-
-    
+    }  
 
 }
