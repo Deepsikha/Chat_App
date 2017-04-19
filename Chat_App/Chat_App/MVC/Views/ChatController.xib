@@ -13,6 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatController" customModule="Chat_App" customModuleProvider="target">
             <connections>
                 <outlet property="chatbox" destination="r17-JG-rBX" id="Aq8-Pq-xdh"/>
+                <outlet property="cnctnm" destination="ZND-Oa-4A6" id="WWk-7u-5AN"/>
+                <outlet property="lstseen" destination="5zt-TD-Iwf" id="HSI-KL-nUc"/>
+                <outlet property="navprof" destination="JaN-z3-buo" id="xhi-Sj-JFK"/>
+                <outlet property="navvw" destination="siu-Tc-hht" id="JnJ-Mj-irn"/>
                 <outlet property="tblvw" destination="VKp-I8-gLX" id="04I-kf-bHh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="vw" destination="6q1-tq-4Mg" id="pnv-GA-n9v"/>
@@ -104,6 +108,40 @@
                 <constraint firstAttribute="trailing" secondItem="s9C-We-lV0" secondAttribute="trailing" id="w5N-5y-6Gj"/>
             </constraints>
             <point key="canvasLocation" x="26.5" y="51.5"/>
+        </view>
+        <view contentMode="scaleToFill" id="siu-Tc-hht">
+            <rect key="frame" x="0.0" y="0.0" width="175" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZND-Oa-4A6">
+                    <rect key="frame" x="52" y="4" width="123" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zt-TD-Iwf">
+                    <rect key="frame" x="52" y="26" width="123" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JaN-z3-buo">
+                    <rect key="frame" x="0.0" y="2.5" width="35" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="JaN-z3-buo" secondAttribute="height" multiplier="1:1" id="6hW-T3-qxa"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="JaN-z3-buo" secondAttribute="bottom" constant="2.3999999999999773" id="Bel-uo-QpL"/>
+                <constraint firstItem="JaN-z3-buo" firstAttribute="top" secondItem="siu-Tc-hht" secondAttribute="top" constant="2.6000000000000227" id="NDc-CX-JSk"/>
+                <constraint firstItem="JaN-z3-buo" firstAttribute="leading" secondItem="siu-Tc-hht" secondAttribute="leading" id="SUO-xC-5kD"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="480.5" y="-284"/>
         </view>
     </objects>
     <resources>

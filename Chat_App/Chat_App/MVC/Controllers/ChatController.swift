@@ -12,9 +12,14 @@ import QuartzCore
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var i = 4
+    @IBOutlet var navvw: UIView!
     @IBOutlet weak var vw: UIView!
     @IBOutlet weak var tblvw: UITableView!
     @IBOutlet weak var chatbox: UITextField!
+    @IBOutlet weak var navprof: UIImageView!
+    @IBOutlet weak var cnctnm: UILabel!
+    @IBOutlet weak var lstseen: UILabel!
+    
     var frame1 : CGRect!
 
     override func viewDidLoad() {
@@ -26,11 +31,34 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
         chatbox.layer.cornerRadius = 20
+        
         self.navigationController?.isNavigationBarHidden = false
+        let btn1 = UIButton(type: .custom)
+        let origImage = UIImage(named: "Calls");
+        let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btn1.setImage(tintedImage, for: .normal)
+        btn1.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
+        btn1.frame = CGRect(x: UIScreen.main.bounds.origin.x - 50, y: 20, width: 30, height: 30)
+        btn1.addTarget(self, action: #selector(hideKeyBoard(notification:)), for: .touchUpInside)
+        let item1 = UIBarButtonItem(customView: btn1)
+        let btn2 = UIButton(type: .custom)
+        let origImage1 = UIImage(named: "videocall")
+        let tintedImage1 = origImage1?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btn2.setImage(tintedImage1, for: .normal)
+        btn2.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
+        btn2.frame = CGRect(x: UIScreen.main.bounds.origin.x - 35, y: 20, width: 30, height: 30)
+        btn2.addTarget(self, action: #selector(hideKeyBoard(notification:)), for: .touchUpInside)
+        let item2 = UIBarButtonItem(customView: btn2)
+        self.navigationItem.setRightBarButtonItems([item1,item2], animated: true)
+        navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
+        self.navigationItem.titleView = navvw
+        
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.navprof.image = UIImage(named: "Gradient")
+        self.navprof.layer.cornerRadius = self.navprof.frame.width / 2
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.hideKeyBoard(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }

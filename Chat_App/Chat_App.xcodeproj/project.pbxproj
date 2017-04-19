@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		39E71CF46E44F569FE1577CF /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */; };
+		5C752E7E1EA78D9700BC5764 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C752E7D1EA78D9700BC5764 /* back.png */; };
 		5C767D4C1EA7299F001F4AEF /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C767D4A1EA7299F001F4AEF /* SenderCell.swift */; };
 		5C767D4D1EA7299F001F4AEF /* SenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D4B1EA7299F001F4AEF /* SenderCell.xib */; };
 		5C767D501EA72A3F001F4AEF /* ReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C767D4E1EA72A3F001F4AEF /* ReceiverCell.swift */; };
@@ -17,6 +18,7 @@
 		5C767D581EA742DA001F4AEF /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D541EA742DA001F4AEF /* red.png */; };
 		5C767D591EA742DA001F4AEF /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D551EA742DA001F4AEF /* yellow.png */; };
 		5C767D5B1EA7466E001F4AEF /* pending.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D5A1EA7466E001F4AEF /* pending.png */; };
+		5C767D5D1EA77CB4001F4AEF /* videocall.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D5C1EA77CB4001F4AEF /* videocall.png */; };
 		5CCE804F1EA5ED0500B88F3F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */; };
 		5CCE80501EA5ED0500B88F3F /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */; };
 		5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80511EA5EFE500B88F3F /* arrright.png */; };
@@ -91,6 +93,7 @@
 		0DD9839A1DC8F4B5621C6EFB /* Pods-Chat_AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		143499D97B7EC2C5C2D8BAAE /* Pods-Chat_AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppTests/Pods-Chat_AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1C6B22A85E7A16C34497F1A5 /* Pods-Chat_AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5C752E7D1EA78D9700BC5764 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		5C767D4A1EA7299F001F4AEF /* SenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
 		5C767D4B1EA7299F001F4AEF /* SenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderCell.xib; sourceTree = "<group>"; };
 		5C767D4E1EA72A3F001F4AEF /* ReceiverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverCell.swift; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 		5C767D541EA742DA001F4AEF /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
 		5C767D551EA742DA001F4AEF /* yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow.png; sourceTree = "<group>"; };
 		5C767D5A1EA7466E001F4AEF /* pending.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pending.png; sourceTree = "<group>"; };
+		5C767D5C1EA77CB4001F4AEF /* videocall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videocall.png; sourceTree = "<group>"; };
 		5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		5CCE80511EA5EFE500B88F3F /* arrright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrright.png; sourceTree = "<group>"; };
@@ -329,6 +333,8 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				5C752E7D1EA78D9700BC5764 /* back.png */,
+				5C767D5C1EA77CB4001F4AEF /* videocall.png */,
 				5C767D5A1EA7466E001F4AEF /* pending.png */,
 				5C767D521EA742DA001F4AEF /* Gradient.png */,
 				5C767D531EA742DA001F4AEF /* green.png */,
@@ -528,10 +534,12 @@
 				5CEF5AA41EA4B88C00E92BF8 /* SettingsController.xib in Resources */,
 				7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */,
 				5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */,
+				5C752E7E1EA78D9700BC5764 /* back.png in Resources */,
 				5CEF5A9B1EA4B7BF00E92BF8 /* CameraController.xib in Resources */,
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
 				5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
+				5C767D5D1EA77CB4001F4AEF /* videocall.png in Resources */,
 				5C767D4D1EA7299F001F4AEF /* SenderCell.xib in Resources */,
 				5C767D561EA742DA001F4AEF /* Gradient.png in Resources */,
 				7D8BBBB01EA61BE4006A60DA /* Verification.xib in Resources */,
