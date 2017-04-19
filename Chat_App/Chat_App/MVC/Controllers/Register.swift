@@ -10,49 +10,46 @@ import UIKit
 
 class Register: UIViewController,UITextFieldDelegate {
     
-    
-    
-    
     @IBOutlet var lblCCode: UILabel!
-    
     @IBOutlet var txfNumber: UITextField!
-    
     @IBOutlet var lblTitle: UINavigationItem!
-    
     @IBOutlet var btnDone: UIBarButtonItem!
-    
-    @IBOutlet var viewCountry: UIView!
-    
     @IBOutlet var navDone: UINavigationBar!
+    @IBOutlet var btnCountry: UIButton!
     
     var transperentView = UIView()
     var cView: UIView!
+    static var cName:String!
+    static var cCode:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         txfNumber.delegate = self
         self.navigationController?.isNavigationBarHidden = true
         self.title = "Edit number"
+        
         //taphandle
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         
         //status bar color
-        
         let statusBarBackground = UIView(frame: UIApplication.shared.statusBarFrame)
         let statusBarColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 0.7)
         statusBarBackground.backgroundColor = statusBarColor
         view.addSubview(statusBarBackground)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         self.txfNumber.becomeFirstResponder()
-
+        if Register.cName != nil {
+            self.btnCountry.setTitle(Register.cName, for: UIControlState.normal)
+            self.lblCCode.text = "+\(Register.cCode!)"
+        }
     }
-    //MARK:- TextField Delegate
     
+    //MARK:- TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.keyboardType = UIKeyboardType.numberPad
     }
@@ -66,7 +63,6 @@ class Register: UIViewController,UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
         if textField.text?.characters.count == 1 && string == ""
         {
             self.lblTitle.title = "Your Phone Number"
@@ -84,7 +80,7 @@ class Register: UIViewController,UITextFieldDelegate {
             }
         } else {
             if isValidNumber(textField.text!, length: 9) {
-
+                
                 self.btnDone.isEnabled = true
             } else {
                 self.btnDone.isEnabled = false
@@ -103,10 +99,9 @@ class Register: UIViewController,UITextFieldDelegate {
         }
         return true
     }
-    //MARK:- Outlet Method
     
+    //MARK:- Outlet Method
     @IBAction func handleBtnDone(_ sender: Any) {
-        
         let alert = UIAlertController(title: "NUMBER CONFIRMATION: \n\n \(self.lblCCode.text!) \(self.txfNumber.text!) \n\nIs your phone number above correct?", message: "", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) {
             UIAlertAction in
@@ -123,11 +118,15 @@ class Register: UIViewController,UITextFieldDelegate {
             
         })
         self.present(alert, animated: true, completion: nil)
-        
+    }
+    
+    
+    @IBAction func handlebtnCountry(_ sender: Any) {
+        let nav = CountryList()
+        self.navigationController?.pushViewController(nav, animated: true)
     }
     
     //MARK:- Custom Method
-    
     func tapHandler() {
         self.txfNumber.resignFirstResponder()
     }
@@ -142,5 +141,4 @@ class Register: UIViewController,UITextFieldDelegate {
         let pr:NSPredicate = NSPredicate(format: "SELF MATCHES %@",ns)
         return pr.evaluate(with: data)
     }
-    
 }
