@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		39E71CF46E44F569FE1577CF /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */; };
+		5C767D4C1EA7299F001F4AEF /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C767D4A1EA7299F001F4AEF /* SenderCell.swift */; };
+		5C767D4D1EA7299F001F4AEF /* SenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D4B1EA7299F001F4AEF /* SenderCell.xib */; };
+		5C767D501EA72A3F001F4AEF /* ReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C767D4E1EA72A3F001F4AEF /* ReceiverCell.swift */; };
+		5C767D511EA72A3F001F4AEF /* ReceiverCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D4F1EA72A3F001F4AEF /* ReceiverCell.xib */; };
+		5C767D561EA742DA001F4AEF /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D521EA742DA001F4AEF /* Gradient.png */; };
+		5C767D571EA742DA001F4AEF /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D531EA742DA001F4AEF /* green.png */; };
+		5C767D581EA742DA001F4AEF /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D541EA742DA001F4AEF /* red.png */; };
+		5C767D591EA742DA001F4AEF /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D551EA742DA001F4AEF /* yellow.png */; };
+		5C767D5B1EA7466E001F4AEF /* pending.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D5A1EA7466E001F4AEF /* pending.png */; };
 		5CCE804F1EA5ED0500B88F3F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */; };
 		5CCE80501EA5ED0500B88F3F /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */; };
 		5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80511EA5EFE500B88F3F /* arrright.png */; };
@@ -21,8 +30,6 @@
 		5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */; };
 		5CCE80681EA61A3E00B88F3F /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE80661EA61A3E00B88F3F /* ModelManager.swift */; };
 		5CCE80691EA61A3E00B88F3F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE80671EA61A3E00B88F3F /* Util.swift */; };
-		5CCE806C1EA6303A00B88F3F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE806A1EA6303A00B88F3F /* CollectionViewCell.swift */; };
-		5CCE806D1EA6303A00B88F3F /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE806B1EA6303A00B88F3F /* CollectionViewCell.xib */; };
 		5CCE806F1EA6336700B88F3F /* SendAttachment.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE806E1EA6336700B88F3F /* SendAttachment.png */; };
 		5CCE80711EA6371200B88F3F /* SendPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80701EA6371200B88F3F /* SendPhoto.png */; };
 		5CCE80731EA6374500B88F3F /* audiosend.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80721EA6374500B88F3F /* audiosend.png */; };
@@ -53,6 +60,11 @@
 		7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DB71EA49CDA0018FCAD /* Info.plist */; };
 		7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202DBE1EA4A4410018FCAD /* welcome.swift */; };
 		7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DC21EA4A46B0018FCAD /* welcome.xib */; };
+		7D202DC51EA4A9720018FCAD /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DC41EA4A9720018FCAD /* Gradient.png */; };
+		7D202DC81EA4BFC50018FCAD /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202DC61EA4BFC50018FCAD /* Register.swift */; };
+		7D202DCB1EA4BFEF0018FCAD /* Register.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DCA1EA4BFEF0018FCAD /* Register.xib */; };
+		7D8BBBAD1EA61BC7006A60DA /* Verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8BBBAB1EA61BC7006A60DA /* Verification.swift */; };
+		7D8BBBB01EA61BE4006A60DA /* Verification.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D8BBBAF1EA61BE4006A60DA /* Verification.xib */; };
 		DF00F00EA5FB3EAC66FB856D /* Pods_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77C88991DD33768CA723214 /* Pods_Chat_App.framework */; };
 		E7150070CE829785AFA0E6B7 /* Pods_Chat_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09321A4FB2B425702074C58E /* Pods_Chat_AppUITests.framework */; };
 /* End PBXBuildFile section */
@@ -79,6 +91,15 @@
 		0DD9839A1DC8F4B5621C6EFB /* Pods-Chat_AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		143499D97B7EC2C5C2D8BAAE /* Pods-Chat_AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppTests/Pods-Chat_AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1C6B22A85E7A16C34497F1A5 /* Pods-Chat_AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5C767D4A1EA7299F001F4AEF /* SenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
+		5C767D4B1EA7299F001F4AEF /* SenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderCell.xib; sourceTree = "<group>"; };
+		5C767D4E1EA72A3F001F4AEF /* ReceiverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverCell.swift; sourceTree = "<group>"; };
+		5C767D4F1EA72A3F001F4AEF /* ReceiverCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverCell.xib; sourceTree = "<group>"; };
+		5C767D521EA742DA001F4AEF /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
+		5C767D531EA742DA001F4AEF /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
+		5C767D541EA742DA001F4AEF /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
+		5C767D551EA742DA001F4AEF /* yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow.png; sourceTree = "<group>"; };
+		5C767D5A1EA7466E001F4AEF /* pending.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pending.png; sourceTree = "<group>"; };
 		5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		5CCE80511EA5EFE500B88F3F /* arrright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrright.png; sourceTree = "<group>"; };
@@ -93,8 +114,6 @@
 		5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Web:Desktop.png"; sourceTree = "<group>"; };
 		5CCE80661EA61A3E00B88F3F /* ModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
 		5CCE80671EA61A3E00B88F3F /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		5CCE806A1EA6303A00B88F3F /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		5CCE806B1EA6303A00B88F3F /* CollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		5CCE806E1EA6336700B88F3F /* SendAttachment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SendAttachment.png; sourceTree = "<group>"; };
 		5CCE80701EA6371200B88F3F /* SendPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SendPhoto.png; sourceTree = "<group>"; };
 		5CCE80721EA6374500B88F3F /* audiosend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audiosend.png; sourceTree = "<group>"; };
@@ -132,6 +151,11 @@
 		7D202DB71EA49CDA0018FCAD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Chat_App/Info.plist; sourceTree = SOURCE_ROOT; };
 		7D202DBE1EA4A4410018FCAD /* welcome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = welcome.swift; sourceTree = "<group>"; };
 		7D202DC21EA4A46B0018FCAD /* welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = welcome.xib; sourceTree = "<group>"; };
+		7D202DC41EA4A9720018FCAD /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
+		7D202DC61EA4BFC50018FCAD /* Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		7D202DCA1EA4BFEF0018FCAD /* Register.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Register.xib; sourceTree = "<group>"; };
+		7D8BBBAB1EA61BC7006A60DA /* Verification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
+		7D8BBBAF1EA61BE4006A60DA /* Verification.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Verification.xib; sourceTree = "<group>"; };
 		BCDBAD47DCAE8DF62930BC06 /* Pods-Chat_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_App/Pods-Chat_App.debug.xcconfig"; sourceTree = "<group>"; };
 		BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77C88991DD33768CA723214 /* Pods_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,8 +195,10 @@
 			children = (
 				5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */,
 				5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */,
-				5CCE806A1EA6303A00B88F3F /* CollectionViewCell.swift */,
-				5CCE806B1EA6303A00B88F3F /* CollectionViewCell.xib */,
+				5C767D4A1EA7299F001F4AEF /* SenderCell.swift */,
+				5C767D4B1EA7299F001F4AEF /* SenderCell.xib */,
+				5C767D4E1EA72A3F001F4AEF /* ReceiverCell.swift */,
+				5C767D4F1EA72A3F001F4AEF /* ReceiverCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -254,6 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				7D202DBE1EA4A4410018FCAD /* welcome.swift */,
+				7D202DC61EA4BFC50018FCAD /* Register.swift */,
+				7D8BBBAB1EA61BC7006A60DA /* Verification.swift */,
 				5CEF5A801EA4A80000E92BF8 /* HomeController.swift */,
 				5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */,
 				5CEF5A8E1EA4B65600E92BF8 /* CallsController.swift */,
@@ -283,6 +311,8 @@
 				5CEF5A8A1EA4AAB500E92BF8 /* ChatController.xib */,
 				5CEF5A841EA4A84300E92BF8 /* HomeController.xib */,
 				7D202DC21EA4A46B0018FCAD /* welcome.xib */,
+				7D202DCA1EA4BFEF0018FCAD /* Register.xib */,
+				7D8BBBAF1EA61BE4006A60DA /* Verification.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,6 +329,11 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				5C767D5A1EA7466E001F4AEF /* pending.png */,
+				5C767D521EA742DA001F4AEF /* Gradient.png */,
+				5C767D531EA742DA001F4AEF /* green.png */,
+				5C767D541EA742DA001F4AEF /* red.png */,
+				5C767D551EA742DA001F4AEF /* yellow.png */,
 				5CCE80721EA6374500B88F3F /* audiosend.png */,
 				5CCE80701EA6371200B88F3F /* SendPhoto.png */,
 				5CCE806E1EA6336700B88F3F /* SendAttachment.png */,
@@ -324,6 +359,7 @@
 		7D202DB31EA49CB20018FCAD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7D202DC41EA4A9720018FCAD /* Gradient.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -481,12 +517,14 @@
 				5CEF5AAC1EA4B9CD00E92BF8 /* Settings.png in Resources */,
 				7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */,
 				5CCE805E1EA5FBF900B88F3F /* Data and Storage Usage.png in Resources */,
+				5C767D5B1EA7466E001F4AEF /* pending.png in Resources */,
 				5CCE80711EA6371200B88F3F /* SendPhoto.png in Resources */,
 				5CCE80731EA6374500B88F3F /* audiosend.png in Resources */,
 				5CEF5A9E1EA4B7EE00E92BF8 /* Camera.png in Resources */,
 				5CCE80601EA5FBF900B88F3F /* Notifications.png in Resources */,
 				5CEF5A8B1EA4AAB500E92BF8 /* ChatController.xib in Resources */,
 				5CEF5A8D1EA4AB9000E92BF8 /* chaticon.png in Resources */,
+				5C767D581EA742DA001F4AEF /* red.png in Resources */,
 				5CEF5AA41EA4B88C00E92BF8 /* SettingsController.xib in Resources */,
 				7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */,
 				5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */,
@@ -494,6 +532,12 @@
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
 				5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
+				5C767D4D1EA7299F001F4AEF /* SenderCell.xib in Resources */,
+				5C767D561EA742DA001F4AEF /* Gradient.png in Resources */,
+				7D8BBBB01EA61BE4006A60DA /* Verification.xib in Resources */,
+				7D202DC51EA4A9720018FCAD /* Gradient.png in Resources */,
+				5C767D571EA742DA001F4AEF /* green.png in Resources */,
+				7D202DCB1EA4BFEF0018FCAD /* Register.xib in Resources */,
 				5CCE805C1EA5FBF900B88F3F /* Account.png in Resources */,
 				5CCE806F1EA6336700B88F3F /* SendAttachment.png in Resources */,
 				5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */,
@@ -501,11 +545,12 @@
 				5CEF5A951EA4B73700E92BF8 /* Calls.png in Resources */,
 				5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */,
 				5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */,
-				5CCE806D1EA6303A00B88F3F /* CollectionViewCell.xib in Resources */,
 				5CCE80501EA5ED0500B88F3F /* SettingsCell.xib in Resources */,
 				5CEF5AAE1EA4BAFA00E92BF8 /* Edit.png in Resources */,
 				5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */,
 				7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */,
+				5C767D591EA742DA001F4AEF /* yellow.png in Resources */,
+				5C767D511EA72A3F001F4AEF /* ReceiverCell.xib in Resources */,
 				5CEF5A931EA4B67C00E92BF8 /* CallsController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -670,14 +715,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CCE80691EA61A3E00B88F3F /* Util.swift in Sources */,
+				7D8BBBAD1EA61BC7006A60DA /* Verification.swift in Sources */,
+				7D202DC81EA4BFC50018FCAD /* Register.swift in Sources */,
 				5CEF5A981EA4B78800E92BF8 /* CameraController.swift in Sources */,
-				5CCE806C1EA6303A00B88F3F /* CollectionViewCell.swift in Sources */,
 				5CEF5AA71EA4B8CF00E92BF8 /* StatusController.swift in Sources */,
 				5CCE804F1EA5ED0500B88F3F /* SettingsCell.swift in Sources */,
 				7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */,
+				5C767D501EA72A3F001F4AEF /* ReceiverCell.swift in Sources */,
 				7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */,
 				5CEF5AA11EA4B86B00E92BF8 /* SettingsController.swift in Sources */,
 				5CEF5A821EA4A80000E92BF8 /* HomeController.swift in Sources */,
+				5C767D4C1EA7299F001F4AEF /* SenderCell.swift in Sources */,
 				5CCE80681EA61A3E00B88F3F /* ModelManager.swift in Sources */,
 				5CEF5A901EA4B65600E92BF8 /* CallsController.swift in Sources */,
 				5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */,

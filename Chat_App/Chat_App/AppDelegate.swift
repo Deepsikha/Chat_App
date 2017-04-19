@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var count : Int!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
         window = UIWindow()
 
         let rootVC = ChatController()
