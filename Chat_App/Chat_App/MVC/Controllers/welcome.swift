@@ -10,17 +10,25 @@ import UIKit
 
 class welcome: UIViewController {
 
+    @IBOutlet var imgWelcome: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.navigationController?.isNavigationBarHidden = true
+        self.imgWelcome.layer.cornerRadius = imgWelcome.frame.width / 2
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func btnAc(_ sender: Any) {
+        let nav = Register()
+        self.navigationController?.pushViewController(nav, animated: true)
+    }
 
     /*
     // MARK: - Navigation
