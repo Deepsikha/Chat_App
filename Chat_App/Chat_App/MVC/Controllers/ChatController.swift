@@ -52,11 +52,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.navigationItem.setRightBarButtonItems([item1,item2], animated: true)
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
         self.navigationItem.titleView = navvw
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+//        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back")
+//        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
         self.navprof.image = UIImage(named: "Gradient")
         self.navprof.layer.cornerRadius = self.navprof.frame.width / 2
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
@@ -87,9 +87,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         frame1 = vw.frame
     }
 
-    func edit() {
     
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
