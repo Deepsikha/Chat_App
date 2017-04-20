@@ -24,6 +24,8 @@ class ChatController: UIViewController {
     }
 
     func edit() {
+        let nav = NewChatVC()
+        self.navigationController?.pushViewController(nav, animated: true)
     
     }
     

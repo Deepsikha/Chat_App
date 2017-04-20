@@ -13,6 +13,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.hidesBackButton = true
         self.delegate = self
         connect()
     }

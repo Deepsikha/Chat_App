@@ -59,7 +59,11 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <items>
                         <navigationItem title="Edit Profile" id="Vr3-QY-Zbd">
-                            <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="done" id="KHI-yR-Weg"/>
+                            <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="done" id="KHI-yR-Weg">
+                                <connections>
+                                    <action selector="handleBtndone:" destination="-1" id="eay-g9-Av7"/>
+                                </connections>
+                            </barButtonItem>
                         </navigationItem>
                     </items>
                 </navigationBar>

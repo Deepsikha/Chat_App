@@ -59,6 +59,7 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
         return true
     }
     
+    //MARK:- ImagePicker Delegate
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -75,6 +76,7 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
         dismiss(animated: true, completion: nil)
         
     }
+    
     //MARK:- Outlet Method
     @IBAction func handlebtnAddphoto(_ sender: Any) {
         
@@ -85,6 +87,10 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
         present(imagePickerController, animated: true, completion: nil)
     }
     
+    @IBAction func handleBtndone(_ sender: Any) {
+        let nav = HomeController()
+        self.navigationController?.pushViewController(nav, animated: true)
+    }
     //MARK:- Custom Method
     func tapHandler() {
         self.txfName.resignFirstResponder()
