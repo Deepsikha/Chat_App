@@ -16,13 +16,15 @@ class NewChatCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.imgContact.layer.borderWidth = 1
+        self.imgContact.layer.borderColor = UIColor.black.cgColor
+        self.imgContact.layer.cornerRadius = self.imgContact.frame.height / 2
     }
     
     override func prepareForReuse() {
-        self.imgContact = nil
-        self.lblStatus = nil
-        self.lblContact = nil
+        self.imgContact.image = nil
+        self.lblStatus.text = nil
+        self.lblContact.text = nil
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

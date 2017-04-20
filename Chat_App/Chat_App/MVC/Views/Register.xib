@@ -13,7 +13,9 @@
             <connections>
                 <outlet property="btnCountry" destination="AIv-Xc-lcv" id="nmH-Xl-pNg"/>
                 <outlet property="btnDone" destination="ffo-bu-eQh" id="5WC-QC-izt"/>
+                <outlet property="indicator" destination="zLR-SD-bs1" id="nT9-vs-NQW"/>
                 <outlet property="lblCCode" destination="JYg-p4-yoS" id="Z8S-lX-huT"/>
+                <outlet property="lblConnect" destination="rat-hs-hzM" id="9bg-Lf-cHT"/>
                 <outlet property="lblTitle" destination="YsI-Bw-Jqa" id="jl0-Tc-B1D"/>
                 <outlet property="navDone" destination="pcK-3i-Gct" id="aMJ-N1-HWB"/>
                 <outlet property="txfNumber" destination="UnW-LO-CLj" id="HIA-y7-ElK"/>
@@ -25,6 +27,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <activityIndicatorView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zLR-SD-bs1">
+                    <rect key="frame" x="150" y="231" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Connecting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rat-hs-hzM">
+                    <rect key="frame" x="84" y="254" width="150" height="36"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fqt-G8-0pW">
                     <rect key="frame" x="0.0" y="198" width="320" height="95"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>

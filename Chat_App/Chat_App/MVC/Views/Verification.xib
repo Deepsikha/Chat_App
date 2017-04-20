@@ -13,8 +13,10 @@
             <connections>
                 <outlet property="btnCall" destination="wZh-8h-exD" id="1DL-cN-QrM"/>
                 <outlet property="btnResend" destination="CI0-p7-GSZ" id="p7Y-gb-Hyu"/>
+                <outlet property="indicator" destination="75t-w4-ez5" id="xeh-dO-XqA"/>
                 <outlet property="lblCall" destination="OzL-Gi-eZ7" id="Lq9-t7-RGc"/>
                 <outlet property="lblSendotp" destination="bG9-Ea-ZNB" id="NkM-HU-PmG"/>
+                <outlet property="lblverify" destination="ZGp-7f-8M2" id="3M0-yK-gsP"/>
                 <outlet property="txfOTP" destination="30N-Fr-HDc" id="HJP-uu-Bce"/>
                 <outlet property="txfOTP1" destination="e2L-Ra-iOQ" id="5Xf-Gh-rut"/>
                 <outlet property="txfOTP2" destination="71t-gD-kAC" id="C4e-Bq-Nka"/>
@@ -30,6 +32,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <activityIndicatorView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="75t-w4-ez5">
+                    <rect key="frame" x="150" y="230" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGp-7f-8M2">
+                    <rect key="frame" x="34" y="254" width="250" height="36"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We have sent you an SMS with a code to the number above." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQ4-wP-gtU">
                     <rect key="frame" x="10" y="58" width="300" height="55"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
