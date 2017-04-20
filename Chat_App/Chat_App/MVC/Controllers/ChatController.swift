@@ -87,6 +87,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         frame1 = vw.frame
     }
 
+
     
     @IBAction func didpressaccessory(_ sender: Any) {
         let sheet = UIAlertController(title: "Media messages", message: nil, preferredStyle: .actionSheet)
@@ -129,6 +130,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func addphoto() {
+
     
     }
     
