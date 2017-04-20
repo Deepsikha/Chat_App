@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,29 +21,34 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" fixedFrame="YES" image="Gradient.png" translatesAutoresizingMaskIntoConstraints="NO" id="Sq0-Od-U0C">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="Gradient.png" translatesAutoresizingMaskIntoConstraints="NO" id="Sq0-Od-U0C">
                     <rect key="frame" x="60" y="83" width="200" height="200"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Sq0-Od-U0C" secondAttribute="height" multiplier="1:1" id="Hbt-dK-uuj"/>
+                    </constraints>
                 </imageView>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="748" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05v-vw-ZQa">
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05v-vw-ZQa">
                     <rect key="frame" x="51" y="430" width="229" height="30"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                     <state key="normal" title="Agree &amp; Continue"/>
                     <connections>
                         <action selector="btnAc:" destination="-1" eventType="touchUpInside" id="fIC-gP-2fC"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap &quot;Agree &amp; Continue&quot; to accept the LanetTeam Tearms of Service and Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4l-4X-TlH">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap &quot;Agree &amp; Continue&quot; to accept the LanetTeam Tearms of Service and Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4l-4X-TlH">
                     <rect key="frame" x="8" y="343" width="304" height="79"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="y4l-4X-TlH" secondAttribute="height" multiplier="304:79" id="DD0-T2-RCS"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.40392156862745099" green="0.40392156862745099" blue="0.41176470588235292" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="246" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGR-VD-RoR">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="246" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGR-VD-RoR">
                     <rect key="frame" x="43" y="296" width="235" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="DGR-VD-RoR" secondAttribute="height" multiplier="235:44" id="BKx-7j-Pxy"/>
+                    </constraints>
                     <attributedString key="attributedText">
                         <fragment content="Welcome to LanetTeam">
                             <attributes>
@@ -57,9 +63,24 @@
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Sq0-Od-U0C" secondAttribute="trailing" constant="60" id="6jR-oT-z5Y"/>
+                <constraint firstItem="05v-vw-ZQa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="51" id="FTo-Yn-YTH"/>
+                <constraint firstAttribute="trailing" secondItem="DGR-VD-RoR" secondAttribute="trailing" constant="42" id="I6p-xs-GsR"/>
+                <constraint firstItem="Sq0-Od-U0C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="83" id="IcS-3b-ENg"/>
+                <constraint firstItem="y4l-4X-TlH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="KNY-fm-90Z"/>
+                <constraint firstAttribute="bottom" secondItem="05v-vw-ZQa" secondAttribute="bottom" constant="20" id="Kny-oc-4sm"/>
+                <constraint firstAttribute="trailing" secondItem="y4l-4X-TlH" secondAttribute="trailing" constant="8" id="Ve3-gG-G5L"/>
+                <constraint firstItem="05v-vw-ZQa" firstAttribute="top" secondItem="y4l-4X-TlH" secondAttribute="bottom" constant="8" id="edp-BD-ych"/>
+                <constraint firstItem="y4l-4X-TlH" firstAttribute="top" secondItem="DGR-VD-RoR" secondAttribute="bottom" constant="3" id="fDC-PV-Jii"/>
+                <constraint firstAttribute="trailing" secondItem="05v-vw-ZQa" secondAttribute="trailing" constant="40" id="feG-zt-x0H"/>
+                <constraint firstItem="Sq0-Od-U0C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="kJn-fe-kVF"/>
+                <constraint firstItem="DGR-VD-RoR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="43" id="pGx-SZ-IlX"/>
+                <constraint firstItem="DGR-VD-RoR" firstAttribute="top" secondItem="Sq0-Od-U0C" secondAttribute="bottom" constant="13" id="utD-IP-Cai"/>
+            </constraints>
         </view>
     </objects>
     <resources>
-        <image name="Gradient.png" width="512" height="512"/>
+        <image name="Gradient.png" width="200" height="200"/>
     </resources>
 </document>

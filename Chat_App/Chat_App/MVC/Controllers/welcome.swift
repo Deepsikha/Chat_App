@@ -15,13 +15,15 @@ class welcome: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        self.imgWelcome.layer.cornerRadius = imgWelcome.frame.width / 2
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
     }
-    
+
+    override func viewDidLayoutSubviews() {
+        self.imgWelcome.layer.cornerRadius = imgWelcome.frame.width / 2
+    }
     //Outlet Method
     @IBAction func btnAc(_ sender: Any) {
         let nav = Register()

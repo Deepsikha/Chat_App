@@ -62,7 +62,6 @@
 		7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DB71EA49CDA0018FCAD /* Info.plist */; };
 		7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202DBE1EA4A4410018FCAD /* welcome.swift */; };
 		7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DC21EA4A46B0018FCAD /* welcome.xib */; };
-		7D202DC51EA4A9720018FCAD /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DC41EA4A9720018FCAD /* Gradient.png */; };
 		7D202DC81EA4BFC50018FCAD /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202DC61EA4BFC50018FCAD /* Register.swift */; };
 		7D202DCB1EA4BFEF0018FCAD /* Register.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DCA1EA4BFEF0018FCAD /* Register.xib */; };
 		7D7151E11EA8809E006A9D4B /* NewChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7151DF1EA8809E006A9D4B /* NewChatVC.swift */; };
@@ -74,6 +73,9 @@
 		7D7151F11EA89E3C006A9D4B /* NewChatHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7151EF1EA89E3C006A9D4B /* NewChatHeaderCell.swift */; };
 		7D7151F21EA89E3C006A9D4B /* NewChatHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7151F01EA89E3C006A9D4B /* NewChatHeaderCell.xib */; };
 		7D7151F41EA8A8DB006A9D4B /* REST-Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7151F31EA8A8DB006A9D4B /* REST-Api.swift */; };
+		7D7151F81EA8D504006A9D4B /* Gradient@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D7151F51EA8D504006A9D4B /* Gradient@1x.png */; };
+		7D7151F91EA8D504006A9D4B /* Gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D7151F61EA8D504006A9D4B /* Gradient@2x.png */; };
+		7D7151FA1EA8D504006A9D4B /* Gradient@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D7151F71EA8D504006A9D4B /* Gradient@3x.png */; };
 		7D8BBBAD1EA61BC7006A60DA /* Verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8BBBAB1EA61BC7006A60DA /* Verification.swift */; };
 		7D8BBBB01EA61BE4006A60DA /* Verification.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D8BBBAF1EA61BE4006A60DA /* Verification.xib */; };
 		DF00F00EA5FB3EAC66FB856D /* Pods_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77C88991DD33768CA723214 /* Pods_Chat_App.framework */; };
@@ -170,7 +172,6 @@
 		7D202DB71EA49CDA0018FCAD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Chat_App/Info.plist; sourceTree = SOURCE_ROOT; };
 		7D202DBE1EA4A4410018FCAD /* welcome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = welcome.swift; sourceTree = "<group>"; };
 		7D202DC21EA4A46B0018FCAD /* welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = welcome.xib; sourceTree = "<group>"; };
-		7D202DC41EA4A9720018FCAD /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
 		7D202DC61EA4BFC50018FCAD /* Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		7D202DCA1EA4BFEF0018FCAD /* Register.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Register.xib; sourceTree = "<group>"; };
 		7D7151DF1EA8809E006A9D4B /* NewChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatVC.swift; sourceTree = "<group>"; };
@@ -182,6 +183,9 @@
 		7D7151EF1EA89E3C006A9D4B /* NewChatHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatHeaderCell.swift; sourceTree = "<group>"; };
 		7D7151F01EA89E3C006A9D4B /* NewChatHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewChatHeaderCell.xib; sourceTree = "<group>"; };
 		7D7151F31EA8A8DB006A9D4B /* REST-Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "REST-Api.swift"; sourceTree = "<group>"; };
+		7D7151F51EA8D504006A9D4B /* Gradient@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gradient@1x.png"; sourceTree = "<group>"; };
+		7D7151F61EA8D504006A9D4B /* Gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gradient@2x.png"; sourceTree = "<group>"; };
+		7D7151F71EA8D504006A9D4B /* Gradient@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gradient@3x.png"; sourceTree = "<group>"; };
 		7D8BBBAB1EA61BC7006A60DA /* Verification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
 		7D8BBBAF1EA61BE4006A60DA /* Verification.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Verification.xib; sourceTree = "<group>"; };
 		BCDBAD47DCAE8DF62930BC06 /* Pods-Chat_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_App/Pods-Chat_App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -412,7 +416,9 @@
 		7D202DB31EA49CB20018FCAD /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7D202DC41EA4A9720018FCAD /* Gradient.png */,
+				7D7151F51EA8D504006A9D4B /* Gradient@1x.png */,
+				7D7151F61EA8D504006A9D4B /* Gradient@2x.png */,
+				7D7151F71EA8D504006A9D4B /* Gradient@3x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -581,11 +587,11 @@
 				5CEF5A9B1EA4B7BF00E92BF8 /* CameraController.xib in Resources */,
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
 				5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */,
+				7D7151F91EA8D504006A9D4B /* Gradient@2x.png in Resources */,
 				7D7151EA1EA88183006A9D4B /* NewChatCell.xib in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
 				7D8BBBB01EA61BE4006A60DA /* Verification.xib in Resources */,
 				7D7151EE1EA89CD2006A9D4B /* group.png in Resources */,
-				7D202DC51EA4A9720018FCAD /* Gradient.png in Resources */,
 				7D202DCB1EA4BFEF0018FCAD /* Register.xib in Resources */,
 				7D0617981EA72BC5004CB6B2 /* true.png in Resources */,
 				7D0617961EA726BF004CB6B2 /* CountryCell.xib in Resources */,
@@ -598,8 +604,10 @@
 				5CEF5AAA1EA4B8EA00E92BF8 /* StatusController.xib in Resources */,
 				5CEF5A951EA4B73700E92BF8 /* Calls.png in Resources */,
 				5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */,
+				7D7151F81EA8D504006A9D4B /* Gradient@1x.png in Resources */,
 				7D06178C1EA723ED004CB6B2 /* SettingsCell.xib in Resources */,
 				5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */,
+				7D7151FA1EA8D504006A9D4B /* Gradient@3x.png in Resources */,
 				5CEF5AAE1EA4BAFA00E92BF8 /* Edit.png in Resources */,
 				5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */,
 				7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */,
