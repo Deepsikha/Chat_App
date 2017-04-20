@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
 
-        let rootVC = HomeController()
+        let rootVC = welcome()
         let nav = UINavigationController(rootViewController: rootVC)
         window?.rootViewController = nav
         

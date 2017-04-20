@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		39E71CF46E44F569FE1577CF /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */; };
-		5CCE804F1EA5ED0500B88F3F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */; };
-		5CCE80501EA5ED0500B88F3F /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */; };
 		5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80511EA5EFE500B88F3F /* arrright.png */; };
 		5CCE805C1EA5FBF900B88F3F /* Account.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80541EA5FBF900B88F3F /* Account.png */; };
 		5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80551EA5FBF900B88F3F /* Chat.png */; };
@@ -19,7 +17,6 @@
 		5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80591EA5FBF900B88F3F /* Starred Messages.png */; };
 		5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */; };
 		5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */; };
-		5CCE80651EA6191C00B88F3F /* fmdb in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80641EA6191C00B88F3F /* fmdb */; };
 		5CEF5A821EA4A80000E92BF8 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A801EA4A80000E92BF8 /* HomeController.swift */; };
 		5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A841EA4A84300E92BF8 /* HomeController.xib */; };
 		5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */; };
@@ -38,6 +35,25 @@
 		5CEF5AAC1EA4B9CD00E92BF8 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAB1EA4B9CD00E92BF8 /* Settings.png */; };
 		5CEF5AAE1EA4BAFA00E92BF8 /* Edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAD1EA4BAFA00E92BF8 /* Edit.png */; };
 		5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAF1EA4CD4100E92BF8 /* AddStatus.png */; };
+		7D06178B1EA723ED004CB6B2 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617891EA723ED004CB6B2 /* SettingsCell.swift */; };
+		7D06178C1EA723ED004CB6B2 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D06178A1EA723ED004CB6B2 /* SettingsCell.xib */; };
+		7D06178F1EA72443004CB6B2 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06178D1EA72443004CB6B2 /* CountryList.swift */; };
+		7D0617921EA72521004CB6B2 /* CountryList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0617911EA72521004CB6B2 /* CountryList.xib */; };
+		7D0617951EA726BF004CB6B2 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617931EA726BF004CB6B2 /* CountryCell.swift */; };
+		7D0617961EA726BF004CB6B2 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0617941EA726BF004CB6B2 /* CountryCell.xib */; };
+		7D0617981EA72BC5004CB6B2 /* true.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0617971EA72BC5004CB6B2 /* true.png */; };
+		7D06179B1EA73290004CB6B2 /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617991EA73290004CB6B2 /* ModelManager.swift */; };
+		7D06179C1EA73290004CB6B2 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06179A1EA73290004CB6B2 /* Util.swift */; };
+		7D06179E1EA73369004CB6B2 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06179D1EA73369004CB6B2 /* Countries.swift */; };
+		7D0617AB1EA734AA004CB6B2 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617A11EA734AA004CB6B2 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7D0617AC1EA734AA004CB6B2 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617A31EA734AA004CB6B2 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7D0617AD1EA734AA004CB6B2 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617A51EA734AA004CB6B2 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7D0617AE1EA734AA004CB6B2 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617A71EA734AA004CB6B2 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7D0617AF1EA734AA004CB6B2 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617AA1EA734AA004CB6B2 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7D0617B11EA73687004CB6B2 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0617B01EA73687004CB6B2 /* libsqlite3.0.tbd */; };
+		7D0617B41EA772AD004CB6B2 /* SetProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617B21EA772AD004CB6B2 /* SetProfileController.swift */; };
+		7D0617B71EA772EA004CB6B2 /* SetProfileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0617B61EA772EA004CB6B2 /* SetProfileController.xib */; };
+		7D0617B91EA78386004CB6B2 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0617B81EA78386004CB6B2 /* facebook.png */; };
 		7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202D7E1EA49BEF0018FCAD /* AppDelegate.swift */; };
 		7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D202D851EA49BEF0018FCAD /* Assets.xcassets */; };
 		7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D202D871EA49BEF0018FCAD /* LaunchScreen.storyboard */; };
@@ -49,11 +65,14 @@
 		7D202DC51EA4A9720018FCAD /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DC41EA4A9720018FCAD /* Gradient.png */; };
 		7D202DC81EA4BFC50018FCAD /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D202DC61EA4BFC50018FCAD /* Register.swift */; };
 		7D202DCB1EA4BFEF0018FCAD /* Register.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D202DCA1EA4BFEF0018FCAD /* Register.xib */; };
+		7D7151E11EA8809E006A9D4B /* NewChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7151DF1EA8809E006A9D4B /* NewChatVC.swift */; };
+		7D7151E61EA880D2006A9D4B /* NewChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7151E51EA880D2006A9D4B /* NewChatVC.xib */; };
+		7D7151E91EA88183006A9D4B /* NewChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7151E71EA88183006A9D4B /* NewChatCell.swift */; };
+		7D7151EA1EA88183006A9D4B /* NewChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7151E81EA88183006A9D4B /* NewChatCell.xib */; };
 		7D8BBBAD1EA61BC7006A60DA /* Verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8BBBAB1EA61BC7006A60DA /* Verification.swift */; };
 		7D8BBBB01EA61BE4006A60DA /* Verification.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D8BBBAF1EA61BE4006A60DA /* Verification.xib */; };
-    DF00F00EA5FB3EAC66FB856D /* Pods_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77C88991DD33768CA723214 /* Pods_Chat_App.framework */; };
+		DF00F00EA5FB3EAC66FB856D /* Pods_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77C88991DD33768CA723214 /* Pods_Chat_App.framework */; };
 		E7150070CE829785AFA0E6B7 /* Pods_Chat_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09321A4FB2B425702074C58E /* Pods_Chat_AppUITests.framework */; };
-
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,8 +97,6 @@
 		0DD9839A1DC8F4B5621C6EFB /* Pods-Chat_AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		143499D97B7EC2C5C2D8BAAE /* Pods-Chat_AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppTests/Pods-Chat_AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1C6B22A85E7A16C34497F1A5 /* Pods-Chat_AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.release.xcconfig"; sourceTree = "<group>"; };
-		5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
-		5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		5CCE80511EA5EFE500B88F3F /* arrright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrright.png; sourceTree = "<group>"; };
 		5CCE80531EA5F98100B88F3F /* Chat_App-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chat_App-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CCE80541EA5FBF900B88F3F /* Account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Account.png; sourceTree = "<group>"; };
@@ -90,7 +107,6 @@
 		5CCE80591EA5FBF900B88F3F /* Starred Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Starred Messages.png"; sourceTree = "<group>"; };
 		5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tell a Friend.png"; sourceTree = "<group>"; };
 		5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Web:Desktop.png"; sourceTree = "<group>"; };
-		5CCE80641EA6191C00B88F3F /* fmdb */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fmdb; sourceTree = "<group>"; };
 		5CEF5A801EA4A80000E92BF8 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5CEF5A841EA4A84300E92BF8 /* HomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeController.xib; sourceTree = "<group>"; };
 		5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
@@ -111,6 +127,31 @@
 		5CEF5AAF1EA4CD4100E92BF8 /* AddStatus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddStatus.png; sourceTree = "<group>"; };
 		695E83FB6EE03FD4666AFD05 /* Pods-Chat_App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_App/Pods-Chat_App.release.xcconfig"; sourceTree = "<group>"; };
 		6A8F1A39A85232CCB89A6F7B /* Pods-Chat_AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppTests/Pods-Chat_AppTests.release.xcconfig"; sourceTree = "<group>"; };
+		7D0617891EA723ED004CB6B2 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		7D06178A1EA723ED004CB6B2 /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		7D06178D1EA72443004CB6B2 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
+		7D0617911EA72521004CB6B2 /* CountryList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryList.xib; sourceTree = "<group>"; };
+		7D0617931EA726BF004CB6B2 /* CountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
+		7D0617941EA726BF004CB6B2 /* CountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
+		7D0617971EA72BC5004CB6B2 /* true.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = true.png; sourceTree = "<group>"; };
+		7D0617991EA73290004CB6B2 /* ModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
+		7D06179A1EA73290004CB6B2 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		7D06179D1EA73369004CB6B2 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
+		7D0617A01EA734AA004CB6B2 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		7D0617A11EA734AA004CB6B2 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		7D0617A21EA734AA004CB6B2 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		7D0617A31EA734AA004CB6B2 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		7D0617A41EA734AA004CB6B2 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		7D0617A51EA734AA004CB6B2 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		7D0617A61EA734AA004CB6B2 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		7D0617A71EA734AA004CB6B2 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		7D0617A81EA734AA004CB6B2 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		7D0617A91EA734AA004CB6B2 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		7D0617AA1EA734AA004CB6B2 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		7D0617B01EA73687004CB6B2 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		7D0617B21EA772AD004CB6B2 /* SetProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetProfileController.swift; sourceTree = "<group>"; };
+		7D0617B61EA772EA004CB6B2 /* SetProfileController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetProfileController.xib; sourceTree = "<group>"; };
+		7D0617B81EA78386004CB6B2 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		7D202D7B1EA49BEF0018FCAD /* Chat_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D202D7E1EA49BEF0018FCAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D202D851EA49BEF0018FCAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,12 +168,15 @@
 		7D202DC41EA4A9720018FCAD /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
 		7D202DC61EA4BFC50018FCAD /* Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		7D202DCA1EA4BFEF0018FCAD /* Register.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Register.xib; sourceTree = "<group>"; };
+		7D7151DF1EA8809E006A9D4B /* NewChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatVC.swift; sourceTree = "<group>"; };
+		7D7151E51EA880D2006A9D4B /* NewChatVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewChatVC.xib; sourceTree = "<group>"; };
+		7D7151E71EA88183006A9D4B /* NewChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatCell.swift; sourceTree = "<group>"; };
+		7D7151E81EA88183006A9D4B /* NewChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewChatCell.xib; sourceTree = "<group>"; };
 		7D8BBBAB1EA61BC7006A60DA /* Verification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
 		7D8BBBAF1EA61BE4006A60DA /* Verification.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Verification.xib; sourceTree = "<group>"; };
 		BCDBAD47DCAE8DF62930BC06 /* Pods-Chat_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_App/Pods-Chat_App.debug.xcconfig"; sourceTree = "<group>"; };
 		BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77C88991DD33768CA723214 /* Pods_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D0617B11EA73687004CB6B2 /* libsqlite3.0.tbd in Frameworks */,
 				DF00F00EA5FB3EAC66FB856D /* Pods_Chat_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,13 +208,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5CCE804C1EA5ECC600B88F3F /* Cell */ = {
+		7D0617881EA723ED004CB6B2 /* CustomCell */ = {
 			isa = PBXGroup;
 			children = (
-				5CCE804D1EA5ED0500B88F3F /* SettingsCell.swift */,
-				5CCE804E1EA5ED0500B88F3F /* SettingsCell.xib */,
+				7D0617891EA723ED004CB6B2 /* SettingsCell.swift */,
+				7D06178A1EA723ED004CB6B2 /* SettingsCell.xib */,
+				7D0617931EA726BF004CB6B2 /* CountryCell.swift */,
+				7D0617941EA726BF004CB6B2 /* CountryCell.xib */,
+				7D7151E71EA88183006A9D4B /* NewChatCell.swift */,
+				7D7151E81EA88183006A9D4B /* NewChatCell.xib */,
 			);
-			name = Cell;
+			path = CustomCell;
+			sourceTree = "<group>";
+		};
+		7D06179F1EA734AA004CB6B2 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				7D0617A01EA734AA004CB6B2 /* FMDatabase.h */,
+				7D0617A11EA734AA004CB6B2 /* FMDatabase.m */,
+				7D0617A21EA734AA004CB6B2 /* FMDatabaseAdditions.h */,
+				7D0617A31EA734AA004CB6B2 /* FMDatabaseAdditions.m */,
+				7D0617A41EA734AA004CB6B2 /* FMDatabasePool.h */,
+				7D0617A51EA734AA004CB6B2 /* FMDatabasePool.m */,
+				7D0617A61EA734AA004CB6B2 /* FMDatabaseQueue.h */,
+				7D0617A71EA734AA004CB6B2 /* FMDatabaseQueue.m */,
+				7D0617A81EA734AA004CB6B2 /* FMDB.h */,
+				7D0617A91EA734AA004CB6B2 /* FMResultSet.h */,
+				7D0617AA1EA734AA004CB6B2 /* FMResultSet.m */,
+			);
+			path = fmdb;
 			sourceTree = "<group>";
 		};
 		7D202D721EA49BEF0018FCAD = {
@@ -198,7 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				5CCE80531EA5F98100B88F3F /* Chat_App-Bridging-Header.h */,
-				5CCE804C1EA5ECC600B88F3F /* Cell */,
+				7D0617881EA723ED004CB6B2 /* CustomCell */,
 				7D202DAC1EA49CB20018FCAD /* Library */,
 				7D202DAD1EA49CB20018FCAD /* MVC */,
 				7D202DB11EA49CB20018FCAD /* Resources */,
@@ -231,7 +298,7 @@
 		7D202DAC1EA49CB20018FCAD /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				5CCE80641EA6191C00B88F3F /* fmdb */,
+				7D06179F1EA734AA004CB6B2 /* fmdb */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -258,6 +325,9 @@
 				5CEF5A961EA4B78800E92BF8 /* CameraController.swift */,
 				5CEF5A9F1EA4B86B00E92BF8 /* SettingsController.swift */,
 				5CEF5AA51EA4B8CF00E92BF8 /* StatusController.swift */,
+				7D06178D1EA72443004CB6B2 /* CountryList.swift */,
+				7D0617B21EA772AD004CB6B2 /* SetProfileController.swift */,
+				7D7151DF1EA8809E006A9D4B /* NewChatVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -265,6 +335,9 @@
 		7D202DAF1EA49CB20018FCAD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7D06179D1EA73369004CB6B2 /* Countries.swift */,
+				7D0617991EA73290004CB6B2 /* ModelManager.swift */,
+				7D06179A1EA73290004CB6B2 /* Util.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -272,15 +345,18 @@
 		7D202DB01EA49CB20018FCAD /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5CEF5AA91EA4B8EA00E92BF8 /* StatusController.xib */,
-				5CEF5AA31EA4B88C00E92BF8 /* SettingsController.xib */,
-				5CEF5A9A1EA4B7BF00E92BF8 /* CameraController.xib */,
-				5CEF5A921EA4B67C00E92BF8 /* CallsController.xib */,
-				5CEF5A8A1EA4AAB500E92BF8 /* ChatController.xib */,
-				5CEF5A841EA4A84300E92BF8 /* HomeController.xib */,
+				7D7151E51EA880D2006A9D4B /* NewChatVC.xib */,
 				7D202DC21EA4A46B0018FCAD /* welcome.xib */,
 				7D202DCA1EA4BFEF0018FCAD /* Register.xib */,
 				7D8BBBAF1EA61BE4006A60DA /* Verification.xib */,
+				5CEF5A841EA4A84300E92BF8 /* HomeController.xib */,
+				5CEF5A8A1EA4AAB500E92BF8 /* ChatController.xib */,
+				5CEF5A921EA4B67C00E92BF8 /* CallsController.xib */,
+				5CEF5A9A1EA4B7BF00E92BF8 /* CameraController.xib */,
+				5CEF5AA31EA4B88C00E92BF8 /* SettingsController.xib */,
+				5CEF5AA91EA4B8EA00E92BF8 /* StatusController.xib */,
+				7D0617911EA72521004CB6B2 /* CountryList.xib */,
+				7D0617B61EA772EA004CB6B2 /* SetProfileController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -297,6 +373,8 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				7D0617B81EA78386004CB6B2 /* facebook.png */,
+				7D0617971EA72BC5004CB6B2 /* true.png */,
 				5CCE80541EA5FBF900B88F3F /* Account.png */,
 				5CCE80551EA5FBF900B88F3F /* Chat.png */,
 				5CCE80561EA5FBF900B88F3F /* Data and Storage Usage.png */,
@@ -348,6 +426,7 @@
 		98E71D75CDD3C3242020B53D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D0617B01EA73687004CB6B2 /* libsqlite3.0.tbd */,
 				F77C88991DD33768CA723214 /* Pods_Chat_App.framework */,
 				BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */,
 				09321A4FB2B425702074C58E /* Pods_Chat_AppUITests.framework */,
@@ -476,27 +555,33 @@
 				7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */,
 				5CCE805E1EA5FBF900B88F3F /* Data and Storage Usage.png in Resources */,
 				5CEF5A9E1EA4B7EE00E92BF8 /* Camera.png in Resources */,
+				7D0617B91EA78386004CB6B2 /* facebook.png in Resources */,
+				7D0617921EA72521004CB6B2 /* CountryList.xib in Resources */,
 				5CCE80601EA5FBF900B88F3F /* Notifications.png in Resources */,
 				5CEF5A8B1EA4AAB500E92BF8 /* ChatController.xib in Resources */,
 				5CEF5A8D1EA4AB9000E92BF8 /* chaticon.png in Resources */,
 				5CEF5AA41EA4B88C00E92BF8 /* SettingsController.xib in Resources */,
 				7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */,
-				5CCE80651EA6191C00B88F3F /* fmdb in Resources */,
 				5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */,
 				5CEF5A9B1EA4B7BF00E92BF8 /* CameraController.xib in Resources */,
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
 				5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */,
+				7D7151EA1EA88183006A9D4B /* NewChatCell.xib in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
 				7D8BBBB01EA61BE4006A60DA /* Verification.xib in Resources */,
 				7D202DC51EA4A9720018FCAD /* Gradient.png in Resources */,
 				7D202DCB1EA4BFEF0018FCAD /* Register.xib in Resources */,
+				7D0617981EA72BC5004CB6B2 /* true.png in Resources */,
+				7D0617961EA726BF004CB6B2 /* CountryCell.xib in Resources */,
 				5CCE805C1EA5FBF900B88F3F /* Account.png in Resources */,
 				5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */,
+				7D7151E61EA880D2006A9D4B /* NewChatVC.xib in Resources */,
+				7D0617B71EA772EA004CB6B2 /* SetProfileController.xib in Resources */,
 				5CEF5AAA1EA4B8EA00E92BF8 /* StatusController.xib in Resources */,
 				5CEF5A951EA4B73700E92BF8 /* Calls.png in Resources */,
 				5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */,
+				7D06178C1EA723ED004CB6B2 /* SettingsCell.xib in Resources */,
 				5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */,
-				5CCE80501EA5ED0500B88F3F /* SettingsCell.xib in Resources */,
 				5CEF5AAE1EA4BAFA00E92BF8 /* Edit.png in Resources */,
 				5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */,
 				7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */,
@@ -665,15 +750,28 @@
 			files = (
 				7D8BBBAD1EA61BC7006A60DA /* Verification.swift in Sources */,
 				7D202DC81EA4BFC50018FCAD /* Register.swift in Sources */,
+				7D0617AD1EA734AA004CB6B2 /* FMDatabasePool.m in Sources */,
 				5CEF5A981EA4B78800E92BF8 /* CameraController.swift in Sources */,
+				7D06179B1EA73290004CB6B2 /* ModelManager.swift in Sources */,
+				7D0617AE1EA734AA004CB6B2 /* FMDatabaseQueue.m in Sources */,
+				7D0617AB1EA734AA004CB6B2 /* FMDatabase.m in Sources */,
+				7D0617AC1EA734AA004CB6B2 /* FMDatabaseAdditions.m in Sources */,
 				5CEF5AA71EA4B8CF00E92BF8 /* StatusController.swift in Sources */,
-				5CCE804F1EA5ED0500B88F3F /* SettingsCell.swift in Sources */,
+				7D7151E91EA88183006A9D4B /* NewChatCell.swift in Sources */,
+				7D0617AF1EA734AA004CB6B2 /* FMResultSet.m in Sources */,
 				7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */,
+				7D06179E1EA73369004CB6B2 /* Countries.swift in Sources */,
 				7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */,
+				7D06179C1EA73290004CB6B2 /* Util.swift in Sources */,
+				7D0617B41EA772AD004CB6B2 /* SetProfileController.swift in Sources */,
+				7D7151E11EA8809E006A9D4B /* NewChatVC.swift in Sources */,
 				5CEF5AA11EA4B86B00E92BF8 /* SettingsController.swift in Sources */,
 				5CEF5A821EA4A80000E92BF8 /* HomeController.swift in Sources */,
+				7D06178F1EA72443004CB6B2 /* CountryList.swift in Sources */,
 				5CEF5A901EA4B65600E92BF8 /* CallsController.swift in Sources */,
 				5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */,
+				7D0617951EA726BF004CB6B2 /* CountryCell.swift in Sources */,
+				7D06178B1EA723ED004CB6B2 /* SettingsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,6 +924,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "lanet.Chat-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/itilak/Desktop/Chat_App/Chat_App/Chat_App/Chat_App-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -841,6 +940,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "lanet.Chat-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/itilak/Desktop/Chat_App/Chat_App/Chat_App/Chat_App-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
