@@ -26,6 +26,7 @@
 		5C12863D1EA8A29D0047C445 /* yellow@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1286341EA8A29D0047C445 /* yellow@1x.png */; };
 		5C12863E1EA8A29D0047C445 /* yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1286351EA8A29D0047C445 /* yellow@2x.png */; };
 		5C12863F1EA8A29D0047C445 /* yellow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1286361EA8A29D0047C445 /* yellow@3x.png */; };
+		5C1286411EA8B65B0047C445 /* Socket_chat.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5C1286401EA8B65B0047C445 /* Socket_chat.sqlite */; };
 		5C752E7E1EA78D9700BC5764 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C752E7D1EA78D9700BC5764 /* back.png */; };
 		5C767D4C1EA7299F001F4AEF /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C767D4A1EA7299F001F4AEF /* SenderCell.swift */; };
 		5C767D4D1EA7299F001F4AEF /* SenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C767D4B1EA7299F001F4AEF /* SenderCell.xib */; };
@@ -125,6 +126,7 @@
 		5C1286341EA8A29D0047C445 /* yellow@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yellow@1x.png"; sourceTree = "<group>"; };
 		5C1286351EA8A29D0047C445 /* yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yellow@2x.png"; sourceTree = "<group>"; };
 		5C1286361EA8A29D0047C445 /* yellow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yellow@3x.png"; sourceTree = "<group>"; };
+		5C1286401EA8B65B0047C445 /* Socket_chat.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Socket_chat.sqlite; sourceTree = "<group>"; };
 		5C752E7D1EA78D9700BC5764 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		5C767D4A1EA7299F001F4AEF /* SenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
 		5C767D4B1EA7299F001F4AEF /* SenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderCell.xib; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 		7D202DB41EA49CB20018FCAD /* Supporting file */ = {
 			isa = PBXGroup;
 			children = (
+				5C1286401EA8B65B0047C445 /* Socket_chat.sqlite */,
 				7D202DB71EA49CDA0018FCAD /* Info.plist */,
 			);
 			path = "Supporting file";
@@ -584,6 +587,7 @@
 				5C12863C1EA8A29D0047C445 /* red@3x.png in Resources */,
 				5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */,
 				5C752E7E1EA78D9700BC5764 /* back.png in Resources */,
+				5C1286411EA8B65B0047C445 /* Socket_chat.sqlite in Resources */,
 				5CEF5A9B1EA4B7BF00E92BF8 /* CameraController.xib in Resources */,
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
 				5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */,

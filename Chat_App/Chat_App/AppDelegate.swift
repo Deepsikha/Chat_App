@@ -18,15 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var senderDisplayName = "Master"
     static let app = UIApplication.shared
     static var count : Int!
+
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow()
-
+        Util.copyFile("Socket_chat.sqlite")
         let rootVC = HomeController()
         let nav = UINavigationController(rootViewController: rootVC)
         window?.rootViewController = nav
-        
         window?.makeKeyAndVisible()
         return true
     }

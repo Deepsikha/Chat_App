@@ -19,7 +19,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var navprof: UIImageView!
     @IBOutlet weak var cnctnm: UILabel!
     @IBOutlet weak var lstseen: UILabel!
-    
+    static var reciever_id : Int!    
     var frame1 : CGRect!
 
     override func viewDidLoad() {
@@ -88,6 +88,49 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     
+    @IBAction func didpressaccessory(_ sender: Any) {
+        let sheet = UIAlertController(title: "Media messages", message: nil, preferredStyle: .actionSheet)
+        
+        let photoAction = UIAlertAction(title: "Send Photo/Video", style: .default) { (action) in
+            /**
+             *  Create fake photo
+             */
+            self.addphoto()
+            
+        }
+        
+        let locationAction = UIAlertAction(title: "Send location", style: .default) { (action) in
+            /**
+             *  Add fake location
+             */
+//            let locationItem = self.buildLocationItem()
+//            
+//            self.addMedia(locationItem)
+        }
+        
+        let audioAction = UIAlertAction(title: "Send audio", style: .default) { (action) in
+            /**
+             *  Add fake audio
+             */
+//            let audioItem = self.buildAudioItem()
+//            
+//            self.addMedia(audioItem)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        sheet.addAction(photoAction)
+        sheet.addAction(locationAction)
+        sheet.addAction(audioAction)
+        sheet.addAction(cancelAction)
+        
+        self.present(sheet, animated: true, completion: nil)
+    }
+    
+    
+    func addphoto() {
+    
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

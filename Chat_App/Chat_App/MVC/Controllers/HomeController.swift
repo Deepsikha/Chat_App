@@ -106,7 +106,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     //MARK: Socket Methods
     
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://ixtmvrmipl.localtunnel.me"))
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://ytbdvffxcw.localtunnel.me"))
         AppDelegate.websocket.delegate = self
         AppDelegate.websocket.open()
     }
@@ -131,7 +131,65 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     }
     
     func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
+        let dic = convertToDictionary(text: message as! String)
+        print(dic!)
+        do {
+            var _:[String:Any]!
+            var _: Data!
+            switch dic!["type"] as! String {
+            case "error":
+                
+                break
+            case "authErr":
+                
+                break
+            case "connected":
+                let a = ModelManager.getInstance().senddataserver("chat")
+                for i in a {
+                    let ob = i as AnyObject
+                    var dic:[String:Any]!
+                    dic = ["senderId": ob.value(forKey: "sender_id")! as! Int,"message": ob.value(forKey: "message")! as! String,"recieverId": ob.value(forKey: "receiver_id")! as! Int,"type":"message"]
+                    let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+                    if(AppDelegate.websocket.readyState != SRReadyState.CLOSED) {
+                        AppDelegate.websocket.send(NSData(data:jsonData))
+                        
+                        _ = ModelManager.getInstance().updateData("chat", "ack = 1", "ack = 0 and rowid = \(String(describing: ob.value(forKey: "id")!))")
+                    }
+                }
+                
+                break
+            case "msgAck":
+                
+                break
+            case "message":
+                for i in dic!["data"] as! NSArray {
+                    let a = i as AnyObject
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,status", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "message")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'false\'")
+                    ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
+                }
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                break
+            case "readMsgAck":
+                
+                break
+            default: break
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
         
+    }
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
     }
     
 }

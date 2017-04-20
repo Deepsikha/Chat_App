@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatArchCell: UITableViewCell {
+class ChatArchCell: UITableViewCell, UISearchBarDelegate {
 
     @IBOutlet weak var archvw: UIView!
     @IBOutlet weak var archcount: UILabel!
@@ -18,9 +18,26 @@ class ChatArchCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        srchbar.showsCancelButton = true
+        srchbar.delegate = self
     }
 
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        srchbar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        srchbar.showsCancelButton = false
+        srchbar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(srchbar.text?.isEmpty)! {
+        
+        } else {
+        
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

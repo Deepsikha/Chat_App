@@ -46,6 +46,9 @@
                                         <constraint firstAttribute="width" secondItem="qVv-od-n7V" secondAttribute="height" multiplier="1:1" id="C3O-32-VK0"/>
                                     </constraints>
                                     <state key="normal" backgroundImage="SendAttachment.png"/>
+                                    <connections>
+                                        <action selector="didpressaccessory:" destination="-1" eventType="touchUpInside" id="fMU-eK-mBb"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lt6-PG-6yV">
                                     <rect key="frame" x="282" y="11" width="30" height="30"/>
