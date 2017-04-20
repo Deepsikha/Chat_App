@@ -14,21 +14,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     static var websocket: SRWebSocket!
-    static var senderId = "9610555504"
-    static var senderDisplayName = "Master"
+    static var senderId:String!
+    static var senderDisplayName:String!
+    static var pic:UIImage!
+    
     static let app = UIApplication.shared
     static var count : Int!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow()
-
-        let rootVC = welcome()
-        let nav = UINavigationController(rootViewController: rootVC)
-        window?.rootViewController = nav
         
-        window?.makeKeyAndVisible()
-        return true
+        if(UserDefaults.standard.value(forKey: "id") == nil) {
+            
+            let rootVC = welcome()
+            let nav = UINavigationController(rootViewController: rootVC)
+            window?.rootViewController = nav
+            window?.makeKeyAndVisible()
+            return true
+        }
+        else{
+            let rootVC = HomeController()
+            let nav = UINavigationController(rootViewController: rootVC)
+            window?.rootViewController = nav
+            window?.makeKeyAndVisible()
+            return true
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

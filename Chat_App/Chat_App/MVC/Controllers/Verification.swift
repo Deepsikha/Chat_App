@@ -10,6 +10,8 @@ import UIKit
 
 class Verification: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet var indicator: UIActivityIndicatorView!
+    @IBOutlet var lblverify: UILabel!
     @IBOutlet var lblSendotp: UILabel!
     @IBOutlet var lblCall: UILabel!
     @IBOutlet var btnResend: UIButton!
@@ -73,10 +75,25 @@ class Verification: UIViewController, UITextFieldDelegate {
                 txfOTP5.text = string
             } else if txfOTP.text?.characters.count == 5 {
                 txfOTP6.text = string
+                self.txfOTP.text = self.txfOTP.text! + string
                 self.lblSendotp.isEnabled = true
                 self.lblCall.isEnabled = true
                 self.timer.invalidate()
                 self.validateOTP()
+                
+                let blur = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
+                let blurView = UIVisualEffectView(effect: blur)
+                blurView.alpha = 0.9
+                blurView.frame = self.view.bounds
+                blurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+                self.view.addSubview(blurView)
+                self.indicator.isHidden = false
+                self.lblverify.isHidden = false
+                self.indicator.startAnimating()
+                blurView.addSubview(self.indicator)
+                blurView.addSubview(self.lblverify)
+                
+                self.txfOTP.resignFirstResponder()
             } else {
                 return false
             }
@@ -94,8 +111,28 @@ class Verification: UIViewController, UITextFieldDelegate {
         self.lblCall.isHidden = false
         self.lblSendotp.isHidden = false
         self.timerStart()
+        
+        let no = Verification.no
+        let parameters = ["userId": no] as! Dictionary<String, String>
+        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/register", Request_parameter: parameters, Request_parameter_Images: nil, status: { (results) in
+            
+        }, response_Dictionary: { (res) in
+            DispatchQueue.main.async {
+                
+                if res.value(forKey: "resp") as! String == "success" {
+                    let nav = Verification()
+                    self.navigationController?.pushViewController(nav, animated: true)
+                    
+                } else {
+                    
+                }
+            }
+        }, response_Array: { (resArr) in
+            
+        }, isTokenEmbeded: false)
+        
     }
-    
+
     @IBAction func handlebtnCall(_ sender: Any) {
         self.btnCall.isHidden = true
         self.btnResend.isHidden = true
@@ -117,6 +154,11 @@ class Verification: UIViewController, UITextFieldDelegate {
         lblSendotp.text = "Resend Code in 0:\(counter)"
         lblCall.text = "Call Me in 0:\(counter)"
         
+        if counter < 10 {
+            lblSendotp.text = "Resend Code in 0:0\(counter)"
+            lblCall.text = "Call Me in 0:0\(counter)"
+        }
+        
         if(counter == total) {
             timer.invalidate();
             self.btnCall.isHidden = false
@@ -127,8 +169,24 @@ class Verification: UIViewController, UITextFieldDelegate {
     }
     
     func validateOTP() {
-        //code here to verify OTP
-        let nav = SetProfileController()
-        self.navigationController?.pushViewController(nav, animated: true)
+        let param:[String:String] = ["onetimepassword": self.txfOTP.text! , "userId": Verification.no]
+        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/verification", Request_parameter: param, Request_parameter_Images: nil, status: { (st) in
+            
+        }, response_Dictionary: { (res) in
+            DispatchQueue.main.async {
+            print(res)
+            if res.value(forKey: "resp") as! String == "success" {
+                UserDefaults.standard.set(Verification.no, forKey: "id")
+                AppDelegate.senderId = Verification.no
+                self.indicator.stopAnimating()
+                let nav = SetProfileController()
+                self.navigationController?.pushViewController(nav, animated: true)
+            } else {
+                
+            }
+            }
+        }, response_Array: { (arr) in
+            
+        }, isTokenEmbeded: false)        
     }
 }

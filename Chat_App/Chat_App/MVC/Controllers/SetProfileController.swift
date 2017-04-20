@@ -88,9 +88,13 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     @IBAction func handleBtndone(_ sender: Any) {
+        AppDelegate.senderDisplayName = self.txfName.text
+        AppDelegate.pic = self.imgProfile.image
         let nav = HomeController()
         self.navigationController?.pushViewController(nav, animated: true)
+        
     }
+    
     //MARK:- Custom Method
     func tapHandler() {
         self.txfName.resignFirstResponder()

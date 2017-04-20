@@ -16,7 +16,8 @@ class Register: UIViewController,UITextFieldDelegate {
     @IBOutlet var btnDone: UIBarButtonItem!
     @IBOutlet var navDone: UINavigationBar!
     @IBOutlet var btnCountry: UIButton!
-    
+    @IBOutlet var indicator: UIActivityIndicatorView!
+    @IBOutlet var lblConnect: UILabel!
     var transperentView = UIView()
     var cView: UIView!
     static var cName:String!
@@ -105,11 +106,40 @@ class Register: UIViewController,UITextFieldDelegate {
         let alert = UIAlertController(title: "NUMBER CONFIRMATION: \n\n \(self.lblCCode.text!) \(self.txfNumber.text!) \n\nIs your phone number above correct?", message: "", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            let nav = Verification()
-            self.navigationController?.pushViewController(nav, animated: true)
-            print("yes Pressed")
+            
+            let blur = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
+            let blurView = UIVisualEffectView(effect: blur)
+            blurView.alpha = 0.9
+            blurView.frame = self.view.bounds
+            blurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+            self.view.addSubview(blurView)
+            self.indicator.isHidden = false
+            self.lblConnect.isHidden = false
+            self.indicator.startAnimating()
+            blurView.addSubview(self.indicator)
+            blurView.addSubview(self.lblConnect)
+            
+            let no = "+\(self.lblCCode.text!)\(self.txfNumber.text!)"
+            let parameters = ["userId": no] as Dictionary<String, String>
+            server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/register", Request_parameter: parameters, Request_parameter_Images: nil, status: { (results) in
+                
+            }, response_Dictionary: { (res) in
+                DispatchQueue.main.async {
+                    print(res)
+                    if res.value(forKey: "resp") as! String == "success" {
+                        self.indicator.stopAnimating()
+                        let nav = Verification()
+                        self.navigationController?.pushViewController(nav, animated: true)
+                    } else {
+                        
+                    }
+                }
+            }, response_Array: { (resArr) in
+                
+            }, isTokenEmbeded: false)
+            
         })
-        Verification.no = self.lblCCode.text! + " " + txfNumber.text!
+        Verification.no = "\(self.lblCCode.text!)\(txfNumber.text!)"
         
         alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.cancel) {
             UIAlertAction in
