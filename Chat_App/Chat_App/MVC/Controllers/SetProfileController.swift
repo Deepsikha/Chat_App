@@ -21,7 +21,7 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        self.imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
+        
         self.imgProfile.layer.borderWidth = 1
         self.imgProfile.layer.borderColor = UIColor.groupTableViewBackground.cgColor
         txfName.delegate = self
@@ -36,6 +36,10 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
     }
 
     //MARK:- TextField Delegate

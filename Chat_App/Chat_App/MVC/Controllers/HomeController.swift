@@ -73,8 +73,10 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             self.title = "Status"
             self.navigationItem.titleView = nil
             let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(ChatListController.edit))
+            let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: StatusController.self, action: #selector(StatusController.privacy))
+            
             self.navigationItem.rightBarButtonItem = button1
-            self.navigationItem.leftBarButtonItem = nil
+            self.navigationItem.leftBarButtonItem = button2
             break
         case is CallsController:
             self.title = "Calls"

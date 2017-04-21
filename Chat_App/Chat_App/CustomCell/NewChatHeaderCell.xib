@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,20 +16,33 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nsT-Km-oEQ">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nsT-Km-oEQ">
                         <rect key="frame" x="15" y="5" width="35" height="35"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="nsT-Km-oEQ" secondAttribute="height" multiplier="1:1" id="iEX-2X-VYX"/>
+                        </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7l-px-4qY">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7l-px-4qY">
                         <rect key="frame" x="58" y="8" width="228" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="D7l-px-4qY" firstAttribute="leading" secondItem="nsT-Km-oEQ" secondAttribute="trailing" constant="8" id="aW5-7N-LeF"/>
+                </constraints>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="D7l-px-4qY" secondAttribute="trailing" constant="34" id="KjV-fo-Tfe"/>
+                <constraint firstItem="D7l-px-4qY" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="8" id="P5t-qq-zMy"/>
+                <constraint firstAttribute="bottom" secondItem="nsT-Km-oEQ" secondAttribute="bottom" constant="4" id="RSp-YQ-g4C"/>
+                <constraint firstItem="nsT-Km-oEQ" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="Syi-lN-QpW"/>
+                <constraint firstItem="nsT-Km-oEQ" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="5" id="cd2-gW-nV3"/>
+                <constraint firstAttribute="bottom" secondItem="D7l-px-4qY" secondAttribute="bottom" constant="6" id="hQZ-HJ-JTQ"/>
+                <constraint firstItem="nsT-Km-oEQ" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="15" id="qBJ-eV-vPL"/>
+            </constraints>
             <connections>
                 <outlet property="btn" destination="D7l-px-4qY" id="TFC-ep-3JU"/>
                 <outlet property="img" destination="nsT-Km-oEQ" id="6an-jG-gBh"/>

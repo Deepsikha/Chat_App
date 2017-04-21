@@ -14,6 +14,7 @@ class NewChatCell: UITableViewCell {
     @IBOutlet var lblContact: UILabel!
     @IBOutlet var lblStatus: UILabel!
     
+    @IBOutlet var lblName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         self.imgContact.layer.borderWidth = 1
@@ -25,6 +26,7 @@ class NewChatCell: UITableViewCell {
         self.imgContact.image = nil
         self.lblStatus.text = nil
         self.lblContact.text = nil
+        self.lblName.text = nil
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
