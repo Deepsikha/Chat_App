@@ -22,7 +22,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var lstseen: UILabel!
     static var reciever_id : Int!
     var frame1 : CGRect!
-    var messages : [String:Any]!
+    var messages : NSMutableArray!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,17 +56,17 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
         self.navigationItem.titleView = navvw
         
-        let a = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
-        for i in a {
-            let ob = i as AnyObject
-            if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
-                //                let message = JSQMessage(senderId: ob.value(forKey: "sender_id") as! String, displayName: "Master" , text: ob.value(forKey: "message") as! String)
-                //                messages.append(message!)
-            } else {
-                //                let message = JSQMessage(senderId: ob.value(forKey: "sender_id") as! String, displayName: "name" , text: ob.value(forKey: "message") as! String)
-                //                messages.append(message!)
-            }
-        }
+        self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
+//        for i in a {
+//            let ob = i as AnyObject
+//            if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
+//                //                let message = JSQMessage(senderId: ob.value(forKey: "sender_id") as! String, displayName: "Master" , text: ob.value(forKey: "message") as! String)
+//                //                messages.append(message!)
+//            } else {
+//                //                let message = JSQMessage(senderId: ob.value(forKey: "sender_id") as! String, displayName: "name" , text: ob.value(forKey: "message") as! String)
+//                //                messages.append(message!)
+//            }
+//        }
         
     }
     
@@ -78,7 +78,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if(indexPath.row % 2 == 0) {
+        let ob = (self.messages.object(at: indexPath.row) as AnyObject)
+        if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
             cell.message.text = "tblvw.delegate = selftblvw.dataSource = selfself.tblvw.estimatedRowHeight = 100self.tblvw.rowHeight = UITableViewAutomaticDimension"
             cell.status.image = UIImage(named: "pending")
