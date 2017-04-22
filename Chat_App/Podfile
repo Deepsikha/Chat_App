@@ -8,6 +8,8 @@ target 'Chat_App' do
   # Pods for Chat_App
     pod 'SocketRocket'
     pod 'FMDB'
+    pod 'Fabric'
+    pod 'Crashlytics'
   target 'Chat_AppTests' do
     inherit! :search_paths
     # Pods for testing
