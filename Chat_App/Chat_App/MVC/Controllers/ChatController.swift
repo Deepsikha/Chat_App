@@ -9,6 +9,7 @@
 import UIKit
 import QuartzCore
 import SocketRocket
+import Crashlytics
 
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, SRWebSocketDelegate, UITextViewDelegate {
     
@@ -71,6 +72,22 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //------------------------------------------------------------------
+        //Fabric
+        //ContentView
+        Answers.logContentView(withName: "Content event",contentType: "Testing", contentId: "1",customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
+        
+        //purchase
+        Answers.logPurchase(withPrice: 1000, currency: "rupee", success: true, itemName: "tutorial", itemType: "study", itemId: "12", customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
+        
+        //AddToCart
+        Answers.logAddToCart(withPrice: 1000, currency: "rupee", itemName: "tutorial", itemType: "study", itemId: "12", customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
+        
+        //CheckOut
+        Answers.logStartCheckout(withPrice: 1000, currency: "rupee", itemCount: 3, customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
+    }
     override func viewDidLayoutSubviews() {
         frame1 = vw.frame
         chatboxConstant = chatboxTrailingConstraint.constant
