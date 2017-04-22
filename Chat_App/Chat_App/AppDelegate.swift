@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     static var websocket: SRWebSocket!
-    static var senderId:String!
+    static var senderId = "9610555504"
     static var senderDisplayName:String!
     static var pic:UIImage!
     

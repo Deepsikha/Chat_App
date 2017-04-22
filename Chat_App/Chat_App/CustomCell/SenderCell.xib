@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,18 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kg6-1B-Idk" id="bTP-GE-8Sj">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="29.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="st0-OD-6L8">
-                        <rect key="frame" x="56" y="6" width="20" height="18"/>
+                        <rect key="frame" x="18" y="6" width="20" height="20"/>
                         <color key="backgroundColor" red="0.50588235290000005" green="0.28532762709999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="QSp-6p-5kF"/>
                         </constraints>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RN7-yV-tUK">
-                        <rect key="frame" x="61" y="6" width="10" height="18"/>
+                        <rect key="frame" x="23" y="6" width="10" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="CXm-6S-p82"/>
                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="Y7i-FA-4ki"/>
@@ -36,31 +37,23 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                     </textView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AKX-ik-qkj" customClass="RoundedImageView" customModule="Chat_App" customModuleProvider="target">
-                        <rect key="frame" x="10" y="-12" width="36" height="36"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="36" id="IVN-iM-aJj"/>
-                            <constraint firstAttribute="width" constant="36" id="e3j-i2-I0N"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="st0-OD-6L8" firstAttribute="height" secondItem="RN7-yV-tUK" secondAttribute="height" id="3oc-KT-yS4"/>
-                    <constraint firstAttribute="bottom" secondItem="AKX-ik-qkj" secondAttribute="bottom" constant="6" id="NCv-1L-5Nz"/>
                     <constraint firstItem="st0-OD-6L8" firstAttribute="centerY" secondItem="RN7-yV-tUK" secondAttribute="centerY" id="P49-Oy-lDC"/>
+                    <constraint firstItem="st0-OD-6L8" firstAttribute="leading" secondItem="bTP-GE-8Sj" secondAttribute="leadingMargin" constant="10" id="Pu2-SI-98k"/>
+                    <constraint firstItem="st0-OD-6L8" firstAttribute="top" secondItem="bTP-GE-8Sj" secondAttribute="topMargin" constant="-2" id="UUH-ph-gIk"/>
                     <constraint firstItem="RN7-yV-tUK" firstAttribute="top" secondItem="bTP-GE-8Sj" secondAttribute="top" constant="6" id="WDf-4T-UCc"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="st0-OD-6L8" secondAttribute="bottom" constant="-4.5" id="aLd-ue-I9v"/>
                     <constraint firstItem="st0-OD-6L8" firstAttribute="centerX" secondItem="RN7-yV-tUK" secondAttribute="centerX" id="amC-UZ-xhU"/>
-                    <constraint firstItem="st0-OD-6L8" firstAttribute="bottom" secondItem="AKX-ik-qkj" secondAttribute="bottom" id="hED-cP-OPe"/>
-                    <constraint firstItem="AKX-ik-qkj" firstAttribute="leading" secondItem="bTP-GE-8Sj" secondAttribute="leading" constant="10" id="hsw-4J-yyZ"/>
                     <constraint firstItem="st0-OD-6L8" firstAttribute="width" secondItem="RN7-yV-tUK" secondAttribute="width" constant="10" id="spA-th-3sN"/>
-                    <constraint firstItem="st0-OD-6L8" firstAttribute="leading" secondItem="AKX-ik-qkj" secondAttribute="trailing" constant="10" id="zw5-il-NUh"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="message" destination="RN7-yV-tUK" id="jzq-aa-MIl"/>
                 <outlet property="messageBackground" destination="st0-OD-6L8" id="87h-2l-OCf"/>
-                <outlet property="profilePic" destination="AKX-ik-qkj" id="pPP-zV-b98"/>
             </connections>
+            <point key="canvasLocation" x="32.5" y="134"/>
         </tableViewCell>
     </objects>
 </document>

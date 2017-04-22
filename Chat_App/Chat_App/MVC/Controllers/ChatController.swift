@@ -10,22 +10,31 @@ import UIKit
 import QuartzCore
 import SocketRocket
 
-class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, SRWebSocketDelegate {
+class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, SRWebSocketDelegate, UITextViewDelegate {
     
-    var i = 4
+    @IBOutlet weak var chatboxTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sendmsg: UIButton!
+    @IBOutlet weak var sendaudio: UIButton!
+    @IBOutlet weak var addphto: UIButton!
+    @IBOutlet weak var addmedia: UIButton!
     @IBOutlet var navvw: UIView!
     @IBOutlet weak var vw: UIView!
     @IBOutlet weak var tblvw: UITableView!
-    @IBOutlet weak var chatbox: UITextField!
+    @IBOutlet weak var chatbox: UITextView!
     @IBOutlet weak var navprof: UIImageView!
     @IBOutlet weak var cnctnm: UILabel!
     @IBOutlet weak var lstseen: UILabel!
+    
+    var i = 4
+    var frame : CGRect!
     static var reciever_id : Int!
     var frame1 : CGRect!
     var messages : NSMutableArray!
+    var chatboxConstant : CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        chatbox.delegate = self
         AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         tblvw.delegate = self
         tblvw.dataSource = self
@@ -33,8 +42,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tblvw.rowHeight = UITableViewAutomaticDimension
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
-        chatbox.layer.cornerRadius = 20
-        
+        chatbox.layer.cornerRadius = chatbox.frame.height / 2
         self.navigationController?.isNavigationBarHidden = false
         let btn1 = UIButton(type: .custom)
         let origImage = UIImage(named: "Calls");
@@ -55,102 +63,54 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.navigationItem.setRightBarButtonItems([item1,item2], animated: true)
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
         self.navigationItem.titleView = navvw
-        
         self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
-//        for i in a {
-//            let ob = i as AnyObject
-//            if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
-//                //                let message = JSQMessage(senderId: ob.value(forKey: "sender_id") as! String, displayName: "Master" , text: ob.value(forKey: "message") as! String)
-//                //                messages.append(message!)
-//            } else {
-//                //                let message = JSQMessage(senderId: ob.value(forKey: "sender_id") as! String, displayName: "name" , text: ob.value(forKey: "message") as! String)
-//                //                messages.append(message!)
-//            }
-//        }
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        self.cnctnm.text = String(describing :ChatController.reciever_id!)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        frame1 = vw.frame
+        chatboxConstant = chatboxTrailingConstraint.constant
+        self.sendmsg.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+        let indexPath = IndexPath(row: lastRow, section: 0);
+        self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+        self.chatbox.backgroundColor = UIColor.white
         self.navprof.image = UIImage(named: "Gradient")
         self.navprof.layer.cornerRadius = self.navprof.frame.width / 2
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.hideKeyBoard(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+
     }
     
+    //MARK:- Table Delegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let ob = (self.messages.object(at: indexPath.row) as AnyObject)
+        
         if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-            cell.message.text = "tblvw.delegate = selftblvw.dataSource = selfself.tblvw.estimatedRowHeight = 100self.tblvw.rowHeight = UITableViewAutomaticDimension"
+            cell.message.text = ob.value(forKey: "message") as? String
             cell.status.image = UIImage(named: "pending")
-            cell.stamp.text = "20:30"
-            
+            cell.stamp.text = ob.value(forKey: "time") as? String
             return cell
         } else {
             let cell1 = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-            cell1.message.text = "Jaadu"
-            
+            cell1.message.text = ob.value(forKey: "message") as? String
             return cell1
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return messages.count
     }
     
-    override func viewDidLayoutSubviews() {
-        frame1 = vw.frame
-    }
-    
-    
-    @IBAction func didpressaccessory(_ sender: Any) {
-        let sheet = UIAlertController(title: "Media messages", message: nil, preferredStyle: .actionSheet)
-        
-        let photoAction = UIAlertAction(title: "Send Photo/Video", style: .default) { (action) in
-            /**
-             *  Create fake photo
-             */
-            self.addphoto()
-            
-        }
-        
-        let locationAction = UIAlertAction(title: "Send location", style: .default) { (action) in
-            /**
-             *  Add fake location
-             */
-            //            let locationItem = self.buildLocationItem()
-            //
-            //            self.addMedia(locationItem)
-        }
-        
-        let audioAction = UIAlertAction(title: "Send audio", style: .default) { (action) in
-            /**
-             *  Add fake audio
-             */
-            //            let audioItem = self.buildAudioItem()
-            //
-            //            self.addMedia(audioItem)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        sheet.addAction(photoAction)
-        sheet.addAction(locationAction)
-        sheet.addAction(audioAction)
-        sheet.addAction(cancelAction)
-        
-        self.present(sheet, animated: true, completion: nil)
-    }
-    
-    
-    func addphoto() {
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+    //MARK:- WebSocket Method
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         print(reason)
     }
@@ -191,9 +151,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let a = i as AnyObject
                     _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,status", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "message")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'false\'")
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
+                    messages.add(["sender_id":String(describing: a.value(forKey: "sender_id") as! Int),"receiver_id":AppDelegate.senderId,"message":String(describing: a.value(forKey: "message")!),"time":String(describing: a.value(forKey: "time")!),"status":""])
+                    self.tblvw.reloadData()
+                    let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+                    let indexPath = IndexPath(row: lastRow, section: 0);
+                    self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
                 }
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                 break
             case "readMsgAck":
                 
@@ -203,6 +166,73 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } catch {
             print(error.localizedDescription)
         }
+        
+    }
+    
+    //MARK:- Outlet Method
+    @IBAction func didpressaccessory(_ sender: Any) {
+        let sheet = UIAlertController(title: "Media messages", message: nil, preferredStyle: .actionSheet)
+        
+        let photoAction = UIAlertAction(title: "Send Photo/Video", style: .default) { (action) in
+            /**
+             *  Create fake photo
+             */
+            self.addphoto()
+            
+        }
+        
+        let locationAction = UIAlertAction(title: "Send location", style: .default) { (action) in
+            /**
+             *  Add fake location
+             */
+            //            let locationItem = self.buildLocationItem()
+            //
+            //            self.addMedia(locationItem)
+        }
+        
+        let audioAction = UIAlertAction(title: "Send audio", style: .default) { (action) in
+            /**
+             *  Add fake audio
+             */
+            //            let audioItem = self.buildAudioItem()
+            //
+            //            self.addMedia(audioItem)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        sheet.addAction(photoAction)
+        sheet.addAction(locationAction)
+        sheet.addAction(audioAction)
+        sheet.addAction(cancelAction)
+        
+        self.present(sheet, animated: true, completion: nil)
+    }
+    
+    @IBAction func sendmsg(_ sender: Any) {
+        do {
+            var dic:[String:Any]!
+            dic = ["senderId":Int(AppDelegate.senderId)!,"message": chatbox.text! ,"recieverId":ChatController.reciever_id,"type":"message"]
+            let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+            if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+                AppDelegate.websocket.send(NSData(data: jsonData))
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',1")
+            } else {
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',0")
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        self.tblvw.reloadData()
+        let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+        let indexPath = IndexPath(row: lastRow, section: 0);
+        self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+        self.chatbox.text = ""
+    }
+    
+    
+    //MARK:- Custom Method
+    func addphoto() {
         
     }
     
@@ -217,8 +247,29 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return nil
     }
     
+    func tapHandler() {
+        self.chatbox.resignFirstResponder()
+        UIView.animate(withDuration: 0.8) {
+            self.addphto.isHidden = false
+            self.sendaudio.isHidden = false
+            self.sendmsg.isHidden = true
+            self.chatboxTrailingConstraint.constant = self.chatboxConstant
+            }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        UIView.animate(withDuration: 0.8) {
+            self.addphto.isHidden = true
+            self.sendaudio.isHidden = true
+            self.sendmsg.isHidden = false
+            let constant = UIScreen.main.bounds.width * 48 / 375;
+            self.chatboxTrailingConstraint.constant = -constant
+            }
+        self.vw.layoutIfNeeded()
+    }
     
     func showKeyboard(notification: Notification) {
+        
         if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height
             self.tblvw.contentInset.bottom = height
@@ -226,18 +277,23 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print(height)
             self.vw.frame = CGRect(x: frame1.origin.x, y: self.view.frame.height - height - frame1.height, width: frame1.width, height: frame1.height)
             if i > 0 {
-                self.tblvw.scrollToRow(at: IndexPath.init(row: i - 1, section: 0), at: .bottom, animated: true)
+                let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+                let indexPath = IndexPath(row: lastRow, section: 0);
+                self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
             }
         }
     }
     
     func hideKeyBoard(notification : Notification) {
+        
         if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height
             self.tblvw.contentInset.bottom = self.tblvw.contentInset.bottom - height
             self.vw.frame = frame1
             self.tblvw.scrollIndicatorInsets.bottom = self.tblvw.scrollIndicatorInsets.bottom - height
-            self.tblvw.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .bottom, animated: true)
+            let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+            let indexPath = IndexPath(row: lastRow, section: 0);
+            self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
     

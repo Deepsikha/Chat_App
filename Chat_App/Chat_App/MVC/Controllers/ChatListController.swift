@@ -9,7 +9,7 @@
 import UIKit
 
 class ChatListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var tblvw: UITableView!
     static var sender = 0
     var contactNumber : NSMutableArray!
@@ -24,10 +24,11 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         tblvw.dataSource = self
         tblvw.register(UINib(nibName: "ChatArchCell", bundle: nil), forCellReuseIdentifier: "ChatArchCell")
         tblvw.register(UINib(nibName: "ChatListCell", bundle: nil), forCellReuseIdentifier: "ChatListCell")
+        NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue: "load"), object: nil)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
-//        countmsg()
+        countmsg()
     }
     
     func countmsg() {
@@ -48,7 +49,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     //MARK: TableView Methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contactNumber.count
+        return contactNumber.count + 1
         
     }
     
@@ -63,12 +64,12 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let contact = contactNumber.object(at: indexPath.row) as! (Any,Any)
         
         if(indexPath.row == 0) {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatArchCell", for: indexPath) as! ChatArchCell
-             return cell
+            return cell
         } else {
+            let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
             cell.msgstatus.image = UIImage(named : "green")
             cell.prflpic.image = UIImage(named : "Gradient")
@@ -92,12 +93,12 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 cell.msgcount.text = String(describing: contact.1)
             }
-         return cell
+            return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let contact = contactNumber.object(at: indexPath.row) as! (Any,Any)
+        let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
         _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
         ChatController.reciever_id = ((contact.0) as AnyObject).value(forKey: "user_id") as! Int
         self.navigationController?.pushViewController(ChatController(), animated: true)
@@ -106,6 +107,8 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     //MARK: Other methods
     
     func edit() {
+        let nav = ChatListController()
+        self.navigationController?.pushViewController(ChatController(), animated: true)
         print("ABCD")
     }
     

@@ -72,8 +72,8 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         case is StatusController:
             self.title = "Status"
             self.navigationItem.titleView = nil
-            let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(ChatListController.edit))
-            let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: StatusController.self, action: #selector(StatusController.privacy))
+            let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(edit))
+            let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: self, action: #selector(edit))
             
             self.navigationItem.rightBarButtonItem = button1
             self.navigationItem.leftBarButtonItem = button2
@@ -196,6 +196,10 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             }
         }
         return nil
+    }
+    
+    func edit() {
+        self.navigationController?.pushViewController(ChatListController(), animated: true)
     }
     
 }
