@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AddressBook
+import Contacts
 
 class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,6 +17,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var btnCancel: UIBarButtonItem!
     @IBOutlet var tblHeader: UITableView!
     
+    let store = CNContactStore()
     var contactList: [String] = Array()
     var contactListGrouped = NSDictionary() as! [String : [String]]
     var sectionTitleList = [String]()
@@ -44,8 +45,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         statusBarBackground.backgroundColor = statusBarColor
         view.addSubview(statusBarBackground)
         self.tblNewContact.tableHeaderView = self.vwHeader
-        self.createData()
-        self.splitDataInToSection()
+        self.getContact()
     }
     
     // MARK: - Delegate Method
@@ -112,7 +112,6 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             return 0
         }
     }
-    
     //MARK:- Outlet Method
     @IBAction func handleBtncancel(_ sender: Any) {
     }
@@ -123,30 +122,6 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.searchContact.resignFirstResponder()
     }
     
-    fileprivate func createData() {
-        
-        // fill up data
-        self.contactList  = [
-            "Mike",
-            "Jaddu", "Master", "Keka",
-            "Volter", "Val",
-            "Rick", "Mcley",
-            "Domino's", "McDownalds",
-            "Suger&Spice",
-            "PizzHut", "Fendi", "Virat",
-            "Smith",
-            "Dhoni", "Finch", "Morgan", "Lynn",
-            "Maxy",
-            "Chiku",
-            "Nthg", "Anonymous", "Mine", "Unknown",
-            "Raspberry",
-            "Arduino"
-        ]
-        
-        // sort the array  (Important)
-        self.contactList = self.contactList.sorted()
-    }
-
     fileprivate func splitDataInToSection() {
         
         var sectionTitle: String = ""
@@ -162,5 +137,48 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             self.contactListGrouped[firstCharString]?.append(currentRecord)
         }
+    }
+    
+    func getContact() {
+        store.requestAccess(for: .contacts, completionHandler: {
+            granted, error in
+            
+            guard granted else {
+                let alert = UIAlertController(title: "Can't access contact", message: "Please go to Settings -> MyApp to enable contact permission", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey] as [Any]
+            let request = CNContactFetchRequest(keysToFetch: keysToFetch as! [CNKeyDescriptor])
+            var cnContacts = [CNContact]()
+            
+            do {
+                try self.store.enumerateContacts(with: request){
+                    (contact, cursor) -> Void in
+                    cnContacts.append(contact)
+                    print(cnContacts)
+                }
+            } catch let error {
+                NSLog("Fetch contact error: \(error)")
+            }
+            
+            NSLog(">>>> Contact list:")
+            for contact in cnContacts {
+                self.contactList.append(contact.givenName)
+                for ContctNumVar: CNLabeledValue in contact.phoneNumbers
+                {
+                    let FulMobNumVar  = ContctNumVar.value
+                    let MccNamVar = FulMobNumVar.value(forKey: "countryCode") as? String
+                    let MobNumVar = FulMobNumVar.value(forKey: "digits") as? String
+                }
+            }
+            self.contactList = self.contactList.sorted()
+            self.splitDataInToSection()
+            self.tblNewContact.reloadData()
+        })
+        
+
     }
 }

@@ -68,6 +68,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         self.cnctnm.text = String(describing :ChatController.reciever_id!)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -86,7 +87,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.hideKeyBoard(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-
+        
     }
     
     //MARK:- Table Delegate
@@ -248,13 +249,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tapHandler() {
-        self.chatbox.resignFirstResponder()
+        //        self.chatbox.resignFirstResponder()
         UIView.animate(withDuration: 0.8) {
             self.addphto.isHidden = false
             self.sendaudio.isHidden = false
             self.sendmsg.isHidden = true
             self.chatboxTrailingConstraint.constant = self.chatboxConstant
-            }
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -264,7 +265,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.sendmsg.isHidden = false
             let constant = UIScreen.main.bounds.width * 48 / 375;
             self.chatboxTrailingConstraint.constant = -constant
-            }
+        }
         self.vw.layoutIfNeeded()
     }
     
@@ -297,5 +298,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        chatbox.sizeThatFits
+    }
     
 }

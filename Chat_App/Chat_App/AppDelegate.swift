@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     static var websocket: SRWebSocket!
-    static var senderId = "9610555504"
+    static var senderId = "1552150835"
     static var senderDisplayName:String!
     static var pic:UIImage!
     
@@ -27,14 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Util.copyFile("Socket_chat.sqlite")
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
-            let rootVC = HomeController()
+            let rootVC = NewChatVC()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
             return true
         }
         else{
-            let rootVC = HomeController()
+            let rootVC = NewChatVC()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
