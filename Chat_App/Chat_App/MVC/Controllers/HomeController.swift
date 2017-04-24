@@ -72,6 +72,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             let button1 = UIBarButtonItem(image: UIImage(named: "Calls"), style: .plain, target: self, action: #selector(ChatListController.edit))
             self.navigationItem.rightBarButtonItem = button1
             let segment: UISegmentedControl = UISegmentedControl(items: ["All", "Missed"])
+        
             segment.sizeToFit()
             segment.selectedSegmentIndex = 0
             self.navigationItem.titleView = segment
@@ -94,13 +95,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         }
     }
     
-    //MARK: Custom Methods
-    func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://wfciqaakpy.localtunnel.me"))
-        AppDelegate.websocket.delegate = self
-        AppDelegate.websocket.open()
-    }
-    
+    //Mark:- Websocket Delegate
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         print(reason)
     }
@@ -109,18 +104,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         print("Connected")
         if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
             sendInitMsg()
-        }
-    }
-    
-    func sendInitMsg(){
-        do {
-            var dic:[String:Any]!
-            dic = ["senderId": "1552150835","type":"initConnection"]
-            
-            let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
-            AppDelegate.websocket.send(NSData(data: jsonData))
-        } catch {
-            print(error.localizedDescription)
         }
     }
     
@@ -173,6 +156,25 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             print(error.localizedDescription)
         }
         
+    }
+    
+    //MARK: Custom Methods
+    func connect() {
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://wfciqaakpy.localtunnel.me"))
+        AppDelegate.websocket.delegate = self
+        AppDelegate.websocket.open()
+    }
+    
+    func sendInitMsg(){
+        do {
+            var dic:[String:Any]!
+            dic = ["senderId": "1552150835","type":"initConnection"]
+            
+            let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+            AppDelegate.websocket.send(NSData(data: jsonData))
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     func convertToDictionary(text: String) -> [String: Any]? {
