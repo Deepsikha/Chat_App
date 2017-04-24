@@ -11,6 +11,7 @@ import UIKit
 class ChatListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tblvw: UITableView!
+    
     static var sender = 0
     var contactNumber : NSMutableArray!
     var last = [String]()
