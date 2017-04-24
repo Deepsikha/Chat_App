@@ -39,10 +39,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         tblvw.delegate = self
         tblvw.dataSource = self
+        
         self.tblvw.estimatedRowHeight = 100
         self.tblvw.rowHeight = UITableViewAutomaticDimension
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
+        
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
         self.navigationController?.isNavigationBarHidden = false
         let btn1 = UIButton(type: .custom)
@@ -88,6 +90,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //CheckOut
         Answers.logStartCheckout(withPrice: 1000, currency: "rupee", itemCount: 3, customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
     }
+    
     override func viewDidLayoutSubviews() {
         frame1 = vw.frame
         chatboxConstant = chatboxTrailingConstraint.constant
@@ -128,7 +131,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return messages.count
     }
     
-    //MARK:- WebSocket Method
+    //MARK:- WebSocket Delegate
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         print(reason)
     }

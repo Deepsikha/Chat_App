@@ -107,7 +107,7 @@ class StatusController: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
     
-    //MARK:- Outlet Mwethod
+    //MARK:- Outlet Method
     @IBAction func handleBtnCancel(_ sender: Any) {
         self.tblStatus.tableHeaderView = nil
     }
@@ -116,7 +116,6 @@ class StatusController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     //MARK:- Custom Method
-    
     func privacy() {
         
     }
