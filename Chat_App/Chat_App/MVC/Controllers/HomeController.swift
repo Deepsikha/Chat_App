@@ -19,9 +19,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         connect()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         
         self.title = "Chat"
@@ -46,19 +43,11 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         let tabFive = SettingsController()
         tabFive.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 5)
         self.viewControllers = [tabOne,tabTwo,tabThree,tabFour,tabFive]
-        
-        
-        
+       
         self.selectedViewController = tabFour
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
-    
-    //MARK: Tabbar Methods
-    
+    //MARK: Tabbar Delegate
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         switch viewController {
         case is ChatListController:
@@ -105,10 +94,9 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         }
     }
     
-    //MARK: Socket Methods
-    
+    //MARK: Custom Methods
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://pqjsmcyqac.localtunnel.me"))
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://wfciqaakpy.localtunnel.me"))
         AppDelegate.websocket.delegate = self
         AppDelegate.websocket.open()
     }

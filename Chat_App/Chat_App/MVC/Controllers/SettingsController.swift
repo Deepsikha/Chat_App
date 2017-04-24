@@ -20,6 +20,7 @@ class SettingsController: UIViewController , UITableViewDelegate , UITableViewDa
         tblvw.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
     }
 
+    //MARK:- Table Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
@@ -59,10 +60,5 @@ class SettingsController: UIViewController , UITableViewDelegate , UITableViewDa
             return 0
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }  
 
 }

@@ -117,7 +117,6 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // MARK: - Custom Method
-    
     func tapHandler() {
         self.searchContact.resignFirstResponder()
     }
