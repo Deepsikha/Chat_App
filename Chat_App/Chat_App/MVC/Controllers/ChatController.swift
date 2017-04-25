@@ -15,6 +15,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var chatboxTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var sendmsg: UIButton!
+    @IBOutlet weak var scrlbtn: UIButton!
     @IBOutlet weak var sendaudio: UIButton!
     @IBOutlet weak var addphto: UIButton!
     @IBOutlet weak var addmedia: UIButton!
@@ -26,15 +27,39 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var cnctnm: UILabel!
     @IBOutlet weak var lstseen: UILabel!
     
+    static var type : String!
     var i = 4
     var frame : CGRect!
     static var reciever_id : Int!
     var frame1 : CGRect!
     var messages : NSMutableArray!
     var chatboxConstant : CGFloat!
+    private var lastContentOffset: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(ChatController.type == "single") {
+            self.lstseen.text = "10:30"
+            let btn1 = UIButton(type: .custom)
+            let origImage = UIImage(named: "Calls");
+            let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+            btn1.setImage(tintedImage, for: .normal)
+            btn1.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
+            btn1.frame = CGRect(x: UIScreen.main.bounds.origin.x - 50, y: 20, width: 30, height: 30)
+            btn1.addTarget(self, action: #selector(hideKeyBoard(notification:)), for: .touchUpInside)
+            let item1 = UIBarButtonItem(customView: btn1)
+            let btn2 = UIButton(type: .custom)
+            let origImage1 = UIImage(named: "videocall")
+            let tintedImage1 = origImage1?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+            btn2.setImage(tintedImage1, for: .normal)
+            btn2.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
+            btn2.frame = CGRect(x: UIScreen.main.bounds.origin.x - 35, y: 20, width: 30, height: 30)
+            btn2.addTarget(self, action: #selector(hideKeyBoard(notification:)), for: .touchUpInside)
+            let item2 = UIBarButtonItem(customView: btn2)
+            self.navigationItem.setRightBarButtonItems([item1,item2], animated: true)
+        } else if(ChatController.type == "Group") {
+            self.lstseen.text = "A,B,C,D"
+        }
         chatbox.delegate = self
         AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         tblvw.delegate = self
@@ -46,24 +71,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
         
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
-        self.navigationController?.isNavigationBarHidden = false
-        let btn1 = UIButton(type: .custom)
-        let origImage = UIImage(named: "Calls");
-        let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        btn1.setImage(tintedImage, for: .normal)
-        btn1.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
-        btn1.frame = CGRect(x: UIScreen.main.bounds.origin.x - 50, y: 20, width: 30, height: 30)
-        btn1.addTarget(self, action: #selector(hideKeyBoard(notification:)), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: btn1)
-        let btn2 = UIButton(type: .custom)
-        let origImage1 = UIImage(named: "videocall")
-        let tintedImage1 = origImage1?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        btn2.setImage(tintedImage1, for: .normal)
-        btn2.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
-        btn2.frame = CGRect(x: UIScreen.main.bounds.origin.x - 35, y: 20, width: 30, height: 30)
-        btn2.addTarget(self, action: #selector(hideKeyBoard(notification:)), for: .touchUpInside)
-        let item2 = UIBarButtonItem(customView: btn2)
-        self.navigationItem.setRightBarButtonItems([item1,item2], animated: true)
+        
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
         self.navigationItem.titleView = navvw
         self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
@@ -95,6 +103,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         frame1 = vw.frame
         chatboxConstant = chatboxTrailingConstraint.constant
         self.sendmsg.isHidden = true
+        self.scrlbtn.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -131,7 +140,16 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return messages.count
     }
     
-    //MARK:- WebSocket Delegate
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (self.lastContentOffset < scrollView.contentOffset.y) {
+           self.scrlbtn.isHidden = false
+        } else if (self.lastContentOffset > scrollView.contentOffset.y){
+            self.scrlbtn.isHidden = true
+        }
+        self.lastContentOffset = scrollView.contentOffset.y
+    }
+   
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         print(reason)
     }
@@ -191,6 +209,15 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- Outlet Method
+    
+    @IBAction func scrollbtm(_ sender: Any) {
+        let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+        let indexPath = IndexPath(row: lastRow, section: 0);
+        self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+        self.scrlbtn.isHidden = true
+    }
+    
+    
     @IBAction func didpressaccessory(_ sender: Any) {
         let sheet = UIAlertController(title: "Media messages", message: nil, preferredStyle: .actionSheet)
         
@@ -244,15 +271,21 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } catch {
             print(error.localizedDescription)
         }
-        self.tblvw.reloadData()
         let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
         let indexPath = IndexPath(row: lastRow, section: 0);
         self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
         self.chatbox.text = ""
+        self.tblvw.reloadData()
     }
     
     
     //MARK:- Custom Method
+    
+    func menu() {
+        
+    
+    }
+    
     func addphoto() {
         
     }
@@ -279,14 +312,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        UIView.animate(withDuration: 0.8) {
             self.addphto.isHidden = true
             self.sendaudio.isHidden = true
             self.sendmsg.isHidden = false
             let constant = UIScreen.main.bounds.width * 48 / 375;
             self.chatboxTrailingConstraint.constant = -constant
-        }
-        self.vw.layoutIfNeeded()
+            self.vw.layoutIfNeeded()
     }
     
     func showKeyboard(notification: Notification) {

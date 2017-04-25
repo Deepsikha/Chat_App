@@ -57,8 +57,8 @@
 	<string>asdsdfsdfd</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<key>NSContactsUsageDescription</key>
+	<string>sadsads</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
