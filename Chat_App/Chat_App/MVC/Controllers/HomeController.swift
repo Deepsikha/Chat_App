@@ -33,7 +33,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         editbtn.tag = 0
         
         self.navigationItem.leftBarButtonItem = editbtn
-        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(ChatListController.edit))
+        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(ChatListController.edt))
         button1.accessibilityHint = tab4.nibName
         button1.tag = 1
         self.navigationItem.titleView = nil
@@ -77,8 +77,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             button1.tag = 1
             self.navigationItem.titleView = nil
             self.navigationItem.rightBarButtonItem = button1
-            let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(ChatListController.edt(_:)))
-            self.navigationItem.leftBarButtonItem = editbtn
+            
             break
         case is StatusController:
             temp.accessibilityHint = "Status"
@@ -199,11 +198,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     }
     
     //MARK: Custom Methods
-    func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://wfciqaakpy.localtunnel.me"))
-        AppDelegate.websocket.delegate = self
-        AppDelegate.websocket.open()
-    }
     
     func sendInitMsg(){
         do {

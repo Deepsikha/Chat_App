@@ -38,6 +38,10 @@ class ChatArchCell: UITableViewCell, UISearchBarDelegate {
         }
     }
     
+    @IBAction func newgroup(_ sender: Any) {
+        NotificationCenter.default.post(name: (name: NSNotification.Name(rawValue : "push")) as! NSNotification.Name, object: nil)
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
