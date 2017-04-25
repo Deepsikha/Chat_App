@@ -64,6 +64,9 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQt-WY-qFs">
                         <rect key="frame" x="235" y="104" width="77" height="30"/>
                         <state key="normal" title="New Group"/>
+                        <connections>
+                            <action selector="newgroup:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wbX-bU-GW4"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -85,7 +88,7 @@
                 <outlet property="archcount" destination="0Fr-F5-QTK" id="MAw-D7-IBj"/>
                 <outlet property="archvw" destination="1cw-HR-dUl" id="xkr-LV-KdT"/>
                 <outlet property="brdcstlist" destination="Xsi-W9-Lqv" id="ZTN-mr-lK6"/>
-                <outlet property="newgrp" destination="vQt-WY-qFs" id="AEp-EX-3BR"/>
+                <outlet property="newgrp" destination="vQt-WY-qFs" id="Qac-Nm-gMF"/>
                 <outlet property="srchbar" destination="iIJ-VA-Bu8" id="ruV-jR-Zfr"/>
             </connections>
             <point key="canvasLocation" x="25" y="101.5"/>

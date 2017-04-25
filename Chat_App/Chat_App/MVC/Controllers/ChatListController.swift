@@ -27,6 +27,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         tblvw.register(UINib(nibName: "ChatArchCell", bundle: nil), forCellReuseIdentifier: "ChatArchCell")
         tblvw.register(UINib(nibName: "ChatListCell", bundle: nil), forCellReuseIdentifier: "ChatListCell")
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue: "load"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(push), name: NSNotification.Name(rawValue: "push"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +95,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
         _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
         ChatController.reciever_id = ((contact.0) as AnyObject).value(forKey: "user_id") as! Int
+        ChatController.type = "Group"
         self.navigationController?.pushViewController(ChatController(), animated: true)
     }
     
@@ -113,12 +115,15 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         tblvw.reloadData()
     }
     
-    func edit() {
-        let nav = ChatListController()
+    func edt(_ sender: AnyObject) {
+        _ = ChatListController()
         self.navigationController?.pushViewController(ChatController(), animated: true)
-        print("ABCD")
+        
     }
     
+    func push() {
+        self.navigationController?.pushViewController(NewGroupController(), animated: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         

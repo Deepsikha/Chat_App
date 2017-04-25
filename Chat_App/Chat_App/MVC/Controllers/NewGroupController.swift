@@ -1,24 +1,21 @@
 //
-//  CameraController.swift
+//  NewGroupController.swift
 //  Chat_App
 //
-//  Created by Developer88 on 4/17/17.
+//  Created by Developer88 on 4/25/17.
 //  Copyright © 2017 LaNet. All rights reserved.
 //
 
 import UIKit
-import Contacts
 
+class NewGroupController: UIViewController {
 
-class CameraController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
     }
 
-
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -26,4 +23,5 @@ class CameraController: UIViewController {
     
 
     
+
 }

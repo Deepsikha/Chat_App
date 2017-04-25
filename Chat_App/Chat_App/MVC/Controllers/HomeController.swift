@@ -24,16 +24,28 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         self.delegate = self
         
         self.title = "Chat"
+
         let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit(_:)))
         editbtn.accessibilityHint = tab4.nibName
         editbtn.tag = 0
         
         self.navigationItem.leftBarButtonItem = editbtn
         let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(edit(_:)))
+        
         button1.accessibilityHint = tab4.nibName
         button1.tag = 1
         self.navigationItem.titleView = nil
-        self.navigationItem.rightBarButtonItem = button1
+        self.navigationItem.rightBarButtonItem = button1     
+        let tabOne = StatusController()
+        tabOne.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
+        
+        let tabTwo = CallsController()
+        tabTwo.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "Calls"), tag: 2)
+        
+        let tabThree = CameraController()
+        tabThree.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(named: "Camera"), tag: 3)
+        
+
         tab1.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
         
         tab2.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "Calls"), tag: 2)
@@ -64,23 +76,25 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             editbtn.accessibilityHint = viewController.nibName
             editbtn.tag = 0
             self.navigationItem.leftBarButtonItem = editbtn
-            
             let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(edit))
             button1.accessibilityHint = viewController.nibName
             button1.tag = 1
             self.navigationItem.titleView = nil
             self.navigationItem.rightBarButtonItem = button1
+            
             break
         case is StatusController:
             temp.accessibilityHint = "Status"
             self.title = "Status"
             self.navigationItem.titleView = nil
+
             let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(edit(_:)))
             button1.accessibilityHint = viewController.nibName
             button1.tag = 0
             let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: self, action: #selector(edit(_:)))
             button2.accessibilityHint = viewController.nibName
             button2.tag = 1
+
             
             self.navigationItem.rightBarButtonItem = button1
             self.navigationItem.leftBarButtonItem = button2
@@ -116,7 +130,15 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         }
     }
     
-    //Mark:- Websocket Delegate
+
+    //MARK: Socket Methods
+    
+    func connect() {
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://pqjsmcyqac.localtunnel.me"))
+        AppDelegate.websocket.delegate = self
+        AppDelegate.websocket.open()
+    }
+    
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         print(reason)
     }
@@ -180,11 +202,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     }
     
     //MARK: Custom Methods
-    func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://wfciqaakpy.localtunnel.me"))
-        AppDelegate.websocket.delegate = self
-        AppDelegate.websocket.open()
-    }
     
     func sendInitMsg(){
         do {
