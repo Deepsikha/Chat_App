@@ -10,8 +10,14 @@ import UIKit
 
 class CallCell: UITableViewCell {
 
+    @IBOutlet var imgCall: UIImageView!
+    @IBOutlet var btnCall: UIButton!
+    @IBOutlet var lblCallPerson: UILabel!
+    @IBOutlet var lblLastCallStatus: UILabel!
+    @IBOutlet var imgCalltype: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 
