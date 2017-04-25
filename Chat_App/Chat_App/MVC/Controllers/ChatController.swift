@@ -78,7 +78,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
-        self.cnctnm.text = String(describing :ChatController.reciever_id!)
+        self.cnctnm.text = "Group1"
         
     }
     
@@ -262,10 +262,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             var dic:[String:Any]!
             dic = ["senderId":Int(AppDelegate.senderId)!,"message": chatbox.text! ,"recieverId":ChatController.reciever_id,"type":"message"]
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
-            if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+            if(AppDelegate.websocket.readyState == SRReadyState.OPEN && self.chatbox.text != "") {
                 AppDelegate.websocket.send(NSData(data: jsonData))
                 _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',1")
-            } else {
+            } else if(self.chatbox.text != "") {
                 _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',0")
             }
         } catch {
