@@ -23,7 +23,6 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         countmsg()
         tblvw.delegate = self
         tblvw.dataSource = self
-        
         self.navigationController?.isToolbarHidden = true
         tblvw.register(UINib(nibName: "ChatArchCell", bundle: nil), forCellReuseIdentifier: "ChatArchCell")
         tblvw.register(UINib(nibName: "ChatListCell", bundle: nil), forCellReuseIdentifier: "ChatListCell")
@@ -82,6 +81,13 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             }
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0 {
+            return false
+        }
+        return true
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
