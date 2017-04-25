@@ -20,25 +20,20 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     var temp = UIViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.delegate = self
-        connect()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
+        
         self.title = "Chat"
         let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit(_:)))
         editbtn.accessibilityHint = tab4.nibName
         editbtn.tag = 0
         
         self.navigationItem.leftBarButtonItem = editbtn
-        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(ChatListController.edit))
+        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(edit(_:)))
         button1.accessibilityHint = tab4.nibName
         button1.tag = 1
         self.navigationItem.titleView = nil
         self.navigationItem.rightBarButtonItem = button1
-        
-
         tab1.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
         
         tab2.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "Calls"), tag: 2)
@@ -50,8 +45,14 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         
         tab5.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 5)
         self.viewControllers = [tab1,tab2,tab3,tab4,tab5]
-       
         self.selectedViewController = tab4
+
+        connect()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false       
+       
     }
     
     //MARK: Tabbar Delegate
@@ -227,7 +228,9 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             let vc = NewChatVC()
             vc.caller = "CallsController"
             self.navigationController?.pushViewController(vc, animated: true)
+             //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
             break
+            
         case "StatusController":
             self.selectedViewController = tab1
             print("The letter A")
