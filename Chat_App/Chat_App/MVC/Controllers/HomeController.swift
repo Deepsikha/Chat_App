@@ -11,8 +11,13 @@ import SocketRocket
 
 class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSocketDelegate {
     
-    let tabFour = ChatListController()
     
+    var tab1 = StatusController()
+    var tab2 = CallsController()
+    var tab3 = CameraController()
+    var tab4 = ChatListController()
+    var tab5 = SettingsController()
+    var temp = UIViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -20,31 +25,33 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        self.navigationController?.isNavigationBarHidden = false
         self.title = "Chat"
+        let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit(_:)))
+        editbtn.accessibilityHint = tab4.nibName
+        editbtn.tag = 0
+        
+        self.navigationItem.leftBarButtonItem = editbtn
         let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(ChatListController.edit))
+        button1.accessibilityHint = tab4.nibName
+        button1.tag = 1
         self.navigationItem.titleView = nil
         self.navigationItem.rightBarButtonItem = button1
-        let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(ChatListController.edit))
-        self.navigationItem.leftBarButtonItem = editbtn
         
-        let tabOne = StatusController()
-        tabOne.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
+
+        tab1.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
         
-        let tabTwo = CallsController()
-        tabTwo.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "Calls"), tag: 2)
+        tab2.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "Calls"), tag: 2)
         
-        let tabThree = CameraController()
-        tabThree.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(named: "Camera"), tag: 3)
+        tab3.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(named: "Camera"), tag: 3)
         
         
-        tabFour.tabBarItem = UITabBarItem(title: "Chats", image: UIImage(named: "chaticon"), tag: 4)
+        tab4.tabBarItem = UITabBarItem(title: "Chats", image: UIImage(named: "chaticon"), tag: 4)
         
-        let tabFive = SettingsController()
-        tabFive.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 5)
-        self.viewControllers = [tabOne,tabTwo,tabThree,tabFour,tabFive]
+        tab5.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 5)
+        self.viewControllers = [tab1,tab2,tab3,tab4,tab5]
        
-        self.selectedViewController = tabFour
+        self.selectedViewController = tab4
     }
     
     //MARK: Tabbar Delegate
@@ -52,24 +59,37 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         switch viewController {
         case is ChatListController:
             self.title = "Chat"
-            let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: tabFour , action: #selector(tabFour.edit))
+            let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self , action: #selector(edit(_:)))
+            editbtn.accessibilityHint = viewController.nibName
+            editbtn.tag = 0
             self.navigationItem.leftBarButtonItem = editbtn
-            let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: viewController, action: #selector(ChatListController.edit))
+            
+            let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(edit))
+            button1.accessibilityHint = viewController.nibName
+            button1.tag = 1
             self.navigationItem.titleView = nil
             self.navigationItem.rightBarButtonItem = button1
             break
         case is StatusController:
+            temp.accessibilityHint = "Status"
             self.title = "Status"
             self.navigationItem.titleView = nil
-            let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(edit))
-            let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: self, action: #selector(edit))
+            let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(edit(_:)))
+            button1.accessibilityHint = viewController.nibName
+            button1.tag = 0
+            let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: self, action: #selector(edit(_:)))
+            button2.accessibilityHint = viewController.nibName
+            button2.tag = 1
             
             self.navigationItem.rightBarButtonItem = button1
             self.navigationItem.leftBarButtonItem = button2
             break
         case is CallsController:
+            temp.accessibilityHint = "Calls"
             self.title = "Calls"
-            let button1 = UIBarButtonItem(image: UIImage(named: "Calls"), style: .plain, target: self, action: #selector(ChatListController.edit))
+            let button1 = UIBarButtonItem(image: UIImage(named: "Calls"), style: .plain, target: self, action: #selector(edit(_:)))
+            button1.accessibilityHint = viewController.nibName
+            button1.tag = 0
             self.navigationItem.rightBarButtonItem = button1
             let segment: UISegmentedControl = UISegmentedControl(items: ["All", "Missed"])
         
@@ -188,8 +208,33 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         return nil
     }
     
-    func edit() {
-        self.navigationController?.pushViewController(ChatListController(), animated: true)
+    func edit(_ sender: AnyObject) {
+        switch sender.accessibilityHint!! {
+        case "ChatListController":
+            self.selectedViewController = tab4
+            if sender.tag == 0 {
+                print("edit")
+                tab4.tblvw.isEditing = true
+            } else {
+                let vc = NewChatVC()
+                vc.caller = "ChatListController"
+                self.navigationController?.pushViewController(vc, animated: true)
+                print("right")
+            }
+            break
+        case "CallsController":
+            self.selectedViewController = tab2
+            let vc = NewChatVC()
+            vc.caller = "CallsController"
+            self.navigationController?.pushViewController(vc, animated: true)
+            break
+        case "StatusController":
+            self.selectedViewController = tab1
+            print("The letter A")
+            break
+        default:
+            break
+        }
     }
     
 }

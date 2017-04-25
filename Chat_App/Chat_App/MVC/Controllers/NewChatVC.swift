@@ -17,6 +17,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var btnCancel: UIBarButtonItem!
     @IBOutlet var tblHeader: UITableView!
     
+    var caller: String!
     let store = CNContactStore()
     var contactList: [String] = Array()
     var contactListGrouped = NSDictionary() as! [String : [String]]
@@ -68,6 +69,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if caller == "ChatListController"{
         if tableView == tblHeader {
             let cell:NewChatHeaderCell = tableView.dequeueReusableCell(withIdentifier: "NewChatHeaderCell", for: indexPath) as! NewChatHeaderCell
             if indexPath.row == 0 {
@@ -86,6 +88,15 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
         cell.lblStatus.text = ""
         return cell
+        }
+        } else {
+            let cell:NewChatCell = (tableView.dequeueReusableCell(withIdentifier: "NewChatCell", for: indexPath) as? NewChatCell)!
+            
+            let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
+            let contacts = self.contactListGrouped[sectionTitle]
+            cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
+            cell.lblStatus.text = ""
+            return cell
         }
     }
     
@@ -114,6 +125,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     //MARK:- Outlet Method
     @IBAction func handleBtncancel(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Custom Method
