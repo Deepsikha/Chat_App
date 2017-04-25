@@ -30,11 +30,17 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tblHeader.delegate = self
         tblHeader.dataSource = self
         
-        self.title = "New Chat"
+        if caller == "ChatListController" {
+            self.title = "New Chat"
+        } else {
+            self.title = "New Call"
+ 
+        }
         self.navigationController?.isNavigationBarHidden = true
         
         self.tblNewContact.register(UINib(nibName: "NewChatCell", bundle: nil), forCellReuseIdentifier: "NewChatCell")
         self.tblHeader.register(UINib(nibName: "NewChatHeaderCell", bundle: nil), forCellReuseIdentifier: "NewChatHeaderCell")
+        self.tblNewContact.register(UINib(nibName: "CallCell", bundle: nil), forCellReuseIdentifier: "CallCell")
         //taphandle
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
@@ -49,12 +55,25 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.getContact()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.tblNewContact.register(UINib(nibName: "NewChatCell", bundle: nil), forCellReuseIdentifier: "NewChatCell")
+        self.tblHeader.register(UINib(nibName: "NewChatHeaderCell", bundle: nil), forCellReuseIdentifier: "NewChatHeaderCell")
+        self.tblNewContact.register(UINib(nibName: "CallCell", bundle: nil), forCellReuseIdentifier: "CallCell")
+    }
     // MARK: - Delegate Method
     func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == tblHeader {
-            return 1
+        if !(self.caller.isEmpty) {
+            if self.caller! == "ChatListController" {
+                if tableView == tblHeader {
+                    return 1
+                } else {
+                    return self.contactListGrouped.count
+                }
+            } else {
+                return self.contactListGrouped.count
+            }
         } else {
-            return self.contactListGrouped.count
+            return 0
         }
     }
     
@@ -69,33 +88,38 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if caller == "ChatListController"{
-        if tableView == tblHeader {
-            let cell:NewChatHeaderCell = tableView.dequeueReusableCell(withIdentifier: "NewChatHeaderCell", for: indexPath) as! NewChatHeaderCell
-            if indexPath.row == 0 {
-                cell.img.image = UIImage(named: "group")
-                cell.btn.setTitle("New Group", for: UIControlState.normal)
+        if caller == "ChatListController" {
+            if tableView == tblHeader {
+                let cell:NewChatHeaderCell = tableView.dequeueReusableCell(withIdentifier: "NewChatHeaderCell", for: indexPath) as! NewChatHeaderCell
+                if indexPath.row == 0 {
+                    cell.img.image = UIImage(named: "group")
+                    cell.btn.setTitle("New Group", for: UIControlState.normal)
+                } else {
+                    cell.img.image = UIImage(named: "contact")
+                    cell.btn.setTitle("New Contact", for: UIControlState.normal)
+                }
+                return cell
             } else {
-                cell.img.image = UIImage(named: "contact")
-                cell.btn.setTitle("New Contact", for: UIControlState.normal)
+                let cell:NewChatCell = (tableView.dequeueReusableCell(withIdentifier: "NewChatCell", for: indexPath) as? NewChatCell)!
+                
+                let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
+                let contacts = self.contactListGrouped[sectionTitle]
+                cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
+                cell.lblStatus.text = ""
+                return cell
             }
-            return cell
         } else {
-        let cell:NewChatCell = (tableView.dequeueReusableCell(withIdentifier: "NewChatCell", for: indexPath) as? NewChatCell)!
-        
-        let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
-        let contacts = self.contactListGrouped[sectionTitle]
-        cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
-        cell.lblStatus.text = ""
-        return cell
-        }
-        } else {
-            let cell:NewChatCell = (tableView.dequeueReusableCell(withIdentifier: "NewChatCell", for: indexPath) as? NewChatCell)!
             
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CallCell", for: indexPath) as! CallCell
+            self.tblNewContact.tableHeaderView = nil
             let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
             let contacts = self.contactListGrouped[sectionTitle]
-            cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
-            cell.lblStatus.text = ""
+            cell.lblCallPerson?.text = contacts![(indexPath as NSIndexPath).row]
+            cell.lblLastCallStatus.text = ""
+            
+            cell.imgCalltype.image = UIImage(named: "incomingcall")
+            cell.imgCalltype.image = cell.imgCalltype.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+            cell.imgCalltype.tintColor = UIColor.green
             return cell
         }
     }
@@ -148,9 +172,11 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             self.contactListGrouped[firstCharString]?.append(currentRecord)
         }
+
     }
     
     func getContact() {
+        
         store.requestAccess(for: .contacts, completionHandler: {
             granted, error in
             
@@ -169,15 +195,14 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 try self.store.enumerateContacts(with: request){
                     (contact, cursor) -> Void in
                     cnContacts.append(contact)
-                    print(cnContacts)
                 }
             } catch let error {
                 NSLog("Fetch contact error: \(error)")
             }
             
-            NSLog(">>>> Contact list:")
             for contact in cnContacts {
                 self.contactList.append(contact.givenName)
+                
                 for ContctNumVar: CNLabeledValue in contact.phoneNumbers
                 {
                     let FulMobNumVar  = ContctNumVar.value
@@ -187,9 +212,8 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             self.contactList = self.contactList.sorted()
             self.splitDataInToSection()
-            self.tblNewContact.reloadData()
         })
         
-
+        
     }
 }
