@@ -24,6 +24,7 @@ class welcome: UIViewController {
     override func viewDidLayoutSubviews() {
         self.imgWelcome.layer.cornerRadius = imgWelcome.frame.width / 2
     }
+    
     //Outlet Method
     @IBAction func btnAc(_ sender: Any) {
         let nav = Register()

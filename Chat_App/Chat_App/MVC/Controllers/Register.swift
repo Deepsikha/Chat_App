@@ -18,6 +18,7 @@ class Register: UIViewController,UITextFieldDelegate {
     @IBOutlet var btnCountry: UIButton!
     @IBOutlet var indicator: UIActivityIndicatorView!
     @IBOutlet var lblConnect: UILabel!
+    
     var transperentView = UIView()
     var cView: UIView!
     static var cName:String!
@@ -151,7 +152,6 @@ class Register: UIViewController,UITextFieldDelegate {
         })
         self.present(alert, animated: true, completion: nil)
     }
-    
     
     @IBAction func handlebtnCountry(_ sender: Any) {
         let nav = CountryList()

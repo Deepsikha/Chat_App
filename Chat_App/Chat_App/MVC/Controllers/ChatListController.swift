@@ -11,6 +11,7 @@ import UIKit
 class ChatListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tblvw: UITableView!
+    
     static var sender = 0
     var contactNumber : NSMutableArray!
     var last = [String]()
@@ -22,6 +23,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         countmsg()
         tblvw.delegate = self
         tblvw.dataSource = self
+        self.navigationController?.isToolbarHidden = true
         tblvw.register(UINib(nibName: "ChatArchCell", bundle: nil), forCellReuseIdentifier: "ChatArchCell")
         tblvw.register(UINib(nibName: "ChatListCell", bundle: nil), forCellReuseIdentifier: "ChatListCell")
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue: "load"), object: nil)
@@ -31,23 +33,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         countmsg()
     }
     
-    func countmsg() {
-        contactNumber = ModelManager.getInstance().getAllData("user")
-        msgCount.removeAll()
-        for i in contactNumber {
-            let a = i as AnyObject
-            let count = ModelManager.getInstance().getCount("chat", "sender_id = \(a.value(forKey: "user_id") as! Int) AND status = \'false\'", "status")
-            msgCount.append(Int(count["COUNT(status)"] as! String)!)
-            
-        }
-        contactNumber = zip(contactNumber, msgCount).sorted(by: { (a, b) -> Bool in
-            return a.1 > b.1
-        }) as! NSMutableArray
-        tblvw.reloadData()
-    }
-    
-    //MARK: TableView Methods
-    
+    //MARK: Table Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contactNumber.count + 1
         
@@ -97,6 +83,13 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0 {
+            return false
+        }
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
         _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
@@ -105,7 +98,21 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.pushViewController(ChatController(), animated: true)
     }
     
-    //MARK: Other methods
+    //MARK: Custom methods
+    func countmsg() {
+        contactNumber = ModelManager.getInstance().getAllData("user")
+        msgCount.removeAll()
+        for i in contactNumber {
+            let a = i as AnyObject
+            let count = ModelManager.getInstance().getCount("chat", "sender_id = \(a.value(forKey: "user_id") as! Int) AND status = \'false\'", "status")
+            msgCount.append(Int(count["COUNT(status)"] as! String)!)
+            
+        }
+        contactNumber = zip(contactNumber, msgCount).sorted(by: { (a, b) -> Bool in
+            return a.1 > b.1
+        }) as! NSMutableArray
+        tblvw.reloadData()
+    }
     
 //    @objc func edit() { // body method here
 //        print("ABCD")

@@ -10,8 +10,8 @@ import UIKit
 
 class CountryList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
     @IBOutlet var tblCountry: UITableView!
+    
     fileprivate var countries: [Country] = []
     
     override func viewDidLoad() {
@@ -35,6 +35,7 @@ class CountryList: UIViewController, UITableViewDelegate, UITableViewDataSource 
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:- Table Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

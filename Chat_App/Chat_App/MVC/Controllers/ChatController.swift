@@ -9,6 +9,7 @@
 import UIKit
 import QuartzCore
 import SocketRocket
+import Crashlytics
 
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, SRWebSocketDelegate, UITextViewDelegate {
     
@@ -63,10 +64,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         tblvw.delegate = self
         tblvw.dataSource = self
+        
         self.tblvw.estimatedRowHeight = 100
         self.tblvw.rowHeight = UITableViewAutomaticDimension
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
+        
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
         
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
@@ -76,6 +79,24 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         self.cnctnm.text = String(describing :ChatController.reciever_id!)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //------------------------------------------------------------------
+        //Fabric
+        //ContentView
+        Answers.logContentView(withName: "Content event",contentType: "Testing", contentId: "1",customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
+        
+        //purchase
+        Answers.logPurchase(withPrice: 1000, currency: "rupee", success: true, itemName: "tutorial", itemType: "study", itemId: "12", customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
+        
+        //AddToCart
+        Answers.logAddToCart(withPrice: 1000, currency: "rupee", itemName: "tutorial", itemType: "study", itemId: "12", customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
+        
+        //CheckOut
+        Answers.logStartCheckout(withPrice: 1000, currency: "rupee", itemCount: 3, customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,7 +116,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.hideKeyBoard(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-
+        
     }
     
     //MARK:- Table Delegate
@@ -119,6 +140,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return messages.count
     }
     
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (self.lastContentOffset < scrollView.contentOffset.y) {
            self.scrlbtn.isHidden = false
@@ -127,8 +149,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         self.lastContentOffset = scrollView.contentOffset.y
     }
-    
-    //MARK:- WebSocket Method
+   
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         print(reason)
     }
@@ -281,13 +302,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tapHandler() {
-        self.chatbox.resignFirstResponder()
+        //        self.chatbox.resignFirstResponder()
         UIView.animate(withDuration: 0.8) {
             self.addphto.isHidden = false
             self.sendaudio.isHidden = false
             self.sendmsg.isHidden = true
             self.chatboxTrailingConstraint.constant = self.chatboxConstant
-            }
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -296,7 +317,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.sendmsg.isHidden = false
             let constant = UIScreen.main.bounds.width * 48 / 375;
             self.chatboxTrailingConstraint.constant = -constant
-        self.vw.layoutIfNeeded()
+            self.vw.layoutIfNeeded()
     }
     
     func showKeyboard(notification: Notification) {
