@@ -101,15 +101,20 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
         _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
         ChatController.reciever_id = ((contact.0) as AnyObject).value(forKey: "user_id") as! Int
+        ChatController.type = "Group"
         self.navigationController?.pushViewController(ChatController(), animated: true)
     }
     
     //MARK: Other methods
     
-    func edit() {
+//    @objc func edit() { // body method here
+//        print("ABCD")
+//    }
+    
+    func edt(_ sender: AnyObject) {
         let nav = ChatListController()
         self.navigationController?.pushViewController(ChatController(), animated: true)
-        print("ABCD")
+        
     }
     
     override func didReceiveMemoryWarning() {

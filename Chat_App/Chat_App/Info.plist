@@ -24,6 +24,8 @@
 	<string>LaunchScreen</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
+	<key>NSContactsUsageDescription</key>
+	<string>sadsads</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

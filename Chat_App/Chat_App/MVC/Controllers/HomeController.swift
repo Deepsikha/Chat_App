@@ -25,10 +25,10 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     override func viewWillAppear(_ animated: Bool) {
         
         self.title = "Chat"
-        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(ChatListController.edit))
+        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(ChatListController.edt(_:)))
         self.navigationItem.titleView = nil
         self.navigationItem.rightBarButtonItem = button1
-        let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(ChatListController.edit))
+        let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(ChatListController.edt(_:)))
         self.navigationItem.leftBarButtonItem = editbtn
         
         let tabOne = StatusController()
@@ -63,24 +63,24 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         switch viewController {
         case is ChatListController:
             self.title = "Chat"
-            let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: tabFour , action: #selector(tabFour.edit))
-            self.navigationItem.leftBarButtonItem = editbtn
-            let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: viewController, action: #selector(ChatListController.edit))
+            let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(ChatListController.edt(_:)))
             self.navigationItem.titleView = nil
             self.navigationItem.rightBarButtonItem = button1
+            let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(ChatListController.edt(_:)))
+            self.navigationItem.leftBarButtonItem = editbtn
             break
         case is StatusController:
             self.title = "Status"
             self.navigationItem.titleView = nil
-            let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(edit))
-            let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: self, action: #selector(edit))
+            let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: ChatListController(), action: #selector(edit))
+            let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: ChatListController(), action: #selector(edit))
             
             self.navigationItem.rightBarButtonItem = button1
             self.navigationItem.leftBarButtonItem = button2
             break
         case is CallsController:
             self.title = "Calls"
-            let button1 = UIBarButtonItem(image: UIImage(named: "Calls"), style: .plain, target: self, action: #selector(ChatListController.edit))
+            let button1 = UIBarButtonItem(image: UIImage(named: "Calls"), style: .plain, target: self, action: #selector(edit))
             self.navigationItem.rightBarButtonItem = button1
             let segment: UISegmentedControl = UISegmentedControl(items: ["All", "Missed"])
             segment.sizeToFit()
@@ -108,7 +108,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     //MARK: Socket Methods
     
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://cccurklrng.localtunnel.me"))
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://pqjsmcyqac.localtunnel.me"))
         AppDelegate.websocket.delegate = self
         AppDelegate.websocket.open()
     }

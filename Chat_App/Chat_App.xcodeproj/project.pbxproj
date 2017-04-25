@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		39E71CF46E44F569FE1577CF /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */; };
+		5C1179841EAF173B004BBF8E /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1179821EAF173B004BBF8E /* GroupCell.swift */; };
+		5C1179851EAF173B004BBF8E /* GroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C1179831EAF173B004BBF8E /* GroupCell.xib */; };
+		5C11798E1EAF1A60004BBF8E /* Down@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C11798C1EAF1A60004BBF8E /* Down@1x.png */; };
+		5C11798F1EAF1A60004BBF8E /* Down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C11798D1EAF1A60004BBF8E /* Down@2x.png */; };
+		5C1179911EAF1AEC004BBF8E /* Down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1179901EAF1AEC004BBF8E /* Down@3x.png */; };
+		5C11799B1EAF495B004BBF8E /* menu@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1179981EAF495B004BBF8E /* menu@1x.png */; };
+		5C11799C1EAF495B004BBF8E /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1179991EAF495B004BBF8E /* menu@2x.png */; };
+		5C11799D1EAF495B004BBF8E /* menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C11799A1EAF495B004BBF8E /* menu@3x.png */; };
 		5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80511EA5EFE500B88F3F /* arrright.png */; };
 		5CCE805C1EA5FBF900B88F3F /* Account.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80541EA5FBF900B88F3F /* Account.png */; };
 		5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80551EA5FBF900B88F3F /* Chat.png */; };
@@ -131,6 +139,14 @@
 		0DD9839A1DC8F4B5621C6EFB /* Pods-Chat_AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		143499D97B7EC2C5C2D8BAAE /* Pods-Chat_AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppTests/Pods-Chat_AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1C6B22A85E7A16C34497F1A5 /* Pods-Chat_AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5C1179821EAF173B004BBF8E /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
+		5C1179831EAF173B004BBF8E /* GroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCell.xib; sourceTree = "<group>"; };
+		5C11798C1EAF1A60004BBF8E /* Down@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Down@1x.png"; sourceTree = "<group>"; };
+		5C11798D1EAF1A60004BBF8E /* Down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Down@2x.png"; sourceTree = "<group>"; };
+		5C1179901EAF1AEC004BBF8E /* Down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Down@3x.png"; sourceTree = "<group>"; };
+		5C1179981EAF495B004BBF8E /* menu@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@1x.png"; sourceTree = "<group>"; };
+		5C1179991EAF495B004BBF8E /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
+		5C11799A1EAF495B004BBF8E /* menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@3x.png"; sourceTree = "<group>"; };
 		5CCE80511EA5EFE500B88F3F /* arrright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrright.png; sourceTree = "<group>"; };
 		5CCE80531EA5F98100B88F3F /* Chat_App-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chat_App-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CCE80541EA5FBF900B88F3F /* Account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Account.png; sourceTree = "<group>"; };
@@ -289,6 +305,8 @@
 				7D7151E81EA88183006A9D4B /* NewChatCell.xib */,
 				7D7151EF1EA89E3C006A9D4B /* NewChatHeaderCell.swift */,
 				7D7151F01EA89E3C006A9D4B /* NewChatHeaderCell.xib */,
+				5C1179821EAF173B004BBF8E /* GroupCell.swift */,
+				5C1179831EAF173B004BBF8E /* GroupCell.xib */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -429,6 +447,12 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				5C1179981EAF495B004BBF8E /* menu@1x.png */,
+				5C1179991EAF495B004BBF8E /* menu@2x.png */,
+				5C11799A1EAF495B004BBF8E /* menu@3x.png */,
+				5C1179901EAF1AEC004BBF8E /* Down@3x.png */,
+				5C11798C1EAF1A60004BBF8E /* Down@1x.png */,
+				5C11798D1EAF1A60004BBF8E /* Down@2x.png */,
 				7DC797891EAB17CE00EFD39D /* green@1x.png */,
 				7DC7978A1EAB17CE00EFD39D /* green@2x.png */,
 				7DC7978B1EAB17CE00EFD39D /* green@3x.png */,
@@ -643,8 +667,11 @@
 				7DC797A01EAB17CE00EFD39D /* pending@2x.png in Resources */,
 				7D21AD7F1EA9C04C00087864 /* ChatListCell.xib in Resources */,
 				7D0617B91EA78386004CB6B2 /* facebook.png in Resources */,
+				5C11799C1EAF495B004BBF8E /* menu@2x.png in Resources */,
+				5C1179911EAF1AEC004BBF8E /* Down@3x.png in Resources */,
 				7D0617921EA72521004CB6B2 /* CountryList.xib in Resources */,
 				5CCE80601EA5FBF900B88F3F /* Notifications.png in Resources */,
+				5C11798E1EAF1A60004BBF8E /* Down@1x.png in Resources */,
 				5CEF5A8B1EA4AAB500E92BF8 /* ChatController.xib in Resources */,
 				5CEF5A8D1EA4AB9000E92BF8 /* chaticon.png in Resources */,
 				5CEF5AA41EA4B88C00E92BF8 /* SettingsController.xib in Resources */,
@@ -666,11 +693,13 @@
 				7DC7979D1EAB17CE00EFD39D /* green@2x.png in Resources */,
 				7DC797A61EAB17CE00EFD39D /* Send@2x.png in Resources */,
 				7D0617961EA726BF004CB6B2 /* CountryCell.xib in Resources */,
+				5C1179851EAF173B004BBF8E /* GroupCell.xib in Resources */,
 				7D7151ED1EA89CD2006A9D4B /* contact.png in Resources */,
 				7D7151F21EA89E3C006A9D4B /* NewChatHeaderCell.xib in Resources */,
 				7DC797A91EAB17CE00EFD39D /* SendPhoto.png in Resources */,
 				7D21AD7B1EA9C04C00087864 /* SenderCell.xib in Resources */,
 				5CCE805C1EA5FBF900B88F3F /* Account.png in Resources */,
+				5C11798F1EAF1A60004BBF8E /* Down@2x.png in Resources */,
 				5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */,
 				7D21AD811EA9C04C00087864 /* ChatArchCell.xib in Resources */,
 				7D7151E61EA880D2006A9D4B /* NewChatVC.xib in Resources */,
@@ -678,6 +707,7 @@
 				7D0617B71EA772EA004CB6B2 /* SetProfileController.xib in Resources */,
 				5CEF5AAA1EA4B8EA00E92BF8 /* StatusController.xib in Resources */,
 				5CEF5A951EA4B73700E92BF8 /* Calls.png in Resources */,
+				5C11799B1EAF495B004BBF8E /* menu@1x.png in Resources */,
 				7DC797A21EAB17CE00EFD39D /* red@1x.png in Resources */,
 				5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */,
 				7D7151F81EA8D504006A9D4B /* Gradient@1x.png in Resources */,
@@ -696,6 +726,7 @@
 				7DC797871EAB179B00EFD39D /* audiosend.png in Resources */,
 				5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */,
 				7DC797A81EAB17CE00EFD39D /* SendAttachment.png in Resources */,
+				5C11799D1EAF495B004BBF8E /* menu@3x.png in Resources */,
 				7DC797AD1EAB17CE00EFD39D /* yellow@3x.png in Resources */,
 				7DC797A11EAB17CE00EFD39D /* pending@3x.png in Resources */,
 				7D202DB81EA49CDA0018FCAD /* Info.plist in Resources */,
@@ -871,6 +902,7 @@
 				7D202DC01EA4A4410018FCAD /* welcome.swift in Sources */,
 				7D06179E1EA73369004CB6B2 /* Countries.swift in Sources */,
 				7D21AD7C1EA9C04C00087864 /* ReceiverCell.swift in Sources */,
+				5C1179841EAF173B004BBF8E /* GroupCell.swift in Sources */,
 				7D21AD7E1EA9C04C00087864 /* ChatListCell.swift in Sources */,
 				7D202D7F1EA49BEF0018FCAD /* AppDelegate.swift in Sources */,
 				7D06179C1EA73290004CB6B2 /* Util.swift in Sources */,
@@ -1040,7 +1072,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "lanet.Chat-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/itilak/Desktop/Chat_App/Chat_App/Chat_App/Chat_App-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/developer88/Desktop/Chat_App/Chat_App/Chat_App/Chat_App-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1056,7 +1088,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "lanet.Chat-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/itilak/Desktop/Chat_App/Chat_App/Chat_App/Chat_App-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/developer88/Desktop/Chat_App/Chat_App/Chat_App/Chat_App-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

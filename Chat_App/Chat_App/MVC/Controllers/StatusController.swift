@@ -29,7 +29,7 @@ class StatusController: UIViewController, UITableViewDelegate, UITableViewDataSo
         self.btnPrivacy.layer.cornerRadius = 8
         self.title = "Status"
         self.navigationItem.titleView = nil
-        let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(ChatListController.edit))
+        let button1 = UIBarButtonItem(image: UIImage(named: "AddStatus"), style: .plain, target: self, action: #selector(HomeController.edit))
         let button2 = UIBarButtonItem(title: "Privacy", style: UIBarButtonItemStyle.plain, target: self, action: #selector(StatusController.privacy))
         
         self.navigationItem.rightBarButtonItem = button1
