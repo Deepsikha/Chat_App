@@ -93,9 +93,13 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
-        _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
         ChatController.reciever_id = ((contact.0) as AnyObject).value(forKey: "user_id") as! Int
-        ChatController.type = "Group"
+        ChatController.type = "single"
+        let a = ModelManager.getInstance().getack("chat", "\(ChatController.reciever_id!)", "status = \'false\'")
+        if(a > 0 && AppDelegate.websocket.readyState == .OPEN) {
+        AppDelegate.websocket.send(["type" : "readMsgAck","senderId" : ChatController.reciever_id!])
+        }
+        _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
         self.navigationController?.pushViewController(ChatController(), animated: true)
     }
     

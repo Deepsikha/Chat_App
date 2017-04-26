@@ -40,6 +40,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         if(ChatController.type == "single") {
             self.lstseen.text = "10:30"
+            self.cnctnm.text = String(describing : ChatController.reciever_id!)
             let btn1 = UIButton(type: .custom)
             let origImage = UIImage(named: "Calls");
             let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
@@ -98,13 +99,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
         self.tblvw.addGestureRecognizer(tap)
-        self.cnctnm.text = "Group1"
         getMsg()
         
     }
     
     func getMsg() {
         self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
+        
         tblvw.reloadData()
     }
     
@@ -232,13 +233,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             case "message":
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
-                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,status", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "message")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'false\'")
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,status", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "message")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\'")
+                    
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
                     getMsg()
                     let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
                     let indexPath = IndexPath(row: lastRow, section: 0);
                     self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+                    if (a.value(forKey: "sender_id") as! Int) == ChatController.reciever_id {
+                    AppDelegate.websocket.send(["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!])
+                    }
                 }
+                
                 break
             case "readMsgAck":
                 

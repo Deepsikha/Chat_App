@@ -88,6 +88,14 @@ class ModelManager: NSObject {
         return marrStudentInfo
     }
     
+    func getack (_ tableName : String , _ reciver_id : String,_ data : String) -> Int {
+        sharedInstance.database?.open()
+        let q = "SELECT COUNT (*) FROM \(tableName) where receiver_id = \(reciver_id) and \(data)"
+        let resultSet = sharedInstance.database!.executeQuery(q, withArgumentsIn: nil)
+        print(resultSet!)
+        return Int((resultSet?.int(forColumn: "COUNT(*)"))!)
+    }
+    
     func getData(_ tableName : String,_ sender_id : String,_ reciever_id : String, _ data : String) -> NSMutableArray {
         sharedInstance.database!.open()
         let q = "SELECT * FROM \(tableName) where sender_id = \(sender_id) and receiver_id = \(reciever_id) or sender_id = \(reciever_id) and receiver_id = \(sender_id)"
@@ -145,6 +153,7 @@ class ModelManager: NSObject {
         sharedInstance.database!.close()
         return marrStudentInfo
     }
+    
     func getCount(_ tblName: String,_ condition: String,_ countCol: String) -> [String:Any] {
         sharedInstance.database!.open()
         let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT COUNT(\(countCol)) FROM \(tblName) WHERE \(condition)", withArgumentsIn: nil)
