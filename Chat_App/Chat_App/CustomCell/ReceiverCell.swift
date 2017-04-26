@@ -11,7 +11,6 @@ import UIKit
 class ReceiverCell: UITableViewCell {
 
     
-    @IBOutlet weak var status: UIImageView!
     @IBOutlet weak var stamp: UILabel!
     @IBOutlet weak var message: UITextView!
     @IBOutlet weak var messageBackground: UIImageView!

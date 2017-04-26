@@ -58,7 +58,6 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
-            cell.msgstatus.image = UIImage(named : "green")
             cell.prflpic.image = UIImage(named : "Gradient")
             let id = String(describing: (contact.0 as AnyObject).value(forKey: "user_id")!)
             if(AppDelegate.senderId !=  id){

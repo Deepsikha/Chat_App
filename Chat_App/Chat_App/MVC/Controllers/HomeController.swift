@@ -134,7 +134,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     //MARK: Socket Methods
     
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://clppvfdech.localtunnel.me"))
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://njfxuzosos.localtunnel.me"))
         AppDelegate.websocket.delegate = self
         AppDelegate.websocket.open()
     }
@@ -179,8 +179,16 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
                 
                 break
             case "msgAck":
-                
-                break
+                switch dic!["msgAck"] as! Int {
+                case 1:
+                    ModelManager.getInstance().updateData("chat", "ack = 2","ack = 1 and receiver_id = \(String(describing: dic?["senderId"]!))")
+                    break
+                case 3:
+                    ModelManager.getInstance().updateData("chat", "ack = 3","ack = 2 and receiver_id = \(String(describing: dic?["senderId"]!))")
+                    break
+                default:
+                    print("ABCD")
+                }
             case "message":
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
@@ -189,9 +197,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
                 }
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-                break
-            case "readMsgAck":
-                
                 break
             default: break
             }
