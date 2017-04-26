@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     static var websocket: SRWebSocket!
-    static var senderId = "1552150835"
+    static var senderId = "8454644"
     static var senderDisplayName:String!
     static var pic:UIImage!
     
@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
-            let rootVC = HomeController()
+            let rootVC = GroupNameController()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()

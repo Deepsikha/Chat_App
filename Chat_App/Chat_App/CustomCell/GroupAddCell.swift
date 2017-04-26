@@ -13,7 +13,8 @@ class GroupAddCell: UICollectionViewCell {
     @IBOutlet var imgpic: UIImageView!
     @IBOutlet var lblName: UILabel!
     
-    @IBOutlet var imgCancel: UIImageView!
+    @IBOutlet var btnCancel: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.imgpic.layer.cornerRadius = imgpic.frame.width / 2

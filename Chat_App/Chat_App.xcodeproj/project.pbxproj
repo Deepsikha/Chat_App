@@ -97,6 +97,7 @@
 		7D3BE65D1EB0642600CEE25E /* NewGroupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D3BE65C1EB0642600CEE25E /* NewGroupController.xib */; };
 		7D3BE6661EB06B6000CEE25E /* GroupNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3BE6641EB06B6000CEE25E /* GroupNameController.swift */; };
 		7D3BE6691EB06B8200CEE25E /* GroupNameController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D3BE6681EB06B8200CEE25E /* GroupNameController.xib */; };
+		7D3BE66B1EB0CABD00CEE25E /* close-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3BE66A1EB0CABD00CEE25E /* close-button.png */; };
 		7D7151E11EA8809E006A9D4B /* NewChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7151DF1EA8809E006A9D4B /* NewChatVC.swift */; };
 		7D7151E61EA880D2006A9D4B /* NewChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7151E51EA880D2006A9D4B /* NewChatVC.xib */; };
 		7D7151E91EA88183006A9D4B /* NewChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7151E71EA88183006A9D4B /* NewChatCell.swift */; };
@@ -265,6 +266,7 @@
 		7D3BE65C1EB0642600CEE25E /* NewGroupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewGroupController.xib; sourceTree = "<group>"; };
 		7D3BE6641EB06B6000CEE25E /* GroupNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupNameController.swift; sourceTree = "<group>"; };
 		7D3BE6681EB06B8200CEE25E /* GroupNameController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupNameController.xib; sourceTree = "<group>"; };
+		7D3BE66A1EB0CABD00CEE25E /* close-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-button.png"; sourceTree = "<group>"; };
 		7D7151DF1EA8809E006A9D4B /* NewChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatVC.swift; sourceTree = "<group>"; };
 		7D7151E51EA880D2006A9D4B /* NewChatVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewChatVC.xib; sourceTree = "<group>"; };
 		7D7151E71EA88183006A9D4B /* NewChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatCell.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				7D3BE66A1EB0CABD00CEE25E /* close-button.png */,
 				5C1179901EAF1AEC004BBF8E /* Down@3x.png */,
 				5C11798C1EAF1A60004BBF8E /* Down@1x.png */,
 				5C11798D1EAF1A60004BBF8E /* Down@2x.png */,
@@ -792,6 +795,7 @@
 				5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */,
 				7D21AD811EA9C04C00087864 /* ChatArchCell.xib in Resources */,
 				5C4B99861EAF79300046724E /* GroupTableCell.xib in Resources */,
+				7D3BE66B1EB0CABD00CEE25E /* close-button.png in Resources */,
 				7D7151E61EA880D2006A9D4B /* NewChatVC.xib in Resources */,
 				7D21AD851EA9C0C400087864 /* Socket_chat.sqlite in Resources */,
 				7D0617B71EA772EA004CB6B2 /* SetProfileController.xib in Resources */,

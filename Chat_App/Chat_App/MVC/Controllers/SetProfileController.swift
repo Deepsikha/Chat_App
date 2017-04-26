@@ -44,12 +44,19 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
 
     //MARK:- TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.btnDone.isEnabled = false
+        if (textField.text?.characters.count)! > 0 {
+            self.btnDone.isEnabled = true
+        } else {
+            self.btnDone.isEnabled = false
+        }
         textField.returnKeyType = UIReturnKeyType.done
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if (textField.text?.characters.count)! >= 1 {
+        if textField.text?.characters.count == 1 && string == ""
+        {
+            self.btnDone.isEnabled = false
+        } else {
             self.btnDone.isEnabled = true
         }
         return true
