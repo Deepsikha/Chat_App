@@ -97,7 +97,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tap)
+        self.tblvw.addGestureRecognizer(tap)
         self.cnctnm.text = "Group1"
         
     }
@@ -279,23 +279,30 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func sendmsg(_ sender: Any) {
         do {
+        
             var dic:[String:Any]!
             dic = ["senderId":Int(AppDelegate.senderId)!,"message": chatbox.text! ,"recieverId":ChatController.reciever_id,"type":"message"]
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
             if(AppDelegate.websocket.readyState == SRReadyState.OPEN && self.chatbox.text != "") {
+                messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":chatbox.text!,"time":Date(),"status":"1"])
                 AppDelegate.websocket.send(NSData(data: jsonData))
                 _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',1")
             } else if(self.chatbox.text != "") {
+            messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":chatbox.text!,"time":Date(),"status":"0"])
                 _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',0")
             }
         } catch {
             print(error.localizedDescription)
         }
+        self.addphto.isHidden = true
+        self.sendaudio.isHidden = true
+        self.sendmsg.isHidden = false
+        self.tblvw.reloadData()
         let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
         let indexPath = IndexPath(row: lastRow, section: 0);
         self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
         self.chatbox.text = ""
-        self.tblvw.reloadData()
+        
     }
     
     
@@ -322,8 +329,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tapHandler() {
-        //        self.chatbox.resignFirstResponder()
+        self.chatbox.text = ""
         UIView.animate(withDuration: 0.8) {
+            self.chatbox.resignFirstResponder()
             self.addphto.isHidden = false
             self.sendaudio.isHidden = false
             self.sendmsg.isHidden = true
