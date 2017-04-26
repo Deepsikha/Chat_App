@@ -241,8 +241,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let indexPath = IndexPath(row: lastRow, section: 0);
                     self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
                     if (a.value(forKey: "sender_id") as! Int) == ChatController.reciever_id {
-                    AppDelegate.websocket.send(["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!])
-                    }
+                        do{
+                    let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
+                        AppDelegate.websocket.send(NSData(data:jsonData))
+                        } catch {
+                        
+                        }
+                     }
                 }
                 
                 break
