@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        
         window = UIWindow()
         Util.copyFile("Socket_chat.sqlite")
         Fabric.with([Crashlytics.self()])
@@ -33,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
-            let rootVC = HomeController()
+            let rootVC = SetProfileController()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
@@ -48,6 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
 }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        var token = ""
+        for i in 0..<deviceToken.count {
+            token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
+        }
+        print(token)
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
