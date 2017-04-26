@@ -97,7 +97,12 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         ChatController.type = "single"
         let a = ModelManager.getInstance().getack("chat", "\(ChatController.reciever_id!)", "status = \'false\'")
         if(a > 0 && AppDelegate.websocket.readyState == .OPEN) {
-        AppDelegate.websocket.send(["type" : "readMsgAck","senderId" : ChatController.reciever_id!])
+            do {
+            let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
+            AppDelegate.websocket.send(NSData(data:jsonData))
+            } catch {
+            
+            }
         }
         _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
         self.navigationController?.pushViewController(ChatController(), animated: true)
