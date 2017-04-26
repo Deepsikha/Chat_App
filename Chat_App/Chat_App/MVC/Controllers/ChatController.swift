@@ -94,12 +94,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.navigationItem.setRightBarButtonItems([item1,item2], animated: true)
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
         self.navigationItem.titleView = navvw
-        self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
         self.tblvw.addGestureRecognizer(tap)
         self.cnctnm.text = "Group1"
+        getMsg()
         
+    }
+    
+    func getMsg() {
+        self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
+        tblvw.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,9 +133,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
-        let indexPath = IndexPath(row: lastRow, section: 0);
-        self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+        if messages.count > 0 {
+            let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+            let indexPath = IndexPath(row: lastRow, section: 0);
+            self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
+        
         self.chatbox.backgroundColor = UIColor.white
         self.navprof.image = UIImage(named: "Gradient")
         self.navprof.layer.cornerRadius = self.navprof.frame.width / 2
@@ -146,7 +155,22 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
             cell.message.text = ob.value(forKey: "message") as? String
-            cell.status.image = UIImage(named: "pending")
+            switch Int.init((ob.value(forKey: "ack") as! String))! {
+            case 0:
+                cell.status?.image = UIImage(named : "pending")
+                break
+            case 1:
+                cell.status?.image = UIImage(named : "red")
+                break
+            case 2:
+                cell.status?.image = UIImage(named : "yellow")
+                break
+            case 3:
+                cell.status?.image = UIImage(named : "green")
+                break
+            default:
+                print("ABCD")
+            }
             cell.stamp.text = ob.value(forKey: "time") as? String
             return cell
         } else {
@@ -210,8 +234,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let a = i as AnyObject
                     _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,status", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "message")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'false\'")
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
-                    messages.add(["sender_id":String(describing: a.value(forKey: "sender_id") as! Int),"receiver_id":AppDelegate.senderId,"message":String(describing: a.value(forKey: "message")!),"time":String(describing: a.value(forKey: "time")!),"status":""])
-                    self.tblvw.reloadData()
+                    getMsg()
                     let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
                     let indexPath = IndexPath(row: lastRow, section: 0);
                     self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
@@ -284,7 +307,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             dic = ["senderId":Int(AppDelegate.senderId)!,"message": chatbox.text! ,"recieverId":ChatController.reciever_id,"type":"message"]
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
             if(AppDelegate.websocket.readyState == SRReadyState.OPEN && self.chatbox.text != "") {
-                messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":chatbox.text!,"time":Date(),"status":"1"])
                 AppDelegate.websocket.send(NSData(data: jsonData))
                 _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',1")
             } else if(self.chatbox.text != "") {
@@ -297,7 +319,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.addphto.isHidden = true
         self.sendaudio.isHidden = true
         self.sendmsg.isHidden = false
-        self.tblvw.reloadData()
+        getMsg()
         let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
         let indexPath = IndexPath(row: lastRow, section: 0);
         self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
@@ -349,31 +371,35 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func showKeyboard(notification: Notification) {
-        
         if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height
             self.tblvw.contentInset.bottom = height
             self.tblvw.scrollIndicatorInsets.bottom = height
             print(height)
             self.vw.frame = CGRect(x: frame1.origin.x, y: self.view.frame.height - height - frame1.height, width: frame1.width, height: frame1.height)
-            if i > 0 {
-                let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
-                let indexPath = IndexPath(row: lastRow, section: 0);
-                self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+        if messages.count > 0 {
+                            if i > 0 {
+                    let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+                    let indexPath = IndexPath(row: lastRow, section: 0);
+                    self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+                }
             }
         }
+
     }
     
     func hideKeyBoard(_ notification : Notification) {
-        
         if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height
             self.tblvw.contentInset.bottom = self.tblvw.contentInset.bottom - height
             self.vw.frame = frame1
+        if messages.count > 0 {
+        
             self.tblvw.scrollIndicatorInsets.bottom = self.tblvw.scrollIndicatorInsets.bottom - height
             let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
             let indexPath = IndexPath(row: lastRow, section: 0);
             self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
         }
     }
     

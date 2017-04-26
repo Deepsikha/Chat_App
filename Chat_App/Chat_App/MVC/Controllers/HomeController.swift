@@ -134,7 +134,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     //MARK: Socket Methods
     
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://pqjsmcyqac.localtunnel.me"))
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://clppvfdech.localtunnel.me"))
         AppDelegate.websocket.delegate = self
         AppDelegate.websocket.open()
     }
