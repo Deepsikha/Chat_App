@@ -10,6 +10,9 @@ import UIKit
 
 class GroupTableCell: UITableViewCell {
 
+    @IBOutlet var imgPerson: UIImageView!
+    @IBOutlet var lblName: UILabel!
+    @IBOutlet var imgRight: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

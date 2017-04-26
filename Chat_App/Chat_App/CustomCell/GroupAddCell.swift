@@ -10,8 +10,16 @@ import UIKit
 
 class GroupAddCell: UICollectionViewCell {
 
+    @IBOutlet var imgpic: UIImageView!
+    @IBOutlet var lblName: UILabel!
+    
+    @IBOutlet var imgCancel: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.imgpic.layer.cornerRadius = imgpic.frame.width / 2
+        self.imgpic.layer.borderColor = UIColor.blue.cgColor
+        self.imgpic.layer.borderWidth = 1
+
         // Initialization code
     }
 
