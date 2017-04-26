@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
-            let rootVC = GroupNameController()
+            let rootVC = HomeController()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
