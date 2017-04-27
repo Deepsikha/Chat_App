@@ -91,6 +91,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(indexPath.row != 0) {
         let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
         ChatController.reciever_id = ((contact.0) as AnyObject).value(forKey: "user_id") as! Int
         ChatController.type = "single"
@@ -99,12 +100,14 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             do {
             let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
             AppDelegate.websocket.send(NSData(data:jsonData))
+                _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
             } catch {
             
             }
         }
-        _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
+        
         self.navigationController?.pushViewController(ChatController(), animated: true)
+        }
     }
     
     //MARK: Custom methods

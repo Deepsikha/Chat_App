@@ -35,9 +35,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var messages : NSMutableArray!
     var chatboxConstant : CGFloat!
     private var lastContentOffset: CGFloat = 0
+    var maxStringLength = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "\(ChatController.reciever_id!)"
+        if (self.title?.lengthOfBytes(using: .ascii))! > maxStringLength {
+            let index = self.title?.index((self.title?.startIndex)!, offsetBy: 5)
+            self.title = self.title?.substring(to: index!).appending("...")
+        }
+        else {
+            navigationItem.backBarButtonItem?.title = self.title
+        }
         if(ChatController.type == "single") {
             self.lstseen.text = "10:30"
             self.cnctnm.text = String(describing : ChatController.reciever_id!)
@@ -66,39 +75,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         tblvw.delegate = self
         tblvw.dataSource = self
-        
         self.tblvw.estimatedRowHeight = 100
         self.tblvw.rowHeight = UITableViewAutomaticDimension
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
-        
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
-        self.navigationController?.isNavigationBarHidden = false
-        let btn1 = UIButton(type: .custom)
-        let origImage = UIImage(named: "Calls");
-        let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        btn1.setImage(tintedImage, for: .normal)
-        btn1.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
-        btn1.frame = CGRect(x: UIScreen.main.bounds.origin.x - 50, y: 20, width: 30, height: 30)
-        btn1.addTarget(self, action: #selector(edit), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: btn1)
-        
-        let btn2 = UIButton(type: .custom)
-        let origImage1 = UIImage(named: "videocall")
-        let tintedImage1 = origImage1?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        btn2.setImage(tintedImage1, for: .normal)
-        btn2.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
-        btn2.frame = CGRect(x: UIScreen.main.bounds.origin.x - 35, y: 20, width: 30, height: 30)
-        btn2.addTarget(self, action: #selector(edit), for: .touchUpInside)
-        let item2 = UIBarButtonItem(customView: btn2)
-        
-        self.navigationItem.setRightBarButtonItems([item1,item2], animated: true)
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
         self.navigationItem.titleView = navvw
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
         self.tblvw.addGestureRecognizer(tap)
+        let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.openprofl))
+        tap1.cancelsTouchesInView = false
+        self.navvw.addGestureRecognizer(tap1)
         getMsg()
         
     }
@@ -158,7 +147,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.message.text = ob.value(forKey: "message") as? String
             switch Int.init((ob.value(forKey: "ack") as! String))! {
             case 0:
-                cell.messageBackground.layer.borderColor = UIColor.clear.cgColor
+                cell.messageBackground.layer.borderColor = UIColor.black.cgColor
                 break
             case 1:
                 cell.messageBackground.layer.borderColor = UIColor.red.cgColor
@@ -167,7 +156,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.messageBackground.layer.borderColor = UIColor.yellow.cgColor
                 break
             case 3:
-                cell.messageBackground.layer.borderColor = UIColor.green.cgColor
+                cell.messageBackground.layer.borderColor = UIColor.clear.cgColor
                 break
             default:
                 print("ABCD")
@@ -233,11 +222,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             case "msgAck":
                 switch dic!["msgAck"] as! Int {
                 case 1:
-                    ModelManager.getInstance().updateData("chat", "ack = 2","ack = 1 and receiver_id = \(String(describing: dic?["senderId"]! as! Int))")
+                   _ = ModelManager.getInstance().updateData("chat", "ack = 2","ack = 1 and receiver_id = \(String(describing: dic?["senderId"]! as! Int))")
                     
                     break
                 case 3:
-                    ModelManager.getInstance().updateData("chat", "ack = 3","ack = 2 and receiver_id = \(String(describing: dic?["senderId"]! as! Int))")
+                   _ = ModelManager.getInstance().updateData("chat", "ack = 3","ack = 2 or ack = 1 and receiver_id = \(String(describing: dic?["senderId"]! as! Int))")
                     break
                 default:
                     print("ABCD")
@@ -382,6 +371,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.sendmsg.isHidden = true
             self.chatboxTrailingConstraint.constant = self.chatboxConstant
         }
+    }
+    
+    func openprofl() {
+        self.navigationController?.pushViewController(ContactInfoController(), animated: true)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
