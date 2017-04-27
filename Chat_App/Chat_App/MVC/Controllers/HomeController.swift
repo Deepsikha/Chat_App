@@ -178,6 +178,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
                     break
                 case 3:
                   _ = ModelManager.getInstance().updateData("chat", "ack = 3","ack = 2 or ack = 1 and receiver_id = \(String(describing: dic?["senderId"]!) as! Int)")
+
                     break
                 default:
                     print("ABCD")
@@ -201,14 +202,15 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     
     //MARK: Custom Methods
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://zaiqxtkvil.localtunnel.me"))
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://trjqhtyxdx.localtunnel.me"))
+
         AppDelegate.websocket.open()
     }
     
     func sendInitMsg(){
         do {
             var dic:[String:Any]!
-            dic = ["senderId": "1552150835","type":"initConnection"]
+            dic = ["senderId": "8454644","type":"initConnection"]
             
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
             AppDelegate.websocket.send(NSData(data: jsonData))

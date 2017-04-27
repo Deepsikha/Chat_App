@@ -32,11 +32,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hN-WR-h2T">
-                        <rect key="frame" x="45" y="10" width="15" height="15"/>
+                        <rect key="frame" x="42" y="10" width="18" height="18"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="7hN-WR-h2T" secondAttribute="height" multiplier="1:1" id="WQU-jW-ECx"/>
                         </constraints>
                         <state key="normal" image="close-button.png"/>
+                        <connections>
+                            <action selector="handleBtnCancel:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Mbb-xO-RWS"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
@@ -46,7 +50,7 @@
                 <constraint firstItem="XEv-AF-4wy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Wfw-dg-qvG"/>
                 <constraint firstAttribute="bottom" secondItem="VQc-5P-lBB" secondAttribute="bottom" constant="4.5" id="c7c-AC-FL3"/>
                 <constraint firstItem="VQc-5P-lBB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="h86-2e-UeW"/>
-                <constraint firstItem="VQc-5P-lBB" firstAttribute="top" secondItem="7hN-WR-h2T" secondAttribute="bottom" constant="40" id="htq-K6-vIx"/>
+                <constraint firstItem="VQc-5P-lBB" firstAttribute="top" secondItem="7hN-WR-h2T" secondAttribute="bottom" constant="37" id="htq-K6-vIx"/>
                 <constraint firstItem="VQc-5P-lBB" firstAttribute="top" secondItem="XEv-AF-4wy" secondAttribute="bottom" constant="4.5" id="ioA-20-FmD"/>
                 <constraint firstAttribute="trailing" secondItem="XEv-AF-4wy" secondAttribute="trailing" constant="10" id="mQy-mI-vcq"/>
                 <constraint firstItem="7hN-WR-h2T" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="tlG-Zf-YLn"/>
