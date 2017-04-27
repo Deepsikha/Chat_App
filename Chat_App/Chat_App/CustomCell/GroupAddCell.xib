@@ -25,39 +25,43 @@
                             <constraint firstAttribute="width" secondItem="XEv-AF-4wy" secondAttribute="height" multiplier="1:1" id="wyT-LD-oVL"/>
                         </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nVD-Np-d7F">
-                        <rect key="frame" x="48" y="8" width="15" height="15"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="nVD-Np-d7F" secondAttribute="height" multiplier="1:1" id="0z8-Ba-bcc"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQc-5P-lBB">
                         <rect key="frame" x="10" y="65" width="50" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hN-WR-h2T">
+                        <rect key="frame" x="45" y="10" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="7hN-WR-h2T" secondAttribute="height" multiplier="1:1" id="WQU-jW-ECx"/>
+                        </constraints>
+                        <state key="normal" image="close-button.png"/>
+                    </button>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="VQc-5P-lBB" firstAttribute="top" secondItem="nVD-Np-d7F" secondAttribute="bottom" constant="42" id="0h5-Bf-E3X"/>
-                <constraint firstItem="nVD-Np-d7F" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="4op-Pu-xCJ"/>
                 <constraint firstAttribute="trailing" secondItem="VQc-5P-lBB" secondAttribute="trailing" constant="10" id="G01-tw-eaQ"/>
-                <constraint firstAttribute="trailing" secondItem="nVD-Np-d7F" secondAttribute="trailing" constant="7" id="IY5-MP-mLQ"/>
                 <constraint firstItem="XEv-AF-4wy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="OiO-nl-DQm"/>
                 <constraint firstItem="XEv-AF-4wy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Wfw-dg-qvG"/>
                 <constraint firstAttribute="bottom" secondItem="VQc-5P-lBB" secondAttribute="bottom" constant="4.5" id="c7c-AC-FL3"/>
                 <constraint firstItem="VQc-5P-lBB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="h86-2e-UeW"/>
+                <constraint firstItem="VQc-5P-lBB" firstAttribute="top" secondItem="7hN-WR-h2T" secondAttribute="bottom" constant="40" id="htq-K6-vIx"/>
                 <constraint firstItem="VQc-5P-lBB" firstAttribute="top" secondItem="XEv-AF-4wy" secondAttribute="bottom" constant="4.5" id="ioA-20-FmD"/>
                 <constraint firstAttribute="trailing" secondItem="XEv-AF-4wy" secondAttribute="trailing" constant="10" id="mQy-mI-vcq"/>
+                <constraint firstItem="7hN-WR-h2T" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="tlG-Zf-YLn"/>
+                <constraint firstAttribute="trailing" secondItem="7hN-WR-h2T" secondAttribute="trailing" constant="10" id="wVn-zF-9NG"/>
             </constraints>
             <size key="customSize" width="60" height="154"/>
             <connections>
-                <outlet property="imgCancel" destination="nVD-Np-d7F" id="FM0-nd-wGb"/>
+                <outlet property="btnCancel" destination="7hN-WR-h2T" id="rjZ-zl-QbN"/>
                 <outlet property="imgpic" destination="XEv-AF-4wy" id="4QC-Om-Xzo"/>
                 <outlet property="lblName" destination="VQc-5P-lBB" id="Vez-5g-ecX"/>
             </connections>
             <point key="canvasLocation" x="46" y="110"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="close-button.png" width="16" height="16"/>
+    </resources>
 </document>

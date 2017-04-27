@@ -132,13 +132,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     
 
     //MARK: Socket Methods
-    
-    func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://clppvfdech.localtunnel.me"))
-        AppDelegate.websocket.delegate = self
-        AppDelegate.websocket.open()
-    }
-    
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         print(reason)
     }
@@ -202,11 +195,16 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     }
     
     //MARK: Custom Methods
+    func connect() {
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://hrgvzhcutl.localtunnel.me"))
+        AppDelegate.websocket.delegate = self
+        AppDelegate.websocket.open()
+    }
     
     func sendInitMsg(){
         do {
             var dic:[String:Any]!
-            dic = ["senderId": "1552150835","type":"initConnection"]
+            dic = ["senderId": "8454644","type":"initConnection"]
             
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
             AppDelegate.websocket.send(NSData(data: jsonData))
