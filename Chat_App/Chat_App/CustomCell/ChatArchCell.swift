@@ -34,7 +34,8 @@ class ChatArchCell: UITableViewCell, UISearchBarDelegate {
         if(srchbar.text?.isEmpty)! {
         
         } else {
-        
+            ChatListController.searchText = searchText
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue : "search"), object: nil)
         }
     }
     
