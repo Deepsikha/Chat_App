@@ -17,6 +17,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     var last = [String]()
     var msgCount: [Int]! = []
     var latest : NSMutableArray!
+    static var searchText : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +29,12 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         tblvw.register(UINib(nibName: "ChatListCell", bundle: nil), forCellReuseIdentifier: "ChatListCell")
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue: "load"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(push), name: NSNotification.Name(rawValue: "push"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(filterContentForSearchText), name: NSNotification.Name(rawValue : "search"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         countmsg()
+        NotificationCenter.default.addObserver(self, selector: #selector(typing), name: NSNotification.Name(rawValue : "status"), object: nil)
     }
     
     //MARK: Table Delegate
@@ -56,6 +59,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatArchCell", for: indexPath) as! ChatArchCell
             return cell
         } else {
+            
             let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
             cell.prflpic.image = UIImage(named : "Gradient")
@@ -75,7 +79,11 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 if obj != nil && ((contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "sender_id")! as? Int || (contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "receiver_id")! as? Int) {
-                    cell.lstmsg.text = lastMsg
+//                    if() {
+//                        cell.lstmsg.text = "Typing..."
+//                    } else {
+//                        cell.lstmsg.text = lastMsg
+//                    }
                 }
                 cell.msgcount.text = String(describing: contact.1)
             }
@@ -135,9 +143,17 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     func push() {
         self.navigationController?.pushViewController(NewGroupController(), animated: true)
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    func filterContentForSearchText() {
         
+        self.tblvw.reloadData()
+    }
+    
+    func typing(_ notification : NSNotification) {
+        if let sender = notification.userInfo?["senderId"] as? Int {
+            let indexPath = IndexPath(item: sender, section: 0)
+            tblvw.reloadRows(at: [indexPath], with: .fade)
+        }
     }
     
 }

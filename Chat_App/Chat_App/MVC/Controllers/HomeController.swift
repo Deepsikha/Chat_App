@@ -191,6 +191,11 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                 break
+            case "userStatus":
+                if(dic?["online"] as! Int == 2) {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue : "status"), object: nil, userInfo: dic)
+                }
+                break
             default: break
             }
         } catch {
@@ -201,7 +206,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     
     //MARK: Custom Methods
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://zaiqxtkvil.localtunnel.me"))
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://uqanrodusw.localtunnel.me"))
         AppDelegate.websocket.open()
     }
     
