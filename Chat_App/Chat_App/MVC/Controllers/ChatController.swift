@@ -48,7 +48,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             navigationItem.backBarButtonItem?.title = self.title
         }
         if(ChatController.type == "single") {
-            self.lstseen.text = "10:30"
             self.cnctnm.text = String(describing : ChatController.reciever_id!)
             let btn1 = UIButton(type: .custom)
             let origImage = UIImage(named: "Calls");
@@ -99,10 +98,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //------------------------------------------------------------------
-        //Fabric
-        //ContentView
-        Answers.logContentView(withName: "Content event",contentType: "Testing", contentId: "1",customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
+        do {
+    let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "userstatus" , "userId" : ChatController.reciever_id!], options: .prettyPrinted)
+        AppDelegate.websocket.send(NSData(data:jsonData))
+    } catch {
+    
+    }
+    Answers.logContentView(withName: "Content event",contentType: "Testing", contentId: "1",customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
         
         //purchase
         Answers.logPurchase(withPrice: 1000, currency: "rupee", success: true, itemName: "tutorial", itemType: "study", itemId: "12", customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
@@ -255,6 +257,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 
                 break
+            case "userStatus":
+                switch dic?["online"]! as! Int {
+                case 0:
+                    self.lstseen.text = "Offline"
+                    break
+                case 1:
+                    self.lstseen.text = "Online"
+                    break
+                case 3:
+                    self.lstseen.text = "Typing"
+                default:
+                    print("asds")
+                }
+                break
             default: break
             }
         } catch {
@@ -384,6 +400,21 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let constant = UIScreen.main.bounds.width * 48 / 375;
             self.chatboxTrailingConstraint.constant = -constant
             self.vw.layoutIfNeeded()
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "typing" , "userId" : ChatController.reciever_id!, "typing" : true], options: .prettyPrinted)
+            AppDelegate.websocket.send(NSData(data:jsonData))
+        } catch {
+            
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "typing" , "userId" : ChatController.reciever_id!, "typing" : false], options: .prettyPrinted)
+            AppDelegate.websocket.send(NSData(data:jsonData))
+        } catch {
+            
+        }
     }
     
     func showKeyboard(notification: Notification) {
