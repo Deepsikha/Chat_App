@@ -110,7 +110,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         //------------------------------------------------------------------
         //Fabric
         //ContentView
@@ -155,19 +154,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
+            cell.messageBackground.layer.borderWidth = 2
             cell.message.text = ob.value(forKey: "message") as? String
             switch Int.init((ob.value(forKey: "ack") as! String))! {
             case 0:
-                cell.status?.image = UIImage(named : "pending")
+                cell.messageBackground.layer.borderColor = UIColor.clear.cgColor
                 break
             case 1:
-                cell.status?.image = UIImage(named : "red")
+                cell.messageBackground.layer.borderColor = UIColor.red.cgColor
                 break
             case 2:
-                cell.status?.image = UIImage(named : "yellow")
+                cell.messageBackground.layer.borderColor = UIColor.yellow.cgColor
                 break
             case 3:
-                cell.status?.image = UIImage(named : "green")
+                cell.messageBackground.layer.borderColor = UIColor.green.cgColor
                 break
             default:
                 print("ABCD")
@@ -185,7 +185,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return messages.count
     }
     
-
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrlbtn.isHidden = true
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (self.lastContentOffset < scrollView.contentOffset.y) {
            self.scrlbtn.isHidden = false
@@ -228,7 +231,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 break
             case "msgAck":
-                
+                switch dic!["msgAck"] as! Int {
+                case 1:
+                    ModelManager.getInstance().updateData("chat", "ack = 2","ack = 1 and receiver_id = \(String(describing: dic?["senderId"]! as! Int))")
+                    
+                    break
+                case 3:
+                    ModelManager.getInstance().updateData("chat", "ack = 3","ack = 2 and receiver_id = \(String(describing: dic?["senderId"]! as! Int))")
+                    break
+                default:
+                    print("ABCD")
+                    
+                }
+                getMsg()
                 break
             case "message":
                 for i in dic!["data"] as! NSArray {
@@ -249,9 +264,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                      }
                 }
-                
-                break
-            case "readMsgAck":
                 
                 break
             default: break
