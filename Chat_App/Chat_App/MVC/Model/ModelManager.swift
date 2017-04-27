@@ -90,10 +90,15 @@ class ModelManager: NSObject {
     
     func getack (_ tableName : String , _ reciver_id : String,_ data : String) -> Int {
         sharedInstance.database?.open()
-        let q = "SELECT COUNT (*) FROM \(tableName) where receiver_id = \(reciver_id) and \(data)"
+        var c = 0
+        let q = "SELECT * FROM \(tableName) where sender_id = \(reciver_id) and \(data)"
         let resultSet = sharedInstance.database!.executeQuery(q, withArgumentsIn: nil)
+        while(resultSet?.next())! {
+            c = c + 1
+        }
         print(resultSet!)
-        return Int((resultSet?.int(forColumn: "COUNT(*)"))!)
+        sharedInstance.database?.close()
+        return c
     }
     
     func getData(_ tableName : String,_ sender_id : String,_ reciever_id : String, _ data : String) -> NSMutableArray {

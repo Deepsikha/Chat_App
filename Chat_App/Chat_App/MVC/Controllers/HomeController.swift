@@ -22,7 +22,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         super.viewDidLoad()
         
         self.delegate = self
-        
         self.title = "Chat"
 
         let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit(_:)))
@@ -64,7 +63,8 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false       
-       
+        AppDelegate.websocket.delegate = self
+
     }
     
     //MARK: Tabbar Delegate
@@ -174,10 +174,10 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             case "msgAck":
                 switch dic!["msgAck"] as! Int {
                 case 1:
-                    ModelManager.getInstance().updateData("chat", "ack = 2","ack = 1 and receiver_id = \(String(describing: dic?["senderId"]!))")
+                  _ = ModelManager.getInstance().updateData("chat", "ack = 2","ack = 1 and receiver_id = \(String(describing: dic?["senderId"]!) as! Int)")
                     break
                 case 3:
-                    ModelManager.getInstance().updateData("chat", "ack = 3","ack = 2 and receiver_id = \(String(describing: dic?["senderId"]!))")
+                  _ = ModelManager.getInstance().updateData("chat", "ack = 3","ack = 2 or ack = 1 and receiver_id = \(String(describing: dic?["senderId"]!) as! Int)")
                     break
                 default:
                     print("ABCD")
@@ -201,15 +201,14 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     
     //MARK: Custom Methods
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://hrgvzhcutl.localtunnel.me"))
-        AppDelegate.websocket.delegate = self
+        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://zaiqxtkvil.localtunnel.me"))
         AppDelegate.websocket.open()
     }
     
     func sendInitMsg(){
         do {
             var dic:[String:Any]!
-            dic = ["senderId": "8454644","type":"initConnection"]
+            dic = ["senderId": "1552150835","type":"initConnection"]
             
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
             AppDelegate.websocket.send(NSData(data: jsonData))
