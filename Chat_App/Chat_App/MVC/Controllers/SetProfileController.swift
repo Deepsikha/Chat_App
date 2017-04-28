@@ -101,8 +101,15 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBAction func handleBtndone(_ sender: Any) {
         AppDelegate.senderDisplayName = self.txfName.text
         AppDelegate.pic = self.imgProfile.image
-        let nav = HomeController()
-        self.navigationController?.pushViewController(nav, animated: true)
+        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/profilecreation", Request_parameter: ["senderId" : AppDelegate.senderId , "nickname" : (txfName.text)!], Request_parameter_Images: nil ,status: { (a) in
+            
+        }, response_Dictionary: { (b) in
+            b
+        }, response_Array: { (c) in
+            c
+        }, isTokenEmbeded: false)
+//        let nav = HomeController()
+//        self.navigationController?.pushViewController(nav, animated: true)
         
     }
     

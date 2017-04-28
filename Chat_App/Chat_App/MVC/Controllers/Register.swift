@@ -12,9 +12,6 @@ class Register: UIViewController,UITextFieldDelegate {
     
     @IBOutlet var lblCCode: UILabel!
     @IBOutlet var txfNumber: UITextField!
-    @IBOutlet var lblTitle: UINavigationItem!
-    @IBOutlet var btnDone: UIBarButtonItem!
-    @IBOutlet var navDone: UINavigationBar!
     @IBOutlet var btnCountry: UIButton!
     @IBOutlet var indicator: UIActivityIndicatorView!
     @IBOutlet var lblConnect: UILabel!
@@ -23,6 +20,7 @@ class Register: UIViewController,UITextFieldDelegate {
     var cView: UIView!
     static var cName:String!
     static var cCode:String!
+    var btn : UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,16 +39,27 @@ class Register: UIViewController,UITextFieldDelegate {
         let statusBarColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 0.7)
         statusBarBackground.backgroundColor = statusBarColor
         view.addSubview(statusBarBackground)
+        self.txfNumber.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationItem.hidesBackButton = true
+        self.navigationController?.isNavigationBarHidden = false
+        btn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(done))
+        self.navigationItem.rightBarButtonItem = btn
         self.indicator.isHidden = true
         self.txfNumber.becomeFirstResponder()
         if Register.cName != nil {
             self.btnCountry.setTitle(Register.cName, for: UIControlState.normal)
             self.lblCCode.text = "+\(Register.cCode!)"
         }
+        if(txfNumber.text != "") {
+            self.title = self.lblCCode.text?.appending(" ").appending(self.txfNumber.text!)
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+
     }
     
     //MARK:- TextField Delegate
@@ -60,43 +69,43 @@ class Register: UIViewController,UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.characters.count != 0 {
-            self.lblTitle.title = lblCCode.text! + " " + textField.text!
+            self.title = lblCCode.text! + " " + textField.text!
         } else {
-            self.lblTitle.title = "Your Phone Number"
+            self.title = "Your Phone Number"
         }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField.text?.characters.count == 1 && string == ""
         {
-            self.lblTitle.title = "Your Phone Number"
+            self.title = "Your Phone Number"
         } else {
-            self.lblTitle.title =  lblCCode.text! + " " + textField.text! + "\(string)"
+            self.title =  lblCCode.text! + " " + textField.text! + "\(string)"
             if string == "" {
-                self.lblTitle.title?.remove(at: (self.lblTitle.title?.index(before: (self.lblTitle.title?.endIndex)!))!)
-            }
-        }
-        if string == "" {
-            if isValidNumber(textField.text!, length: 11) {
-                self.btnDone.isEnabled = true
+                self.title = (self.title! as NSString).substring(to: (self.title! as NSString).length - 1)
+                if isValidNumber(textField.text!, length: 11) {
+                    self.btn.isEnabled = true
+                } else {
+                    self.btn.isEnabled = false
+                }
             } else {
-                self.btnDone.isEnabled = false
+                if isValidNumber(textField.text!, length: 9) {
+                    
+                    self.btn.isEnabled = true
+                } else {
+                    self.btn.isEnabled = false
+                }
             }
-        } else {
-            if isValidNumber(textField.text!, length: 9) {
-                
-                self.btnDone.isEnabled = true
-            } else {
-                self.btnDone.isEnabled = false
             }
-        }
+        
+            
         return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if isValidNumber(textField.text!, length: 10) {
             textField.textColor = UIColor.black
-            self.btnDone.isEnabled = true
+            self.btn.isEnabled = true
             textField.resignFirstResponder()
         } else {
             textField.textColor = UIColor.red
@@ -105,7 +114,18 @@ class Register: UIViewController,UITextFieldDelegate {
     }
     
     //MARK:- Outlet Method
-    @IBAction func handleBtnDone(_ sender: Any) {
+    
+    
+    @IBAction func handlebtnCountry(_ sender: Any) {
+        let nav = CountryList()
+        self.navigationController?.pushViewController(nav, animated: true)
+    }
+    
+    //MARK:- Custom Method
+    
+    func done() {
+        self.txfNumber.resignFirstResponder()
+        self.btn.isEnabled = false
         let alert = UIAlertController(title: "NUMBER CONFIRMATION: \n\n \(self.lblCCode.text!) \(self.txfNumber.text!) \n\nIs your phone number above correct?", message: "", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) {
             UIAlertAction in
@@ -131,8 +151,12 @@ class Register: UIViewController,UITextFieldDelegate {
                     print(res)
                     if res.value(forKey: "resp") as! String == "success" {
                         self.indicator.stopAnimating()
+                        self.transperentView.removeFromSuperview()
+                        
+                        blurView.removeFromSuperview()
                         let nav = Verification()
                         self.navigationController?.pushViewController(nav, animated: true)
+                        self.title = "Edit Number"
                     } else {
                         
                     }
@@ -153,12 +177,6 @@ class Register: UIViewController,UITextFieldDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func handlebtnCountry(_ sender: Any) {
-        let nav = CountryList()
-        self.navigationController?.pushViewController(nav, animated: true)
-    }
-    
-    //MARK:- Custom Method
     func tapHandler() {
         self.txfNumber.resignFirstResponder()
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,12 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Register" customModule="Chat_App" customModuleProvider="target">
             <connections>
                 <outlet property="btnCountry" destination="AIv-Xc-lcv" id="nmH-Xl-pNg"/>
-                <outlet property="btnDone" destination="ffo-bu-eQh" id="5WC-QC-izt"/>
                 <outlet property="indicator" destination="zLR-SD-bs1" id="nT9-vs-NQW"/>
                 <outlet property="lblCCode" destination="JYg-p4-yoS" id="Z8S-lX-huT"/>
                 <outlet property="lblConnect" destination="rat-hs-hzM" id="9bg-Lf-cHT"/>
-                <outlet property="lblTitle" destination="YsI-Bw-Jqa" id="jl0-Tc-B1D"/>
-                <outlet property="navDone" destination="pcK-3i-Gct" id="aMJ-N1-HWB"/>
                 <outlet property="txfNumber" destination="UnW-LO-CLj" id="HIA-y7-ElK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -36,9 +33,6 @@
                 </activityIndicatorView>
                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rat-hs-hzM">
                     <rect key="frame" x="85" y="254" width="150" height="36"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="rat-hs-hzM" secondAttribute="height" multiplier="25:6" id="DFn-om-T0g"/>
-                    </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -128,21 +122,6 @@
                         <constraint firstAttribute="trailing" secondItem="AIv-Xc-lcv" secondAttribute="trailing" constant="10" id="zkV-hU-sfE"/>
                     </constraints>
                 </view>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcK-3i-Gct">
-                    <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="pcK-3i-Gct" secondAttribute="height" multiplier="80:11" id="5Mf-zm-88B"/>
-                    </constraints>
-                    <items>
-                        <navigationItem title="Your Phone Number" id="YsI-Bw-Jqa">
-                            <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="done" id="ffo-bu-eQh">
-                                <connections>
-                                    <action selector="handleBtnDone:" destination="-1" id="vlo-my-1RW"/>
-                                </connections>
-                            </barButtonItem>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please confirm your country code and enter your phone number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pke-q3-i70">
                     <rect key="frame" x="16" y="72" width="288" height="113"/>
                     <constraints>
@@ -158,18 +137,16 @@
                 <constraint firstAttribute="trailing" secondItem="pke-q3-i70" secondAttribute="trailing" constant="16" id="1PB-4M-x0L"/>
                 <constraint firstAttribute="bottom" secondItem="zLR-SD-bs1" secondAttribute="bottom" constant="229" id="1aw-LW-uZp"/>
                 <constraint firstItem="zLR-SD-bs1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="2oZ-CQ-Gpe"/>
-                <constraint firstItem="pcK-3i-Gct" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="6jS-AE-eq4"/>
-                <constraint firstAttribute="trailing" secondItem="pcK-3i-Gct" secondAttribute="trailing" id="HKu-AL-zNj"/>
-                <constraint firstItem="pcK-3i-Gct" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HUf-0w-SnJ"/>
-                <constraint firstItem="rat-hs-hzM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="LZc-D8-cTI"/>
+                <constraint firstItem="pke-q3-i70" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="72" id="EDz-G2-R2N"/>
+                <constraint firstAttribute="trailing" secondItem="rat-hs-hzM" secondAttribute="trailing" constant="85" id="HPY-lR-jMO"/>
                 <constraint firstItem="pke-q3-i70" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="NG6-6r-vSb"/>
+                <constraint firstItem="rat-hs-hzM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="254" id="NuE-ZV-mH1"/>
                 <constraint firstAttribute="trailing" secondItem="fqt-G8-0pW" secondAttribute="trailing" id="QzG-Ua-2ZM"/>
                 <constraint firstItem="zLR-SD-bs1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="231" id="U1x-BK-gE6"/>
-                <constraint firstItem="pke-q3-i70" firstAttribute="top" secondItem="pcK-3i-Gct" secondAttribute="bottom" constant="8" id="ZSa-3o-0Be"/>
                 <constraint firstItem="fqt-G8-0pW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aFz-vD-8ei"/>
+                <constraint firstItem="rat-hs-hzM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="85" id="d9y-SH-QKB"/>
                 <constraint firstItem="fqt-G8-0pW" firstAttribute="top" secondItem="pke-q3-i70" secondAttribute="bottom" constant="13" id="dph-Jl-Jaf"/>
-                <constraint firstAttribute="bottom" secondItem="rat-hs-hzM" secondAttribute="bottom" constant="190" id="wCP-G6-C4l"/>
-                <constraint firstItem="rat-hs-hzM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="254" id="z8h-My-bf7"/>
+                <constraint firstAttribute="bottom" secondItem="rat-hs-hzM" secondAttribute="bottom" constant="190" id="dpq-Qq-Yzx"/>
             </constraints>
             <point key="canvasLocation" x="20" y="-68"/>
         </view>

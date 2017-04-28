@@ -194,7 +194,9 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
                 break
             case "userStatus":
                 if(dic?["online"] as! Int == 2) {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue : "status"), object: nil, userInfo: dic)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue : "type"), object: nil, userInfo: dic)
+                } else if(dic?["online"] as! Int == 3) {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue : "type"), object: nil, userInfo: nil)
                 }
                 break
             default: break
@@ -207,16 +209,14 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     
     //MARK: Custom Methods
     func connect() {
-        AppDelegate.websocket = SRWebSocket(url: URL(string: "https://trjqhtyxdx.localtunnel.me"))
-
+      AppDelegate.websocket = SRWebSocket(url: URL(string: "https://pcwsqrppwz.localtunnel.me"))
         AppDelegate.websocket.open()
     }
     
     func sendInitMsg(){
         do {
             var dic:[String:Any]!
-            dic = ["senderId": "8454644","type":"initConnection"]
-            
+            dic = ["senderId": AppDelegate.senderId,"type":"initConnection"]  
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
             AppDelegate.websocket.send(NSData(data: jsonData))
         } catch {

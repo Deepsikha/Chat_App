@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		39E71CF46E44F569FE1577CF /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */; };
+		5C0719AC1EB33F84005B0B36 /* ContactInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0719AA1EB33F84005B0B36 /* ContactInfoCell.swift */; };
+		5C0719AD1EB33F84005B0B36 /* ContactInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C0719AB1EB33F84005B0B36 /* ContactInfoCell.xib */; };
+		5C0719B01EB341C9005B0B36 /* contactInfoBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0719AE1EB341C9005B0B36 /* contactInfoBottomCell.swift */; };
+		5C0719B11EB341C9005B0B36 /* contactInfoBottomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C0719AF1EB341C9005B0B36 /* contactInfoBottomCell.xib */; };
 		5C0C906E1EB1BEC9008BCBDA /* ContactInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C906C1EB1BEC9008BCBDA /* ContactInfoController.swift */; };
 		5C0C90711EB1BEF6008BCBDA /* ContactInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C0C90701EB1BEF6008BCBDA /* ContactInfoController.xib */; };
 		5C1179841EAF173B004BBF8E /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1179821EAF173B004BBF8E /* GroupCell.swift */; };
@@ -161,6 +165,10 @@
 		0DD9839A1DC8F4B5621C6EFB /* Pods-Chat_AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		143499D97B7EC2C5C2D8BAAE /* Pods-Chat_AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppTests/Pods-Chat_AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1C6B22A85E7A16C34497F1A5 /* Pods-Chat_AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5C0719AA1EB33F84005B0B36 /* ContactInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfoCell.swift; sourceTree = "<group>"; };
+		5C0719AB1EB33F84005B0B36 /* ContactInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoCell.xib; sourceTree = "<group>"; };
+		5C0719AE1EB341C9005B0B36 /* contactInfoBottomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactInfoBottomCell.swift; sourceTree = "<group>"; };
+		5C0719AF1EB341C9005B0B36 /* contactInfoBottomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = contactInfoBottomCell.xib; sourceTree = "<group>"; };
 		5C0C906C1EB1BEC9008BCBDA /* ContactInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfoController.swift; sourceTree = "<group>"; };
 		5C0C90701EB1BEF6008BCBDA /* ContactInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoController.xib; sourceTree = "<group>"; };
 		5C1179821EAF173B004BBF8E /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
@@ -367,6 +375,10 @@
 				5C4B99841EAF79300046724E /* GroupTableCell.xib */,
 				7D38D83F1EAF4BA400CA3C73 /* CallCell.swift */,
 				7D38D8401EAF4BA400CA3C73 /* CallCell.xib */,
+				5C0719AA1EB33F84005B0B36 /* ContactInfoCell.swift */,
+				5C0719AB1EB33F84005B0B36 /* ContactInfoCell.xib */,
+				5C0719AE1EB341C9005B0B36 /* contactInfoBottomCell.swift */,
+				5C0719AF1EB341C9005B0B36 /* contactInfoBottomCell.xib */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -761,6 +773,7 @@
 				7DC797AE1EAB17CE00EFD39D /* cancel.png in Resources */,
 				7DC797A01EAB17CE00EFD39D /* pending@2x.png in Resources */,
 				7D21AD7F1EA9C04C00087864 /* ChatListCell.xib in Resources */,
+				5C0719AD1EB33F84005B0B36 /* ContactInfoCell.xib in Resources */,
 				7D0617B91EA78386004CB6B2 /* facebook.png in Resources */,
 				5C1179911EAF1AEC004BBF8E /* Down@3x.png in Resources */,
 				7D0617921EA72521004CB6B2 /* CountryList.xib in Resources */,
@@ -781,6 +794,7 @@
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
 				7DC7979C1EAB17CE00EFD39D /* green@1x.png in Resources */,
 				7D38D8451EAF541700CA3C73 /* incomingcall.png in Resources */,
+				5C0719B11EB341C9005B0B36 /* contactInfoBottomCell.xib in Resources */,
 				7D3BE6691EB06B8200CEE25E /* GroupNameController.xib in Resources */,
 				7D38D8461EAF541700CA3C73 /* outgoingcall.png in Resources */,
 				7D8BBBB01EA61BE4006A60DA /* Verification.xib in Resources */,
@@ -1043,10 +1057,12 @@
 				7D06178F1EA72443004CB6B2 /* CountryList.swift in Sources */,
 				7D21AD7A1EA9C04C00087864 /* SenderCell.swift in Sources */,
 				5CEF5A901EA4B65600E92BF8 /* CallsController.swift in Sources */,
+				5C0719B01EB341C9005B0B36 /* contactInfoBottomCell.swift in Sources */,
 				7D21AD801EA9C04C00087864 /* ChatArchCell.swift in Sources */,
 				7D7151F11EA89E3C006A9D4B /* NewChatHeaderCell.swift in Sources */,
 				7D38D8371EAF177000CA3C73 /* ARDRegisterResponse.m in Sources */,
 				5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */,
+				5C0719AC1EB33F84005B0B36 /* ContactInfoCell.swift in Sources */,
 				7D38D83E1EAF177000CA3C73 /* RTCSessionDescription+JSON.m in Sources */,
 				7D0617951EA726BF004CB6B2 /* CountryCell.swift in Sources */,
 				7D06178B1EA723ED004CB6B2 /* SettingsCell.swift in Sources */,

@@ -30,11 +30,12 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue: "load"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(push), name: NSNotification.Name(rawValue: "push"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(filterContentForSearchText), name: NSNotification.Name(rawValue : "search"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(typing(_:)), name: NSNotification.Name(rawValue : "type"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         countmsg()
-        NotificationCenter.default.addObserver(self, selector: #selector(typing), name: NSNotification.Name(rawValue : "status"), object: nil)
+        
     }
     
     //MARK: Table Delegate
@@ -79,11 +80,9 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 if obj != nil && ((contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "sender_id")! as? Int || (contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "receiver_id")! as? Int) {
-//                    if() {
-//                        cell.lstmsg.text = "Typing..."
-//                    } else {
-//                        cell.lstmsg.text = lastMsg
-//                    }
+//
+                        cell.lstmsg.text = lastMsg
+//
                 }
                 cell.msgcount.text = String(describing: contact.1)
             }
@@ -149,10 +148,20 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         self.tblvw.reloadData()
     }
     
+    func abcd() {
+        print("Jaadu")
+    }
+    
     func typing(_ notification : NSNotification) {
-        if let sender = notification.userInfo?["senderId"] as? Int {
-            let indexPath = IndexPath(item: sender, section: 0)
-            tblvw.reloadRows(at: [indexPath], with: .fade)
+        if let senderId = notification.userInfo?["senderId"]! as? Int {
+            let user = (contactNumber.filter{(($0 as! (Any,Any)).0 as AnyObject).value(forKey: "user_id")! as! Int == senderId} as! NSMutableArray).object(at: 0)
+            let index = contactNumber.index(of: user)
+            let indexPath = IndexPath(item: index + 1, section: 0)
+            let cell = tblvw.cellForRow(at: indexPath) as! ChatListCell
+            cell.lstmsg.text = "Typing..."
+            tblvw.reloadRows(at: [indexPath], with: .none)
+        } else {
+            self.tblvw.reloadData()
         }
     }
     
