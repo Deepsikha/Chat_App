@@ -28,6 +28,7 @@ class Verification: UIViewController, UITextFieldDelegate {
     var timer: Timer!;
     var counter: Int = 60;
     var total: Int = 0;
+    var blurView : UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,10 @@ class Verification: UIViewController, UITextFieldDelegate {
         self.lblCall.textColor = UIColor.lightGray
         self.lblSendotp.textColor = UIColor.lightGray
         self.timerStart()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
     }
     
     //MARK:- TextField Delegate
@@ -82,14 +87,14 @@ class Verification: UIViewController, UITextFieldDelegate {
                 self.validateOTP()
                 
                 let blur = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
-                let blurView = UIVisualEffectView(effect: blur)
+                blurView = UIVisualEffectView(effect: blur)
                 blurView.alpha = 0.9
                 blurView.frame = self.view.bounds
                 blurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
                 self.view.addSubview(blurView)
                 self.indicator.isHidden = false
                 self.lblverify.isHidden = false
-                self.lblverify.text = "Verifying \(Verification.no)"
+                self.lblverify.text = "Verifying \(Verification.no!)"
                 self.indicator.startAnimating()
                 blurView.addSubview(self.indicator)
                 blurView.addSubview(self.lblverify)
@@ -122,10 +127,11 @@ class Verification: UIViewController, UITextFieldDelegate {
                 
                 if res.value(forKey: "resp") as! String == "success" {
                     let nav = Verification()
+                    AppDelegate.senderId = Verification.no
                     self.navigationController?.pushViewController(nav, animated: true)
-                    
+                
                 } else {
-                    
+                    self.blurView.removeFromSuperview()
                 }
             }
         }, response_Array: { (resArr) in

@@ -190,7 +190,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
    
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        print(reason)
+        self.lstseen.text = "Offline"
     }
     
     func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
@@ -265,8 +265,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 case 1:
                     self.lstseen.text = "Online"
                     break
+                case 2:
+                    self.lstseen.text = "Typing..."
                 case 3:
-                    self.lstseen.text = "Typing"
+                    self.lstseen.text = "Online"
+                    break
                 default:
                     print("asds")
                 }

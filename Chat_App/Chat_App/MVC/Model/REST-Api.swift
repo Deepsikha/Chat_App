@@ -15,7 +15,7 @@ class server_API {
     
     static let sharedObject = server_API()
     
-    let Base_url = "https://ytsmztinnm.localtunnel.me"
+    let Base_url = "https://ftjnmfpmbv.localtunnel.me"
     
     let int_gone_msg = "You are disconnected from the internet.".capitalized
     
