@@ -23,6 +23,7 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     var media: [String] = []
     var user = [User]()
     var id: Int!
+    var selectedIndex:[IndexPath] = []
     var count: Int! = 0 //for id
 
     override func viewDidLoad() {
@@ -220,8 +221,10 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
         let name = contacts![(indexPath as NSIndexPath).row]
         if type == "Checked" {
             self.media.append(name)
+            self.selectedIndex.append(indexPath)
             self.label1.text = "\(media.count) / 256"
         } else {
+            self.selectedIndex = self.selectedIndex.filter{$0 != indexPath}
             self.media = self.media.filter{$0 != name}
             self.label1.text = "\(media.count) / 256"
         }
@@ -231,14 +234,12 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     func SettingsDidSelectCollectionViewCell(collectionView: UICollectionView, didSelectRowAtIndexPath indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! GroupAddCell
         let name = cell.lblName.text
-        let index = contactListGrouped[String(describing:(name?.characters.first)!)]?.index(of: name!)
-        let section = sectionTitleList.index(of: String(describing:(name?.characters.first)!))
-        let cell1 = self.tblContactList.cellForRow(at: IndexPath(item: index!, section: section!)) as! GroupTableCell
+        let index = selectedIndex[indexPath.item]
+        let cell1 = self.tblContactList.cellForRow(at: index) as! GroupTableCell
         cell1.btnRight.tag = 0
         cell1.btnRight.setImage(UIImage(named: ""), for: .normal)
-        cell1.Celldelegate.SettingsDidSelectTableViewCell!(tableView: self.tblContactList, didSelectRowAtIndexPath: IndexPath(item: index!, section: section!), type: "unChecked")
+        cell1.Celldelegate.SettingsDidSelectTableViewCell!(tableView: self.tblContactList, didSelectRowAtIndexPath: index, type: "unChecked")
         self.media = self.media.filter{$0 != name}
-//        self.media.remove(at: indexPath.row)
         self.tblContactList.reloadData()
         self.collectionPerson.reloadData()
     }
