@@ -36,6 +36,8 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        self.imgProfile.image = UIImage(named: "default-user")
+        UserDefaults.standard.set("default-user", forKey: "img")
     }
     
     override func viewDidLayoutSubviews() {
@@ -83,6 +85,9 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
             
         }
         self.imgProfile.image = selectedImage
+        UserDefaults.standard.set(info[UIImagePickerControllerReferenceURL] as? URL, forKey: "img")
+
+//        self.imgProfile.image = UIImage(contentsOfFile: (UserDefaults.standard.url(forKey: "img")!).absoluteString)
         self.lblAddphoto.isHidden = true
         dismiss(animated: true, completion: nil)
         
@@ -101,16 +106,20 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBAction func handleBtndone(_ sender: Any) {
         AppDelegate.senderDisplayName = self.txfName.text
         AppDelegate.pic = self.imgProfile.image
-        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/profilecreation", Request_parameter: ["senderId" : AppDelegate.senderId , "nickname" : (txfName.text)!], Request_parameter_Images: nil ,status: { (a) in
+        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/profilecreation", Request_parameter: ["senderId" : AppDelegate.senderId , "username" : (txfName.text)!], Request_parameter_Images: ["file":self.imgProfile.image!] ,status: { (status) in
             
-        }, response_Dictionary: { (b) in
-            b
-        }, response_Array: { (c) in
-            c
+        }, response_Dictionary: { (dict) in
+            if dict.value(forKey: "resp") as! String == "success" {
+                UserDefaults.standard.set(self.txfName.text!,forKey: "nickName")
+                let nav = HomeController()
+                self.navigationController?.pushViewController(nav, animated: true)
+            } else {
+                Util.invokeAlertMethod("Failed", strBody: "Failed to update profile", delegate: self)
+            }
+            
+        }, response_Array: { (arr) in
+            
         }, isTokenEmbeded: false)
-//        let nav = HomeController()
-//        self.navigationController?.pushViewController(nav, animated: true)
-        
     }
     
     //MARK:- Custom Method
