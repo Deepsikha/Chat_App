@@ -21,7 +21,9 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     var sectionTitleList = [String]()
     var label1:UILabel!
     var media: [String] = []
-
+    var user = [User]()
+    var id: Int!
+    var count: Int! = 0 //for id
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +83,8 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionPerson.dequeueReusableCell(withReuseIdentifier: "GroupAddCell", for: indexPath) as! GroupAddCell
         cell.setUpCustom(collectionView: collectionView, indexPath: indexPath, CustomDelegate: self)
         cell.imgpic.image = UIImage(named: self.media[indexPath.item])
+        cell.lblName.text = self.media[indexPath.item]
+
         return cell
         
     }
@@ -106,7 +110,7 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupTableCell", for: indexPath) as! GroupTableCell
         
         cell.setUpCustom(tableView: tableView, indexPath: indexPath, CustomDelegate: self)
@@ -178,12 +182,16 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
             
             for contact in cnContacts {
                 self.contactList.append(contact.givenName)
-                
+                self.count! += 1
+                var MobNumVar: [String] = []
                 for ContctNumVar: CNLabeledValue in contact.phoneNumbers
                 {
                     let FulMobNumVar  = ContctNumVar.value
                     let MccNamVar = FulMobNumVar.value(forKey: "countryCode") as? String
-                    let MobNumVar = FulMobNumVar.value(forKey: "digits") as? String
+                    MobNumVar.append((FulMobNumVar.value(forKey: "digits") as? String)!)
+                }
+                if(!MobNumVar.isEmpty) {
+                    self.user.append(User(id: String(describing:self.count), name: contact.givenName, number: MobNumVar[0]))
                 }
             }
             self.contactList = self.contactList.sorted()
@@ -207,19 +215,27 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     //Custom Delegate
     func SettingsDidSelectTableViewCell(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath, type: String) {
         let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
+        
         let contacts = self.contactListGrouped[sectionTitle]
         let name = contacts![(indexPath as NSIndexPath).row]
         if type == "Checked" {
             self.media.append(name)
+            self.label1.text = "\(media.count) / 256"
         } else {
             self.media = self.media.filter{$0 != name}
+            self.label1.text = "\(media.count) / 256"
         }
         self.collectionPerson.reloadData()
     }
     
     func SettingsDidSelectCollectionViewCell(collectionView: UICollectionView, didSelectRowAtIndexPath indexPath: IndexPath) {
-        self.media.remove(at: indexPath.row)
+        let cell = collectionView.cellForItem(at: indexPath) as! GroupAddCell
+        let name = cell.lblName.text
+        self.media = self.media.filter{$0 != name}
+//        self.media.remove(at: indexPath.row)
+        self.tblContactList.reloadData()
         self.collectionPerson.reloadData()
     }
+    
 
 }
