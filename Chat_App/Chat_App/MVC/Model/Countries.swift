@@ -201,3 +201,17 @@ open class Country {
         self.isMain = isMain
     }
 }
+
+open class User {
+    open var id:String!
+    open var name:String!
+    open var number: String!
+    
+    public init(id: String!, name: String!, number: String!) {
+        self.id = id
+        self.name = name
+        self.number = number
+    }
+    
+    
+}

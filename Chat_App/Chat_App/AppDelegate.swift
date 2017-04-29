@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
             let rootVC = welcome()
+
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()

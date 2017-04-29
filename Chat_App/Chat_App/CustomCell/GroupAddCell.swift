@@ -40,6 +40,7 @@ class GroupAddCell: UICollectionViewCell {
     
     @IBAction func handleBtnCancel(_ sender: Any) {
         Celldelegate.SettingsDidSelectCollectionViewCell?(collectionView: self.collectionView, didSelectRowAtIndexPath: self.indexPath)
+        
     }
 
 }
