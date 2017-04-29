@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         else{
-            let rootVC = HomeController()
+            let rootVC = NewGroupController()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()

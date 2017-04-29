@@ -231,6 +231,12 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     func SettingsDidSelectCollectionViewCell(collectionView: UICollectionView, didSelectRowAtIndexPath indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! GroupAddCell
         let name = cell.lblName.text
+        let index = contactListGrouped[String(describing:(name?.characters.first)!)]?.index(of: name!)
+        let section = sectionTitleList.index(of: String(describing:(name?.characters.first)!))
+        let cell1 = self.tblContactList.cellForRow(at: IndexPath(item: index!, section: section!)) as! GroupTableCell
+        cell1.btnRight.tag = 0
+        cell1.btnRight.setImage(UIImage(named: ""), for: .normal)
+        cell1.Celldelegate.SettingsDidSelectTableViewCell!(tableView: self.tblContactList, didSelectRowAtIndexPath: IndexPath(item: index!, section: section!), type: "unChecked")
         self.media = self.media.filter{$0 != name}
 //        self.media.remove(at: indexPath.row)
         self.tblContactList.reloadData()
