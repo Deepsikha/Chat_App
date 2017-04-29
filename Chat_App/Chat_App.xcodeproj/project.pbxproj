@@ -12,6 +12,8 @@
 		5C0719AD1EB33F84005B0B36 /* ContactInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C0719AB1EB33F84005B0B36 /* ContactInfoCell.xib */; };
 		5C0719B01EB341C9005B0B36 /* contactInfoBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0719AE1EB341C9005B0B36 /* contactInfoBottomCell.swift */; };
 		5C0719B11EB341C9005B0B36 /* contactInfoBottomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C0719AF1EB341C9005B0B36 /* contactInfoBottomCell.xib */; };
+		5C0719B41EB35325005B0B36 /* statusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0719B21EB35325005B0B36 /* statusCell.swift */; };
+		5C0719B51EB35325005B0B36 /* statusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C0719B31EB35325005B0B36 /* statusCell.xib */; };
 		5C0C906E1EB1BEC9008BCBDA /* ContactInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C906C1EB1BEC9008BCBDA /* ContactInfoController.swift */; };
 		5C0C90711EB1BEF6008BCBDA /* ContactInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C0C90701EB1BEF6008BCBDA /* ContactInfoController.xib */; };
 		5C1179841EAF173B004BBF8E /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1179821EAF173B004BBF8E /* GroupCell.swift */; };
@@ -169,6 +171,8 @@
 		5C0719AB1EB33F84005B0B36 /* ContactInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoCell.xib; sourceTree = "<group>"; };
 		5C0719AE1EB341C9005B0B36 /* contactInfoBottomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactInfoBottomCell.swift; sourceTree = "<group>"; };
 		5C0719AF1EB341C9005B0B36 /* contactInfoBottomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = contactInfoBottomCell.xib; sourceTree = "<group>"; };
+		5C0719B21EB35325005B0B36 /* statusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = statusCell.swift; sourceTree = "<group>"; };
+		5C0719B31EB35325005B0B36 /* statusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = statusCell.xib; sourceTree = "<group>"; };
 		5C0C906C1EB1BEC9008BCBDA /* ContactInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfoController.swift; sourceTree = "<group>"; };
 		5C0C90701EB1BEF6008BCBDA /* ContactInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoController.xib; sourceTree = "<group>"; };
 		5C1179821EAF173B004BBF8E /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
@@ -379,6 +383,8 @@
 				5C0719AB1EB33F84005B0B36 /* ContactInfoCell.xib */,
 				5C0719AE1EB341C9005B0B36 /* contactInfoBottomCell.swift */,
 				5C0719AF1EB341C9005B0B36 /* contactInfoBottomCell.xib */,
+				5C0719B21EB35325005B0B36 /* statusCell.swift */,
+				5C0719B31EB35325005B0B36 /* statusCell.xib */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -826,6 +832,7 @@
 				5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */,
 				7D7151F81EA8D504006A9D4B /* Gradient@1x.png in Resources */,
 				7D06178C1EA723ED004CB6B2 /* SettingsCell.xib in Resources */,
+				5C0719B51EB35325005B0B36 /* statusCell.xib in Resources */,
 				7DC7979E1EAB17CE00EFD39D /* green@3x.png in Resources */,
 				7DC797AC1EAB17CE00EFD39D /* yellow@2x.png in Resources */,
 				7DC797A31EAB17CE00EFD39D /* red@2x.png in Resources */,
@@ -1058,6 +1065,7 @@
 				7D21AD7A1EA9C04C00087864 /* SenderCell.swift in Sources */,
 				5CEF5A901EA4B65600E92BF8 /* CallsController.swift in Sources */,
 				5C0719B01EB341C9005B0B36 /* contactInfoBottomCell.swift in Sources */,
+				5C0719B41EB35325005B0B36 /* statusCell.swift in Sources */,
 				7D21AD801EA9C04C00087864 /* ChatArchCell.swift in Sources */,
 				7D7151F11EA89E3C006A9D4B /* NewChatHeaderCell.swift in Sources */,
 				7D38D8371EAF177000CA3C73 /* ARDRegisterResponse.m in Sources */,
