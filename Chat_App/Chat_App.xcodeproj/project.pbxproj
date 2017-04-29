@@ -51,6 +51,9 @@
 		5CEF5AAC1EA4B9CD00E92BF8 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAB1EA4B9CD00E92BF8 /* Settings.png */; };
 		5CEF5AAE1EA4BAFA00E92BF8 /* Edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAD1EA4BAFA00E92BF8 /* Edit.png */; };
 		5CEF5AB01EA4CD4100E92BF8 /* AddStatus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5AAF1EA4CD4100E92BF8 /* AddStatus.png */; };
+		7BCB7A131EB34624006E3C6C /* default-user@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BCB7A101EB34624006E3C6C /* default-user@1x.png */; };
+		7BCB7A141EB34624006E3C6C /* default-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BCB7A111EB34624006E3C6C /* default-user@2x.png */; };
+		7BCB7A151EB34624006E3C6C /* default-user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BCB7A121EB34624006E3C6C /* default-user@3x.png */; };
 		7D06178B1EA723ED004CB6B2 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0617891EA723ED004CB6B2 /* SettingsCell.swift */; };
 		7D06178C1EA723ED004CB6B2 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D06178A1EA723ED004CB6B2 /* SettingsCell.xib */; };
 		7D06178F1EA72443004CB6B2 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06178D1EA72443004CB6B2 /* CountryList.swift */; };
@@ -211,6 +214,9 @@
 		5CEF5AAF1EA4CD4100E92BF8 /* AddStatus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddStatus.png; sourceTree = "<group>"; };
 		695E83FB6EE03FD4666AFD05 /* Pods-Chat_App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_App/Pods-Chat_App.release.xcconfig"; sourceTree = "<group>"; };
 		6A8F1A39A85232CCB89A6F7B /* Pods-Chat_AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppTests/Pods-Chat_AppTests.release.xcconfig"; sourceTree = "<group>"; };
+		7BCB7A101EB34624006E3C6C /* default-user@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-user@1x.png"; sourceTree = "<group>"; };
+		7BCB7A111EB34624006E3C6C /* default-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-user@2x.png"; sourceTree = "<group>"; };
+		7BCB7A121EB34624006E3C6C /* default-user@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-user@3x.png"; sourceTree = "<group>"; };
 		7D0617891EA723ED004CB6B2 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		7D06178A1EA723ED004CB6B2 /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		7D06178D1EA72443004CB6B2 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
@@ -579,6 +585,9 @@
 		7D202DB31EA49CB20018FCAD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7BCB7A101EB34624006E3C6C /* default-user@1x.png */,
+				7BCB7A111EB34624006E3C6C /* default-user@2x.png */,
+				7BCB7A121EB34624006E3C6C /* default-user@3x.png */,
 				7D7151F51EA8D504006A9D4B /* Gradient@1x.png */,
 				7D7151F61EA8D504006A9D4B /* Gradient@2x.png */,
 				7D7151F71EA8D504006A9D4B /* Gradient@3x.png */,
@@ -827,8 +836,11 @@
 				7D7151F81EA8D504006A9D4B /* Gradient@1x.png in Resources */,
 				7D06178C1EA723ED004CB6B2 /* SettingsCell.xib in Resources */,
 				7DC7979E1EAB17CE00EFD39D /* green@3x.png in Resources */,
+				7BCB7A131EB34624006E3C6C /* default-user@1x.png in Resources */,
 				7DC797AC1EAB17CE00EFD39D /* yellow@2x.png in Resources */,
+				7BCB7A151EB34624006E3C6C /* default-user@3x.png in Resources */,
 				7DC797A31EAB17CE00EFD39D /* red@2x.png in Resources */,
+				7BCB7A141EB34624006E3C6C /* default-user@2x.png in Resources */,
 				5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */,
 				7DC797AA1EAB17CE00EFD39D /* videocall.png in Resources */,
 				7D21AD7D1EA9C04C00087864 /* ReceiverCell.xib in Resources */,
