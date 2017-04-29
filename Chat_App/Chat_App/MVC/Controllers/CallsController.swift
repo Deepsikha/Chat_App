@@ -42,7 +42,6 @@ class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             myString.append(myString1)
             lblNoti.attributedText = myString
             
-            
         }
     }
     

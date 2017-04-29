@@ -8,23 +8,21 @@
 
 import UIKit
 
-class GroupNameController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class GroupNameController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CheckedCollectionviewDelegate{
     
     @IBOutlet var imgGroup: UIImageView!
     @IBOutlet var btnPhoto: UIButton!
     @IBOutlet var collectionGroup: UICollectionView!
     @IBOutlet var txfGroupName: UITextField!
     @IBOutlet var lblCount: UILabel!
-    @IBOutlet var navCreate: UINavigationBar!
-    @IBOutlet var btnCreate: UIBarButtonItem!
-    
+    var btnCreate:UIBarButtonItem!
     @IBOutlet var lblParticipant: UILabel!
     var count:Int = 25
     var txt:String!
-    var media: [String] = ["Help.png","","","","","","","","","","","","","",""]
+    var media: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = false
         
         txfGroupName.delegate = self
         collectionGroup.delegate = self
@@ -43,6 +41,12 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
         self.imgGroup.layer.cornerRadius = imgGroup.frame.width / 2
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.title = "New Group"
+        btnCreate = UIBarButtonItem(title: "Create", style: UIBarButtonItemStyle.done, target: self, action: #selector(create))
+        self.navigationItem.rightBarButtonItem = btnCreate
+
+    }
     //MARK:- TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if (textField.text?.characters.count)! > 0 {
@@ -108,6 +112,7 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionGroup.dequeueReusableCell(withReuseIdentifier: "GroupAddCell", for: indexPath) as! GroupAddCell
+        cell.setUpCustom(collectionView: collectionView, indexPath: indexPath, CustomDelegate: self)
         
         cell.imgpic.image = UIImage(named: media[indexPath.item])
         return cell
@@ -146,6 +151,13 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    @IBAction func handleBtnCreate(_ sender: Any) {
+    //MARK:- Custom Delegate
+    func SettingsDidSelectCollectionViewCell(collectionView: UICollectionView, didSelectRowAtIndexPath indexPath: IndexPath) {
+        self.media.remove(at: indexPath.row)
+        self.collectionGroup.reloadData()
+    }
+    
+    func create() {
+        
     }
 }

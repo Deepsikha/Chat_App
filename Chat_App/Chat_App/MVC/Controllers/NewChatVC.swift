@@ -60,7 +60,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblHeader.register(UINib(nibName: "NewChatHeaderCell", bundle: nil), forCellReuseIdentifier: "NewChatHeaderCell")
         self.tblNewContact.register(UINib(nibName: "CallCell", bundle: nil), forCellReuseIdentifier: "CallCell")
     }
-    // MARK: - Delegate Method
+    // MARK: - Table Delegate Method
     func numberOfSections(in tableView: UITableView) -> Int {
         if !(self.caller.isEmpty) {
             if self.caller! == "ChatListController" {
@@ -186,6 +186,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.present(alert, animated: true, completion: nil)
                 return
             }
+            
             
             let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey] as [Any]
             let request = CNContactFetchRequest(keysToFetch: keysToFetch as! [CNKeyDescriptor])
