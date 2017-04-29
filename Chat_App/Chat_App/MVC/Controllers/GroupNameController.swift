@@ -115,6 +115,7 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
         cell.setUpCustom(collectionView: collectionView, indexPath: indexPath, CustomDelegate: self)
         
         cell.imgpic.image = UIImage(named: media[indexPath.item])
+        self.lblCount.text = "PARTICIPANTS: \(media.count) OF 256"
         return cell
         
     }
@@ -155,6 +156,7 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
     func SettingsDidSelectCollectionViewCell(collectionView: UICollectionView, didSelectRowAtIndexPath indexPath: IndexPath) {
         self.media.remove(at: indexPath.row)
         self.collectionGroup.reloadData()
+        self.lblCount.text = "PARTICIPANTS: \(media.count) OF 256"
     }
     
     func create() {
