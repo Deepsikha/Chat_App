@@ -13,8 +13,9 @@ import Crashlytics
 import DKImagePickerController
 import CoreLocation
 import Photos
+import MapKit
 
-class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, SRWebSocketDelegate, UITextViewDelegate {
+class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, SRWebSocketDelegate, UITextViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var chatboxTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var sendmsg: UIButton!
@@ -40,6 +41,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var chatboxConstant : CGFloat!
     private var lastContentOffset: CGFloat = 0
     var maxStringLength = 5
+    var canSendLocation = true
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +94,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.openprofl))
         tap1.cancelsTouchesInView = false
         self.navvw.addGestureRecognizer(tap1)
+        self.locationManager.delegate = self
         getMsg()
         
     }
@@ -140,7 +144,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.hideKeyBoard(_ :)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
     }
     
     //MARK:- Table Delegate
@@ -170,14 +173,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
                     let data = NSData(contentsOf: url! as URL)
                     cell.messageBackground.image = UIImage(data: data! as Data)
+                    cell.messageBackground.backgroundColor = UIColor.clear
                     cell.message.isHidden = true
-//                    cell.stamp.isHidden = true
-                
-                return cell
+                    return cell
             } else {
             cell.message.text = ob.value(forKey: "message") as? String
             cell.messageBackground.image = nil
-//            cell.stamp.text = ob.value(forKey: "time") as? String
             return cell
             }
         } else {
@@ -315,20 +316,17 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let sheet = UIAlertController(title: "Media messages", message: nil, preferredStyle: .actionSheet)
         
         let photoAction = UIAlertAction(title: "Send Photo/Video", style: .default) { (action) in
-            /**
-             *  Create fake photo
-             */
+            
             self.addphoto()
             
         }
         
         let locationAction = UIAlertAction(title: "Send location", style: .default) { (action) in
-            /**
-             *  Add fake location
-             */
-            //            let locationItem = self.buildLocationItem()
-            //
-            //            self.addMedia(locationItem)
+            if self.checkLocationPermission() {
+                self.locationManager.startUpdatingLocation()
+            } else {
+                self.locationManager.requestWhenInUseAuthorization()
+            }
         }
         
         let audioAction = UIAlertAction(title: "Send audio", style: .default) { (action) in
@@ -377,6 +375,46 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    //MARK:- Location Methods
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.locationManager.stopUpdatingLocation()
+        if let lastloc = locations.last{
+        let cord = (CLLocationCoordinate2DMake(lastloc.coordinate.latitude, lastloc.coordinate.longitude))
+        let options = MKMapSnapshotOptions()
+        let region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(lastloc.coordinate.latitude, lastloc.coordinate.longitude), 500, 500)
+        options.region = region
+        options.scale = UIScreen.main.scale
+            options.size = CGSize(width : 500,height :500)
+        
+        let snapshotter = MKMapSnapshotter(options: options)
+        snapshotter.start() {
+            snapshot, error in
+            
+            
+            let image = snapshot?.image
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = cord
+            annotation.title = "Your Title"
+            
+            let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
+            let pinImage = annotationView.image
+            
+            UIGraphicsBeginImageContextWithOptions((image?.size)!, true, (image?.scale)!);
+            
+            image?.draw(at: CGPoint.zero) //map
+            
+            //            pinImage!.drawAtPoint(snapshot.pointForCoordinate(coordinates[0]))
+            
+            annotationView.drawHierarchy(in: CGRect(x: (snapshot?.point(for: cord).x)!, y: (snapshot?.point(for: cord).y)!, width: annotationView.frame.width, height: annotationView.frame.height), afterScreenUpdates: true)
+            
+            
+            let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+        }
+    }
+    }
     
     //MARK:- Custom Method
     
@@ -526,6 +564,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func edit() {
         print("sdfsdfasdfsdf")
+    }
+    
+    func checkLocationPermission() -> Bool {
+        var state = false
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse:
+            state = true
+        case .authorizedAlways:
+            state = true
+        default: break
+        }
+        return state
     }
     
 }
