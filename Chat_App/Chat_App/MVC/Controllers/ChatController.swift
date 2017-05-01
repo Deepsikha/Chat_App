@@ -10,6 +10,9 @@ import UIKit
 import QuartzCore
 import SocketRocket
 import Crashlytics
+import DKImagePickerController
+import CoreLocation
+import Photos
 
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, SRWebSocketDelegate, UITextViewDelegate {
     
@@ -28,6 +31,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var lstseen: UILabel!
     
     static var type : String!
+    let pickerController = DKImagePickerController()
     var i = 4
     var frame : CGRect!
     static var reciever_id : Int!
@@ -74,7 +78,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         tblvw.delegate = self
         tblvw.dataSource = self
-        self.tblvw.estimatedRowHeight = 100
+        self.tblvw.estimatedRowHeight = 500
         self.tblvw.rowHeight = UITableViewAutomaticDimension
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
@@ -94,7 +98,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getMsg() {
         self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
         
-        tblvw.reloadData()
+        self.tblvw.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,12 +145,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- Table Delegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let ob = (self.messages.object(at: indexPath.row) as AnyObject)
+        let ob = (self.messages.object(at: indexPath.row) as! NSObject)
         
         if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
             cell.messageBackground.layer.borderWidth = 2
-            cell.message.text = ob.value(forKey: "message") as? String
             switch Int.init((ob.value(forKey: "ack") as! String))! {
             case 0:
                 cell.messageBackground.layer.borderColor = UIColor.black.cgColor
@@ -163,10 +166,26 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             default:
                 print("ABCD")
             }
-            cell.stamp.text = ob.value(forKey: "time") as? String
+            if(ob.value(forKey: "image") as! String != "nil") {
+                    let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
+                    let data = NSData(contentsOf: url! as URL)
+                    cell.messageBackground.image = UIImage(data: data! as Data)
+                    cell.message.isHidden = true
+//                    cell.stamp.isHidden = true
+                
+                return cell
+            } else {
+            cell.message.text = ob.value(forKey: "message") as? String
+            cell.messageBackground.image = nil
+//            cell.stamp.text = ob.value(forKey: "time") as? String
             return cell
+            }
         } else {
             let cell1 = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            if(ob.value(forKey: "message") as? UIImage != nil) {
+                cell1.messageBackground.image = ob.value(forKey: "image") as? UIImage
+                return cell1
+            }
             cell1.message.text = ob.value(forKey: "message") as? String
             return cell1
         }
@@ -367,9 +386,57 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func addphoto() {
+        var dic:[String:Any]!
         
+        self.present(pickerController, animated: true) {}
+        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+            print("didSelectAssets")
+            print(assets)
+            for i in assets {
+                if(i.isVideo) {
+                    i.fetchAVAsset(nil, completeBlock: { (data, info) in
+                        if let urlAsset = data as? AVURLAsset {
+                            
+                        }
+                    })
+                    self.tblvw.reloadData()
+                } else {
+                    i.fetchImageDataForAsset(true, completeBlock: { (data, info) in
+                        var image: UIImage?
+                        var imgurl : NSURL?
+                        if let data = data {
+                            image = UIImage(data: data)
+                                imgurl = info!["PHImageFileURLKey"]! as? NSURL
+                            var dic:[String:Any]!
+                            
+                            
+                            dic = ["senderId":Int(AppDelegate.senderId)!,"message": self.chatbox.text! ,"recieverId":ChatController.reciever_id,"type":"message","image" : imgurl!]
+                            
+                            
+                            self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":self.chatbox.text!,"time":Date(),"status":"0"])
+                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,image,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["image"]!))\',0")
+                            
+                            
+                            server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/uploads", Request_parameter: ["senderId" : AppDelegate.senderId,"receiver_id" : String(describing:ChatController.reciever_id!)], Request_parameter_Images: ["file" : image!], status: { (status) in
+                                    
+                                }, response_Dictionary: { (dic) in
+                                    
+                                }, response_Array: { (arr) in
+                                    
+                                }, isTokenEmbeded: false)
+                            
+                        }
+                        self.getMsg()
+
+                    })
+                }
+            }
+            
+        }
     }
-    
+            
+
+            
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {

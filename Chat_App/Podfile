@@ -11,6 +11,8 @@ target 'Chat_App' do
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'libjingle_peerconnection'
+    pod 'DKImagePickerController'
+    
   target 'Chat_AppTests' do
     inherit! :search_paths
     # Pods for testing

@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     static var websocket: SRWebSocket!
-    static var senderId:String!
+    static var senderId = "1552150835"
     static var senderDisplayName:String!
     static var pic:UIImage!
     
@@ -33,13 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
-            let rootVC = welcome()
+            let rootVC = HomeController()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
             return true
         } else {
-            AppDelegate.senderId = UserDefaults.standard.value(forKey: "id") as! String
+//            AppDelegate.senderId = UserDefaults.standard.value(forKey: "id") as! String
             if UserDefaults.standard.value(forKey: "nickName") != nil {
                 let rootVC = HomeController()
                 let nav = UINavigationController(rootViewController: rootVC)
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window?.makeKeyAndVisible()
                 return true
             } else {
-                let rootVC = SetProfileController()
+                let rootVC = HomeController()
                 let nav = UINavigationController(rootViewController: rootVC)
                 window?.rootViewController = nav
                 window?.makeKeyAndVisible()
