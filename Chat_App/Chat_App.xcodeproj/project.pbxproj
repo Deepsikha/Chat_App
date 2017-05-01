@@ -26,6 +26,8 @@
 		5C4B99821EAF729E0046724E /* GroupAddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4B99801EAF729E0046724E /* GroupAddCell.xib */; };
 		5C4B99851EAF79300046724E /* GroupTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B99831EAF79300046724E /* GroupTableCell.swift */; };
 		5C4B99861EAF79300046724E /* GroupTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4B99841EAF79300046724E /* GroupTableCell.xib */; };
+		5C99C34D1EB73FDA00BB1C16 /* VChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C99C34C1EB73FDA00BB1C16 /* VChatController.swift */; };
+		5C99C34F1EB73FE400BB1C16 /* VChatController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C99C34E1EB73FE400BB1C16 /* VChatController.xib */; };
 		5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80511EA5EFE500B88F3F /* arrright.png */; };
 		5CCE805C1EA5FBF900B88F3F /* Account.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80541EA5FBF900B88F3F /* Account.png */; };
 		5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80551EA5FBF900B88F3F /* Chat.png */; };
@@ -188,6 +190,8 @@
 		5C4B99801EAF729E0046724E /* GroupAddCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupAddCell.xib; sourceTree = "<group>"; };
 		5C4B99831EAF79300046724E /* GroupTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableCell.swift; sourceTree = "<group>"; };
 		5C4B99841EAF79300046724E /* GroupTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupTableCell.xib; sourceTree = "<group>"; };
+		5C99C34C1EB73FDA00BB1C16 /* VChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VChatController.swift; sourceTree = "<group>"; };
+		5C99C34E1EB73FE400BB1C16 /* VChatController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VChatController.xib; sourceTree = "<group>"; };
 		5CCE80511EA5EFE500B88F3F /* arrright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrright.png; sourceTree = "<group>"; };
 		5CCE80531EA5F98100B88F3F /* Chat_App-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chat_App-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CCE80541EA5FBF900B88F3F /* Account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Account.png; sourceTree = "<group>"; };
@@ -472,6 +476,7 @@
 		7D202DAE1EA49CB20018FCAD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5C99C34C1EB73FDA00BB1C16 /* VChatController.swift */,
 				7D202DBE1EA4A4410018FCAD /* welcome.swift */,
 				7D202DC61EA4BFC50018FCAD /* Register.swift */,
 				7D8BBBAB1EA61BC7006A60DA /* Verification.swift */,
@@ -506,6 +511,7 @@
 		7D202DB01EA49CB20018FCAD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5C99C34E1EB73FE400BB1C16 /* VChatController.xib */,
 				5C0C90701EB1BEF6008BCBDA /* ContactInfoController.xib */,
 				7D3BE6681EB06B8200CEE25E /* GroupNameController.xib */,
 				7D3BE65C1EB0642600CEE25E /* NewGroupController.xib */,
@@ -800,6 +806,7 @@
 				5CEF5AA41EA4B88C00E92BF8 /* SettingsController.xib in Resources */,
 				7D202D891EA49BEF0018FCAD /* LaunchScreen.storyboard in Resources */,
 				5CCE805D1EA5FBF900B88F3F /* Chat.png in Resources */,
+				5C99C34F1EB73FE400BB1C16 /* VChatController.xib in Resources */,
 				5C0C90711EB1BEF6008BCBDA /* ContactInfoController.xib in Resources */,
 				5CEF5A9B1EA4B7BF00E92BF8 /* CameraController.xib in Resources */,
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
@@ -1054,6 +1061,7 @@
 				7D06179E1EA73369004CB6B2 /* Countries.swift in Sources */,
 				5C0C906E1EB1BEC9008BCBDA /* ContactInfoController.swift in Sources */,
 				5C4B99851EAF79300046724E /* GroupTableCell.swift in Sources */,
+				5C99C34D1EB73FDA00BB1C16 /* VChatController.swift in Sources */,
 				7D21AD7C1EA9C04C00087864 /* ReceiverCell.swift in Sources */,
 				5C1179841EAF173B004BBF8E /* GroupCell.swift in Sources */,
 				7D21AD7E1EA9C04C00087864 /* ChatListCell.swift in Sources */,
