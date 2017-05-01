@@ -17,6 +17,7 @@ class server_API {
     
 
     let Base_url = "https://192.168.200.15:8085/"
+
     
     let int_gone_msg = "You are disconnected from the internet.".capitalized
     
