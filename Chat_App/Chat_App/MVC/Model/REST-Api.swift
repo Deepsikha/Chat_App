@@ -15,7 +15,9 @@ class server_API {
     
     static let sharedObject = server_API()
     
-    let Base_url = "https://kuiqrtirwe.localtunnel.me"
+
+    let Base_url = "https://192.168.200.15:8085/"
+
     
     let int_gone_msg = "You are disconnected from the internet.".capitalized
     
@@ -139,7 +141,126 @@ class server_API {
         task.resume()
     }
     
-    
+    func requestFor_NSMutableDictionaryMine(Str_Request_Url:String , Request_parameter:[String: Any]? , Request_parameter_Images:[String: UIImage]? ,status: @escaping (_ result: Calling_Status) -> Void , response_Dictionary: @escaping (_ results: NSMutableDictionary) -> Void , response_Array: @escaping (_ results: NSMutableArray) -> Void,isTokenEmbeded:Bool){
+        let myurl = NSURL(string: "\(Base_url)\(Str_Request_Url)")
+        let obj_of_status = Calling_Status(Status: false, Message: "Request Failed",Request_Url: "\(Base_url)\(Str_Request_Url)")
+        print(myurl!)
+        let req = NSMutableURLRequest(url: myurl! as URL)
+        if(isTokenEmbeded == false){
+            
+        }else{
+            //            req.setValue(AppDelegate.token , forHTTPHeaderField: "Authorization")
+        }
+        var QuaryString = ""
+        
+        if Request_parameter_Images != nil {
+            req.httpMethod = "POST"
+            let boundary = generateBoundaryString()
+            req.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            req.httpBody = self.createBodyWithParameter(parameters: Request_parameter, imageData: Request_parameter_Images!, boundary: boundary) as Data
+        }
+        else{
+            if Request_parameter  != nil {
+                req.httpMethod = "POST"
+                _ = generateBoundaryString()
+                
+                for (key, value) in Request_parameter!
+                {
+                    QuaryString = "\(QuaryString)\(key)=\(value)&"
+                }
+                req.httpBody = QuaryString.data(using: String.Encoding.utf8)
+                
+            }
+        }
+        
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: req as URLRequest){
+            data,res,err in
+            if(err != nil)
+            {
+                if err?._code == -1004{
+                    obj_of_status.Message = "Could't create connection with the server.".capitalized
+                    status(obj_of_status)
+                    return
+                }else if err?._code == -1202{
+                    obj_of_status.Message = "Could't create connection with the server.".capitalized
+                    status(obj_of_status)
+                    return
+                }
+                obj_of_status.Message = "\(String(describing: err))"
+                status(obj_of_status)
+                return
+            }
+            
+            if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_9_3{
+                do {
+                    if let json: NSMutableDictionary = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSMutableDictionary
+                    {
+                        obj_of_status.Message = "Success get Response.".capitalized
+                        status(obj_of_status)
+                        response_Dictionary(json)
+                        return
+                    }else{
+                        if let json: NSMutableArray = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSMutableArray
+                        {
+                            obj_of_status.Message = "Success get Response.".capitalized
+                            status(obj_of_status)
+                            response_Array(json)
+                            return
+                        }else{
+                            if (res != nil) {
+                                obj_of_status.Message = "\(((res as? HTTPURLResponse)?.statusCode)!)"
+                            }
+                            status(obj_of_status)
+                            return
+                        }
+                    }
+                } catch let error as NSError {
+                    obj_of_status.Message = "\(error.localizedDescription)"
+                    if (res != nil) {
+                        obj_of_status.Message = "\(((res as? HTTPURLResponse)?.statusCode)!)"
+                    }
+                    status(obj_of_status)
+                    return
+                }
+            }else{
+                do {
+                    if let json: NSMutableDictionary = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? NSMutableDictionary
+                    {
+                        obj_of_status.Message = "Success get Response.".capitalized
+                        status(obj_of_status)
+                        response_Dictionary(json)
+                        return
+                    }else{
+                        if let json: NSMutableArray = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? NSMutableArray
+                        {
+                            obj_of_status.Message = "Success get Response.".capitalized
+                            status(obj_of_status)
+                            response_Array(json)
+                            return
+                        }else{
+                            if (res != nil) {
+                                obj_of_status.Message = "\(((res as? HTTPURLResponse)?.statusCode)!)"
+                            }
+                            status(obj_of_status)
+                            return
+                        }
+                    }
+                } catch let error as NSError {
+                    obj_of_status.Message = "\(error.localizedDescription)"
+                    if (res != nil) {
+                        obj_of_status.Message = "\(((res as? HTTPURLResponse)?.statusCode)!)"
+                    }
+                    status(obj_of_status)
+                    return
+                }
+            }
+        }
+        task.resume()
+    }
+
     private func generateBoundaryString() -> String {
         return "Boundary-\(NSUUID().uuidString)"
     }

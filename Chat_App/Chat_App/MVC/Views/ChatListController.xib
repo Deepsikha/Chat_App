@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,8 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatListController" customModule="Chat_App" customModuleProvider="target">
             <connections>
+                <outlet property="lblArchiveNo" destination="cXj-U1-npU" id="CiY-hq-WcS"/>
+                <outlet property="search" destination="dWy-ud-nIp" id="peI-CW-0bK"/>
                 <outlet property="tblvw" destination="Xs0-H0-hdI" id="cCK-oG-qOg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="vwHeader" destination="L4o-qe-S4W" id="DDJ-jY-pa7"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -34,5 +37,87 @@
             </constraints>
             <point key="canvasLocation" x="25" y="52"/>
         </view>
+        <view contentMode="scaleToFill" id="L4o-qe-S4W">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="143"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGN-Uf-ost">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afF-ZB-GFD">
+                            <rect key="frame" x="8" y="11" width="105" height="30"/>
+                            <state key="normal" title="Archived Chats"/>
+                            <connections>
+                                <action selector="handleArchieve:" destination="-1" eventType="touchUpInside" id="Ugd-7s-HjR"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXj-U1-npU">
+                            <rect key="frame" x="262" y="17" width="22" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrright.png" translatesAutoresizingMaskIntoConstraints="NO" id="BCA-k6-qdf">
+                            <rect key="frame" x="299" y="22" width="10" height="10"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="10" id="liU-JH-NOd"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="cXj-U1-npU" secondAttribute="bottom" constant="15" id="Cca-Y0-BE5"/>
+                        <constraint firstAttribute="trailing" secondItem="BCA-k6-qdf" secondAttribute="trailing" constant="11" id="JjO-9F-8Ai"/>
+                        <constraint firstItem="BCA-k6-qdf" firstAttribute="centerY" secondItem="wGN-Uf-ost" secondAttribute="centerY" id="VGq-Wi-TZI"/>
+                        <constraint firstItem="afF-ZB-GFD" firstAttribute="leading" secondItem="wGN-Uf-ost" secondAttribute="leading" constant="8" id="Vzc-bI-iam"/>
+                        <constraint firstItem="cXj-U1-npU" firstAttribute="top" secondItem="wGN-Uf-ost" secondAttribute="top" constant="17" id="ayr-m5-axU"/>
+                        <constraint firstItem="BCA-k6-qdf" firstAttribute="top" secondItem="wGN-Uf-ost" secondAttribute="top" constant="22" id="dgI-TR-htI"/>
+                        <constraint firstAttribute="bottom" secondItem="afF-ZB-GFD" secondAttribute="bottom" constant="12" id="ndj-AI-EKJ"/>
+                        <constraint firstItem="afF-ZB-GFD" firstAttribute="top" secondItem="wGN-Uf-ost" secondAttribute="top" constant="11" id="nmY-30-UZA"/>
+                        <constraint firstItem="cXj-U1-npU" firstAttribute="leading" secondItem="afF-ZB-GFD" secondAttribute="trailing" constant="149" id="x9E-p8-Mng"/>
+                        <constraint firstItem="BCA-k6-qdf" firstAttribute="centerY" secondItem="cXj-U1-npU" secondAttribute="centerY" id="yD7-cY-z2J"/>
+                        <constraint firstItem="BCA-k6-qdf" firstAttribute="leading" secondItem="cXj-U1-npU" secondAttribute="trailing" constant="15" id="ziK-N5-55T"/>
+                    </constraints>
+                </view>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="dWy-ud-nIp">
+                    <rect key="frame" x="0.0" y="53" width="320" height="44"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQd-fx-k3V">
+                    <rect key="frame" x="8" y="104" width="106" height="30"/>
+                    <state key="normal" title="Broadcast Lists"/>
+                    <connections>
+                        <action selector="handleBroadcast:" destination="-1" eventType="touchUpInside" id="Afv-F5-m3h"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csk-Bx-UWs">
+                    <rect key="frame" x="235" y="104" width="77" height="30"/>
+                    <state key="normal" title="New Group"/>
+                    <connections>
+                        <action selector="handleNewGroup:" destination="-1" eventType="touchUpInside" id="Q6d-ec-g5B"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="wGN-Uf-ost" firstAttribute="leading" secondItem="L4o-qe-S4W" secondAttribute="leading" id="3Rg-HJ-Uui"/>
+                <constraint firstAttribute="trailing" secondItem="wGN-Uf-ost" secondAttribute="trailing" id="H3A-Es-7Fl"/>
+                <constraint firstItem="zQd-fx-k3V" firstAttribute="top" secondItem="dWy-ud-nIp" secondAttribute="bottom" constant="7" id="NeV-Cf-FqG"/>
+                <constraint firstItem="wGN-Uf-ost" firstAttribute="top" secondItem="L4o-qe-S4W" secondAttribute="top" id="eYa-if-qkj"/>
+                <constraint firstAttribute="bottom" secondItem="csk-Bx-UWs" secondAttribute="bottom" constant="9" id="fy7-sy-9WC"/>
+                <constraint firstAttribute="trailing" secondItem="csk-Bx-UWs" secondAttribute="trailing" constant="8" id="h2O-SJ-mdO"/>
+                <constraint firstItem="dWy-ud-nIp" firstAttribute="leading" secondItem="L4o-qe-S4W" secondAttribute="leading" id="mKd-Xa-KfO"/>
+                <constraint firstAttribute="trailing" secondItem="dWy-ud-nIp" secondAttribute="trailing" id="mVT-sj-FDI"/>
+                <constraint firstAttribute="bottom" secondItem="zQd-fx-k3V" secondAttribute="bottom" constant="9" id="mic-Pb-53b"/>
+                <constraint firstItem="csk-Bx-UWs" firstAttribute="top" secondItem="dWy-ud-nIp" secondAttribute="bottom" constant="7" id="nAF-jb-FxF"/>
+                <constraint firstItem="dWy-ud-nIp" firstAttribute="top" secondItem="wGN-Uf-ost" secondAttribute="bottom" id="nrO-rb-dle"/>
+                <constraint firstItem="zQd-fx-k3V" firstAttribute="leading" secondItem="L4o-qe-S4W" secondAttribute="leading" constant="8" id="x6h-Ia-e3K"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="381" y="121"/>
+        </view>
     </objects>
+    <resources>
+        <image name="arrright.png" width="24" height="24"/>
+    </resources>
 </document>

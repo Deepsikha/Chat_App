@@ -8,29 +8,36 @@
 
 import UIKit
 
-class ChatListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var tblvw: UITableView!
     
+    @IBOutlet var search: UISearchBar!
+    @IBOutlet var lblArchiveNo: UILabel!
+    @IBOutlet var vwHeader: UIView!
     static var sender = 0
     var contactNumber : NSMutableArray!
     var last = [String]()
     var msgCount: [Int]! = []
-    var latest : NSMutableArray!
+    var latest = NSMutableArray()
+    var filtercontactNumber = NSMutableArray()
     static var searchText : String!
+    var isSearch:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         countmsg()
+        
+        search.delegate = self
         tblvw.delegate = self
         tblvw.dataSource = self
+
         self.navigationController?.isToolbarHidden = true
         tblvw.register(UINib(nibName: "ChatArchCell", bundle: nil), forCellReuseIdentifier: "ChatArchCell")
         tblvw.register(UINib(nibName: "ChatListCell", bundle: nil), forCellReuseIdentifier: "ChatListCell")
-        NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue: "load"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(push), name: NSNotification.Name(rawValue: "push"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(filterContentForSearchText), name: NSNotification.Name(rawValue : "search"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(typing(_:)), name: NSNotification.Name(rawValue : "type"), object: nil)
+        self.tblvw.tableHeaderView = self.vwHeader
+        self.search.placeholder = "Search"
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,28 +47,25 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     
     //MARK: Table Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contactNumber.count + 1
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if(indexPath.row == 0) {
-            return 143
+        if (self.isSearch) {
+            return filtercontactNumber.count
         } else {
-            return 60
+            return contactNumber.count
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 60
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        if(indexPath.row == 0) {
-            let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatArchCell", for: indexPath) as! ChatArchCell
-            return cell
+        var contact:(Any,Any)!
+        if self.isSearch{
+            contact = filtercontactNumber.object(at: indexPath.row) as! (Any,Any)
         } else {
-            
-            let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
+            contact = contactNumber.object(at: indexPath.row) as! (Any,Any)
+        }
+        
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
             cell.prflpic.image = UIImage(named : "Gradient")
             let id = String(describing: (contact.0 as AnyObject).value(forKey: "user_id")!)
@@ -71,7 +75,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
                 latest = ModelManager.getInstance().getlatest("chat" , Int(AppDelegate.senderId)! , (contact.0 as AnyObject).value(forKey: "user_id")! as! Int)
                 cell.timestmp.text = (contact.0 as AnyObject).value(forKey: "lastseen")! as? String
                 var lastMsg: String!
-                var obj: AnyObject!
+            var obj: AnyObject!
                 if latest.count > 0 {
                     if (latest.lastObject as AnyObject).count != 0 {
                         obj = latest.lastObject as AnyObject
@@ -80,26 +84,21 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 if obj != nil && ((contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "sender_id")! as? Int || (contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "receiver_id")! as? Int) {
-//
+                    
                         cell.lstmsg.text = lastMsg
-//
                 }
                 cell.msgcount.text = String(describing: contact.1)
             }
             return cell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 0 {
-            return false
-        }
-        return true
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.row != 0) {
-        let contact = contactNumber.object(at: indexPath.row - 1) as! (Any,Any)
+        var contact:(Any,Any)!
+        if self.isSearch{
+            contact = filtercontactNumber.object(at: indexPath.row) as! (Any,Any)
+        } else {
+            contact = contactNumber.object(at: indexPath.row) as! (Any,Any)
+        }
         ChatController.reciever_id = ((contact.0) as AnyObject).value(forKey: "user_id") as! Int
         ChatController.type = "single"
         let a = ModelManager.getInstance().getack("chat", "\(ChatController.reciever_id!)", "status = \'false\'")
@@ -112,12 +111,72 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             
             }
         }
-        
         self.navigationController?.pushViewController(ChatController(), animated: true)
+    }
+    
+    //MARK:- Search Delegate
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        isSearch = true
+
+        var r = self.view.frame
+        r.origin.y = -44
+        r.size.height += 44
+        self.view.frame = r
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        if isSearch == true{
+            isSearch = false
+            tblvw.reloadData()
+        }
+        searchBar.text = ""
+        self.search.setShowsCancelButton(false, animated: true)
+        searchBar.endEditing(true)
+        var r = self.view.frame
+        r.origin.y = 0
+        r.size.height -= 44
+        self.view.frame = r
+
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchBar.text?.isEmpty)!{
+            isSearch = false
+            tblvw.reloadData()
+        } else {
+            isSearch = true
+            filt()
         }
     }
     
-    //MARK: Custom methods
+    func filt()
+    {
+        filtercontactNumber.removeAllObjects()
+        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", self.search.text!)
+        let array = (contactNumber as NSArray).filtered(using: searchPredicate)
+        filtercontactNumber = array as! NSMutableArray
+        
+    }
+
+    //MARK:- Outlet Methods
+    @IBAction func handleArchieve(_ sender: Any) {
+        
+    }
+    
+    @IBAction func handleBroadcast(_ sender: Any) {
+    }
+    
+    
+    @IBAction func handleNewGroup(_ sender: Any) {
+        self.navigationController?.pushViewController(NewGroupController()
+            , animated: true)
+    }
+    
+    //MARK: Custom Methods
     func countmsg() {
         contactNumber = ModelManager.getInstance().getAllData("user")
         msgCount.removeAll()
@@ -134,7 +193,6 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func edt(_ sender: AnyObject) {
-        _ = ChatListController()
         self.navigationController?.pushViewController(ChatController(), animated: true)
         
     }
@@ -156,7 +214,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         if let senderId = notification.userInfo?["senderId"]! as? Int {
             let user = (contactNumber.filter{(($0 as! (Any,Any)).0 as AnyObject).value(forKey: "user_id")! as! Int == senderId} as! NSMutableArray).object(at: 0)
             let index = contactNumber.index(of: user)
-            let indexPath = IndexPath(item: index + 1, section: 0)
+            let indexPath = IndexPath(item: index, section: 0)
             let cell = tblvw.cellForRow(at: indexPath) as! ChatListCell
             cell.lstmsg.text = "Typing..."
             tblvw.reloadRows(at: [indexPath], with: .none)

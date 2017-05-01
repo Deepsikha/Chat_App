@@ -22,7 +22,6 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
     var media: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
         
         txfGroupName.delegate = self
         collectionGroup.delegate = self
