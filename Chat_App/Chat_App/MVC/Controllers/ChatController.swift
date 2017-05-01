@@ -149,18 +149,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-            if(ob.value(forKey: "image") as! String != "nil") {
-                    let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
-                    let data = NSData(contentsOf: url! as URL)
-                    cell.messageBackground.image = UIImage(data: data! as Data)
-                    cell.message.isHidden = true
-//                    cell.stamp.isHidden = true
-                
-                return cell
-            } else {
             cell.messageBackground.layer.borderWidth = 2
-            cell.message.text = ob.value(forKey: "message") as? String
-            cell.messageBackground.image = nil
             switch Int.init((ob.value(forKey: "ack") as! String))! {
             case 0:
                 cell.messageBackground.layer.borderColor = UIColor.black.cgColor
@@ -177,6 +166,17 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             default:
                 print("ABCD")
             }
+            if(ob.value(forKey: "image") as! String != "nil") {
+                    let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
+                    let data = NSData(contentsOf: url! as URL)
+                    cell.messageBackground.image = UIImage(data: data! as Data)
+                    cell.message.isHidden = true
+//                    cell.stamp.isHidden = true
+                
+                return cell
+            } else {
+            cell.message.text = ob.value(forKey: "message") as? String
+            cell.messageBackground.image = nil
 //            cell.stamp.text = ob.value(forKey: "time") as? String
             return cell
             }
