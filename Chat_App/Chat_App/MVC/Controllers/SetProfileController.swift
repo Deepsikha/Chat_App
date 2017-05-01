@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -84,13 +85,37 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
             
         }
-        self.imgProfile.image = selectedImage
+//        self.imgProfile.image = selectedImage
         UserDefaults.standard.set(info[UIImagePickerControllerReferenceURL] as? URL, forKey: "img")
 
-//        self.imgProfile.image = UIImage(contentsOfFile: (UserDefaults.standard.url(forKey: "img")!).absoluteString)
+//        self.imgProfile.image = imageFromAssetURL(assetURL: info[UIImagePickerControllerReferenceURL] as! NSURL)
+        self.imgProfile.image = self.imageFromAssetURL(assetURL: info[UIImagePickerControllerReferenceURL] as! NSURL)
         self.lblAddphoto.isHidden = true
         dismiss(animated: true, completion: nil)
         
+    }
+    
+    func imageFromAssetURL(assetURL: NSURL) -> UIImage {
+        let assetUrl = URL(string: assetURL.absoluteString!)!
+        
+        // retrieve the list of matching results for your asset url
+        let fetchResult = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil)
+        
+        return getImage(asset: fetchResult.firstObject!)
+        
+    }
+    
+    func getImage(asset: PHAsset) -> UIImage
+    {
+        let manager = PHImageManager.default()
+        let option = PHImageRequestOptions()
+        var thumbnail = UIImage()
+        option.isSynchronous = true
+        manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+            thumbnail = result!
+        })
+        
+        return thumbnail
     }
     
     //MARK:- Outlet Method

@@ -10,13 +10,17 @@ import UIKit
 import SocketRocket
 import Fabric
 import Crashlytics
+import PhotosUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     static var websocket: SRWebSocket!
+
     static var senderId = "1552150835"
+//    static var senderId: String!
+
     static var senderDisplayName:String!
     static var pic:UIImage!
     
@@ -91,8 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Crashlytics.sharedInstance().setUserEmail("lanetteam.milans@gmail.com")
         Crashlytics.sharedInstance().setUserIdentifier("Developer")
         Crashlytics.sharedInstance().setUserName("Prime User")
-    }
-    
+    }   
     
 }
 

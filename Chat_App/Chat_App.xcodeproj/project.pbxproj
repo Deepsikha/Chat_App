@@ -88,8 +88,6 @@
 		7D21AD7D1EA9C04C00087864 /* ReceiverCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D21AD751EA9C04C00087864 /* ReceiverCell.xib */; };
 		7D21AD7E1EA9C04C00087864 /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D21AD761EA9C04C00087864 /* ChatListCell.swift */; };
 		7D21AD7F1EA9C04C00087864 /* ChatListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D21AD771EA9C04C00087864 /* ChatListCell.xib */; };
-		7D21AD801EA9C04C00087864 /* ChatArchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D21AD781EA9C04C00087864 /* ChatArchCell.swift */; };
-		7D21AD811EA9C04C00087864 /* ChatArchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D21AD791EA9C04C00087864 /* ChatArchCell.xib */; };
 		7D21AD831EA9C0A000087864 /* ChatListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D21AD821EA9C0A000087864 /* ChatListController.swift */; };
 		7D21AD851EA9C0C400087864 /* Socket_chat.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7D21AD841EA9C0C400087864 /* Socket_chat.sqlite */; };
 		7D21AD871EA9C14B00087864 /* ChatListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D21AD861EA9C14B00087864 /* ChatListController.xib */; };
@@ -260,8 +258,6 @@
 		7D21AD751EA9C04C00087864 /* ReceiverCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverCell.xib; sourceTree = "<group>"; };
 		7D21AD761EA9C04C00087864 /* ChatListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
 		7D21AD771EA9C04C00087864 /* ChatListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatListCell.xib; sourceTree = "<group>"; };
-		7D21AD781EA9C04C00087864 /* ChatArchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatArchCell.swift; sourceTree = "<group>"; };
-		7D21AD791EA9C04C00087864 /* ChatArchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatArchCell.xib; sourceTree = "<group>"; };
 		7D21AD821EA9C0A000087864 /* ChatListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListController.swift; sourceTree = "<group>"; };
 		7D21AD841EA9C0C400087864 /* Socket_chat.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Socket_chat.sqlite; sourceTree = "<group>"; };
 		7D21AD861EA9C14B00087864 /* ChatListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatListController.xib; sourceTree = "<group>"; };
@@ -373,8 +369,6 @@
 				7D21AD751EA9C04C00087864 /* ReceiverCell.xib */,
 				7D21AD761EA9C04C00087864 /* ChatListCell.swift */,
 				7D21AD771EA9C04C00087864 /* ChatListCell.xib */,
-				7D21AD781EA9C04C00087864 /* ChatArchCell.swift */,
-				7D21AD791EA9C04C00087864 /* ChatArchCell.xib */,
 				7D0617931EA726BF004CB6B2 /* CountryCell.swift */,
 				7D0617941EA726BF004CB6B2 /* CountryCell.xib */,
 				7D7151E71EA88183006A9D4B /* NewChatCell.swift */,
@@ -836,7 +830,6 @@
 				5CCE805C1EA5FBF900B88F3F /* Account.png in Resources */,
 				5C11798F1EAF1A60004BBF8E /* Down@2x.png in Resources */,
 				5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */,
-				7D21AD811EA9C04C00087864 /* ChatArchCell.xib in Resources */,
 				5C4B99861EAF79300046724E /* GroupTableCell.xib in Resources */,
 				7D3BE66B1EB0CABD00CEE25E /* close-button.png in Resources */,
 				7D7151E61EA880D2006A9D4B /* NewChatVC.xib in Resources */,
@@ -1086,7 +1079,6 @@
 				5CEF5A901EA4B65600E92BF8 /* CallsController.swift in Sources */,
 				5C0719B01EB341C9005B0B36 /* contactInfoBottomCell.swift in Sources */,
 				5C0719B41EB35325005B0B36 /* statusCell.swift in Sources */,
-				7D21AD801EA9C04C00087864 /* ChatArchCell.swift in Sources */,
 				7D7151F11EA89E3C006A9D4B /* NewChatHeaderCell.swift in Sources */,
 				7D38D8371EAF177000CA3C73 /* ARDRegisterResponse.m in Sources */,
 				5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */,

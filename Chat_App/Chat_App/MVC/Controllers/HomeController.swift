@@ -8,6 +8,7 @@
 
 import UIKit
 import SocketRocket
+import Contacts
 
 class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSocketDelegate {
     
@@ -18,6 +19,8 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     var tab4 = ChatListController()
     var tab5 = SettingsController()
     var temp = UIViewController()
+    
+    var store = CNContactStore()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,8 +60,8 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         tab5.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 5)
         self.viewControllers = [tab1,tab2,tab3,tab4,tab5]
         self.selectedViewController = tab4
-
         connect()
+        self.getContact()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -209,7 +212,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     
     //MARK: Custom Methods
     func connect() {
-      AppDelegate.websocket = SRWebSocket(url: URL(string: "https://moqmvipayp.localtunnel.me"))
+      AppDelegate.websocket = SRWebSocket(url: URL(string: "http://192.168.200.15:8001"))
         AppDelegate.websocket.open()
     }
     
@@ -266,4 +269,55 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         }
     }
     
+    func getContact() {
+        var contactNumber:[String] = []
+        store.requestAccess(for: .contacts, completionHandler: {
+            granted, error in
+            
+            guard granted else {
+                let alert = UIAlertController(title: "Can't access contact", message: "Please go to Settings -> MyApp to enable contact permission", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            
+            let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey] as [Any]
+            let request = CNContactFetchRequest(keysToFetch: keysToFetch as! [CNKeyDescriptor])
+            var cnContacts = [CNContact]()
+            
+            do {
+                try self.store.enumerateContacts(with: request){
+                    (contact, cursor) -> Void in
+                    cnContacts.append(contact)
+                }
+            } catch let error {
+                NSLog("Fetch contact error: \(error)")
+            }
+            
+            for contact in cnContacts {
+                
+                for ContctNumVar: CNLabeledValue in contact.phoneNumbers
+                {
+                    let FulMobNumVar  = ContctNumVar.value
+                    let MccNamVar = FulMobNumVar.value(forKey: "countryCode") as? String
+                    let code = Countries.countryInfoDictionary[MccNamVar!.uppercased()]?["phoneExtension"] as! String
+                    let MobNumVar = FulMobNumVar.value(forKey: "digits") as? String
+                    contactNumber.append(MobNumVar!)
+                }
+            }
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: ["contacts":contactNumber], options: .prettyPrinted)
+                server_API.sharedObject.requestFor_NSMutableDictionaryMine(Str_Request_Url: "/contactCheck", Request_parameter: ["users" : jsonData], Request_parameter_Images: nil, status: { (status) in
+                    print(status)
+                }, response_Dictionary: { (resp) in
+                    print(resp)
+                }, response_Array: { (arr) in
+                    print(arr)
+                }, isTokenEmbeded: false)
+            } catch {
+                
+            }
+        })
+    }
 }

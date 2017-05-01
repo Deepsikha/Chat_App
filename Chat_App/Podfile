@@ -12,6 +12,7 @@ target 'Chat_App' do
     pod 'Crashlytics'
     pod 'libjingle_peerconnection'
     pod 'DKImagePickerController'
+    pod 'SDWebImage'
     
   target 'Chat_AppTests' do
     inherit! :search_paths

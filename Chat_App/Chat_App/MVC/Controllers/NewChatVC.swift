@@ -9,7 +9,7 @@
 import UIKit
 import Contacts
 
-class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet var tblNewContact: UITableView!
     @IBOutlet var searchContact: UISearchBar!
@@ -22,6 +22,10 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var contactList: [String] = Array()
     var contactListGrouped = NSDictionary() as! [String : [String]]
     var sectionTitleList = [String]()
+    var filteredContactList: [String] = Array()
+    var filtercontactListGrouped = NSDictionary() as! [String : [String]]
+    var filtersectionTitleList = [String]()
+    var isSearch:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +33,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tblNewContact.dataSource = self
         tblHeader.delegate = self
         tblHeader.dataSource = self
-        
+        searchContact.delegate = self
         if caller == "ChatListController" {
             self.title = "New Chat"
         } else {
@@ -53,6 +57,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.addSubview(statusBarBackground)
         self.tblNewContact.tableHeaderView = self.vwHeader
         self.getContact()
+        self.searchContact.placeholder = "Search"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,7 +72,11 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 if tableView == tblHeader {
                     return 1
                 } else {
-                    return self.contactListGrouped.count
+                    if self.isSearch {
+                        return self.filtercontactListGrouped.count
+                    } else {
+                        return self.contactListGrouped.count
+                    }
                 }
             } else {
                 return self.contactListGrouped.count
@@ -81,9 +90,15 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if tableView == tblHeader {
             return 2
         } else {
-            let sectionTitle = self.sectionTitleList[section]
-            let contacts = self.contactListGrouped[sectionTitle]
+            if isSearch {
+            let sectionTitle = self.filtersectionTitleList[section]
+            let contacts = self.filtercontactListGrouped[sectionTitle]
             return contacts!.count
+            } else {
+                let sectionTitle = self.sectionTitleList[section]
+                let contacts = self.contactListGrouped[sectionTitle]
+                return contacts!.count
+            }
         }
     }
     
@@ -101,11 +116,18 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 return cell
             } else {
                 let cell:NewChatCell = (tableView.dequeueReusableCell(withIdentifier: "NewChatCell", for: indexPath) as? NewChatCell)!
+                if isSearch {
+                    let sectionTitle = self.filtersectionTitleList[(indexPath as NSIndexPath).section]
+                    let contacts = self.filtercontactListGrouped[sectionTitle]
+                    cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
+                    cell.lblStatus.text = ""
+                } else {
+                    let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
+                    let contacts = self.contactListGrouped[sectionTitle]
+                    cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
+                    cell.lblStatus.text = ""
+                }
                 
-                let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
-                let contacts = self.contactListGrouped[sectionTitle]
-                cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
-                cell.lblStatus.text = ""
                 return cell
             }
         } else {
@@ -126,7 +148,11 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == tblNewContact {
-            return self.sectionTitleList[section]
+            if isSearch {
+                return self.filtersectionTitleList[section]
+            }else {
+                return self.sectionTitleList[section]
+            }
         } else {
             return nil
         }
@@ -134,7 +160,11 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if tableView == tblNewContact {
-            return self.sectionTitleList
+            if isSearch {
+                return self.filtersectionTitleList
+            } else {
+                return self.sectionTitleList
+            }
         } else {
             return nil
         }
@@ -147,6 +177,43 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             return 0
         }
     }
+    
+    //MARK:- Search Delegate 
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        isSearch = true
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            if isSearch == true{
+                isSearch = false
+                tblNewContact.reloadData()
+            }
+            searchBar.text = ""
+        self.searchContact.setShowsCancelButton(false, animated: true)
+        searchBar.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchBar.text?.isEmpty)!{
+            isSearch = false
+            tblNewContact.reloadData()
+        } else {
+            isSearch = true
+            filt()
+            splitDataInToSection()
+        }
+    }
+    
+    func filt()
+    {
+        filteredContactList.removeAll(keepingCapacity: false)
+        
+        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", self.searchContact.text!)
+        let array = (contactList as NSArray).filtered(using: searchPredicate)
+        filteredContactList = array as! [String]
+
+    }
     //MARK:- Outlet Method
     @IBAction func handleBtncancel(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -158,21 +225,40 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     fileprivate func splitDataInToSection() {
-        
         var sectionTitle: String = ""
-        for i in 0..<self.contactList.count {
-            
-            let currentRecord = self.contactList[i]
-            let firstChar = currentRecord[currentRecord.startIndex]
-            let firstCharString = "\(firstChar)"
-            if firstCharString != sectionTitle {
-                sectionTitle = firstCharString
-                self.contactListGrouped[sectionTitle] = [String]()
-                self.sectionTitleList.append(sectionTitle)
+        if isSearch {
+            self.filtercontactListGrouped.removeAll()
+            self.filtersectionTitleList.removeAll()
+            for i in 0..<self.filteredContactList.count {
+                let currentRecord = self.filteredContactList[i]
+                let firstChar = currentRecord[currentRecord.startIndex]
+                let firstCharString = "\(firstChar)"
+                if firstCharString != sectionTitle {
+                    sectionTitle = firstCharString
+                    self.filtercontactListGrouped[sectionTitle] = [String]()
+                    self.filtersectionTitleList.append(sectionTitle)
+                }
+                self.filtercontactListGrouped[firstCharString]?.append(currentRecord)
             }
-            self.contactListGrouped[firstCharString]?.append(currentRecord)
+        } else {
+            
+            for i in 0..<self.contactList.count {
+                
+                let currentRecord = self.contactList[i]
+                let firstChar = currentRecord[currentRecord.startIndex]
+                let firstCharString = "\(firstChar)"
+                if firstCharString != sectionTitle {
+                    sectionTitle = firstCharString
+                    self.contactListGrouped[sectionTitle] = [String]()
+                    self.sectionTitleList.append(sectionTitle)
+                }
+                self.contactListGrouped[firstCharString]?.append(currentRecord)
+            }
         }
+        DispatchQueue.main.async {
+            self.tblNewContact.reloadData()
 
+        }
     }
     
     func getContact() {
@@ -214,7 +300,5 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.contactList = self.contactList.sorted()
             self.splitDataInToSection()
         })
-        
-        
     }
 }
