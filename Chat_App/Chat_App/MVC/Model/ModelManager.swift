@@ -20,8 +20,7 @@ class ModelManager: NSObject {
     func addData(_ tblName: String,_ columns: String,_ values : String) -> Bool {
         sharedInstance.database!.open()
         let val = String(values.characters.filter { !"\n".characters.contains($0) })
-        
-        let isInserted = sharedInstance.database!.executeStatements("INSERT INTO \(tblName) (\(columns)) VALUES (\(val))")
+        let isInserted = sharedInstance.database!.executeStatements("INSERT OR REPLACE INTO \(tblName) (\(columns)) VALUES (\(val))")
         sharedInstance.database!.close()
         return isInserted
         

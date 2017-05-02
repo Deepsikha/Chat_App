@@ -19,10 +19,12 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     var tab4 = ChatListController()
     var tab5 = SettingsController()
     var temp = UIViewController()
-    
     var store = CNContactStore()
+var dict = [String: String]()
+    var ContactNumberList: NSDictionary!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getContact()
         
         self.delegate = self
         self.title = "Chat"
@@ -61,7 +63,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         self.viewControllers = [tab1,tab2,tab3,tab4,tab5]
         self.selectedViewController = tab4
         connect()
-        self.getContact()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -296,28 +297,41 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
             }
             
             for contact in cnContacts {
-                
+                var MobNumVar:String!
                 for ContctNumVar: CNLabeledValue in contact.phoneNumbers
                 {
+                    
                     let FulMobNumVar  = ContctNumVar.value
                     let MccNamVar = FulMobNumVar.value(forKey: "countryCode") as? String
                     let code = Countries.countryInfoDictionary[MccNamVar!.uppercased()]?["phoneExtension"] as! String
-                    let MobNumVar = FulMobNumVar.value(forKey: "digits") as? String
+                     MobNumVar = FulMobNumVar.value(forKey: "digits") as? String
                     contactNumber.append(MobNumVar!)
                 }
-            }
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: ["contacts":contactNumber], options: .prettyPrinted)
-                server_API.sharedObject.requestFor_NSMutableDictionaryMine(Str_Request_Url: "/contactCheck", Request_parameter: ["users" : jsonData], Request_parameter_Images: nil, status: { (status) in
-                    print(status)
-                }, response_Dictionary: { (resp) in
-                    print(resp)
-                }, response_Array: { (arr) in
-                    print(arr)
-                }, isTokenEmbeded: false)
-            } catch {
+                if(MobNumVar != nil) {
                 
+                    self.dict[MobNumVar] = contact.givenName
+                }
             }
+            self.register(contactNumber)
         })
+        
+    }
+    
+    func register(_ Arr : [String])
+    {
+            server_API.sharedObject.requestFor_NSMutableDictionaryMine(Str_Request_Url: "/contactCheck", Request_parameter: ["users" : Arr], Request_parameter_Images: nil, status: { (status) in
+                print(status)
+            }, response_Dictionary: { (resp) in
+                print("resp:\(resp)")
+            }, response_Array: { (arr) in
+                print(arr)
+                
+                for i in arr {
+                    let a = i as AnyObject
+                    let no = String(describing :a.value(forKey: "number")!)
+                    _ = ModelManager.getInstance().addData("user", "user_id,nick_name,status_user,lastseen,country,time_zone,profile_pic,profile_thumb,username", "\(String(describing: a.value(forKey: "number")!)),\'\(String(describing: a.value(forKey: "nick_name")!))\',\'\(String(describing: a.value(forKey: "status_user")!))\',\(String(describing: a.value(forKey: "lastseen")!)),\'\(String(describing: a.value(forKey: "country")!))\',\'\(String(describing: a.value(forKey: "time_zone")!))\',\'nil\',\'nil\',\'\(String(describing: self.dict[no]!))\'")
+                    
+                }
+            }, isTokenEmbeded: false)
     }
 }
