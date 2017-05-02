@@ -23,6 +23,7 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     var store = CNContactStore()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getContact()
         
         self.delegate = self
         self.title = "Chat"
@@ -61,7 +62,6 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         self.viewControllers = [tab1,tab2,tab3,tab4,tab5]
         self.selectedViewController = tab4
         connect()
-        self.getContact()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -306,18 +306,24 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
                     contactNumber.append(MobNumVar!)
                 }
             }
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: ["contacts":contactNumber], options: .prettyPrinted)
-                server_API.sharedObject.requestFor_NSMutableDictionaryMine(Str_Request_Url: "/contactCheck", Request_parameter: ["users" : jsonData], Request_parameter_Images: nil, status: { (status) in
-                    print(status)
-                }, response_Dictionary: { (resp) in
-                    print(resp)
-                }, response_Array: { (arr) in
-                    print(arr)
-                }, isTokenEmbeded: false)
-            } catch {
-                
-            }
+            self.register(contactNumber)
         })
+        
+    }
+    
+    func register(_ Arr : [String])
+    {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: ["contacts":Arr], options: .prettyPrinted)
+            server_API.sharedObject.requestFor_NSMutableDictionaryMine(Str_Request_Url: "/contactCheck", Request_parameter: ["users" : jsonData], Request_parameter_Images: nil, status: { (status) in
+                print(status)
+            }, response_Dictionary: { (resp) in
+                print(resp)
+            }, response_Array: { (arr) in
+                print(arr)
+            }, isTokenEmbeded: false)
+        } catch {
+            
+        }
     }
 }
