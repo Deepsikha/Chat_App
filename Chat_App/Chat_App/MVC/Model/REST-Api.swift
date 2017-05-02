@@ -162,13 +162,20 @@ class server_API {
         else{
             if Request_parameter  != nil {
                 req.httpMethod = "POST"
-                _ = generateBoundaryString()
+                _ = generateBoundaryString
                 
-                for (key, value) in Request_parameter!
-                {
-                    QuaryString = "\(QuaryString)\(key)=\(value)&"
+                do{
+                    req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    let jsonData = try JSONSerialization.data(withJSONObject: Request_parameter!, options: .prettyPrinted)
+                    
+                    req.httpBody = jsonData
+                }catch{
+                    for (key, value) in Request_parameter!
+                    {
+                        QuaryString = "\(QuaryString)\(key)=\(value)&"
+                    }
+                    req.httpBody = QuaryString.data(using: String.Encoding.utf8)
                 }
-                req.httpBody = QuaryString.data(using: String.Encoding.utf8)
                 
             }
         }
