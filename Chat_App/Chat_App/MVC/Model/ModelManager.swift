@@ -173,4 +173,6 @@ class ModelManager: NSObject {
         sharedInstance.database!.close()
         return dic
     }
+    
+   
 }
