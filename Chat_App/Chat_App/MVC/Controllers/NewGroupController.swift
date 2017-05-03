@@ -8,7 +8,7 @@
 
 import UIKit
 import Contacts
-
+import SDWebImage
 class NewGroupController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, CheckedTableviewDelegate, CheckedCollectionviewDelegate {
 
     @IBOutlet var searchMember: UISearchBar!
@@ -16,11 +16,11 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet var collectionPerson: UICollectionView!
     
     let store = CNContactStore()
-    var contactList: [String] = Array()
-    var contactListGrouped = NSDictionary() as! [String : [String]]
+    var contactList: NSArray!
+    var contactListGrouped = NSDictionary() as! [String : NSArray]
     var sectionTitleList = [String]()
     var label1:UILabel!
-    var media: [String] = []
+    var media = NSArray()
     var user = [User]()
     var id: Int!
     var selectedIndex:[IndexPath] = []
@@ -36,9 +36,7 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
         tblContactList.delegate = self
         tblContactList.dataSource = self
         tblContactList.register(UINib(nibName: "GroupTableCell", bundle: nil), forCellReuseIdentifier: "GroupTableCell")
-        DispatchQueue.main.async {
-            self.getContact()
-        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +61,13 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
         vw.addSubview(label1)
         
         self.navigationItem.titleView = vw
+        
+        self.contactList = NSArray(array: ModelManager.getInstance().getAllData("user"))
+        self.contactList = self.contactList.sorted(by: { (a, b) -> Bool in
+            return ((a as! NSDictionary)["username"]! as! String) < ((b as! NSDictionary)["username"]! as! String)
+        }) as NSArray
+        splitDataInToSection()
+        print(contactList!)
     }
     
     //MARK:- Collection Delegate
@@ -83,8 +88,11 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionPerson.dequeueReusableCell(withReuseIdentifier: "GroupAddCell", for: indexPath) as! GroupAddCell
         cell.setUpCustom(collectionView: collectionView, indexPath: indexPath, CustomDelegate: self)
-        cell.imgpic.image = UIImage(named: self.media[indexPath.item])
-        cell.lblName.text = self.media[indexPath.item]
+        cell.imgpic.sd_setImage(with: URL(string: ((media.object(at: 0) as AnyObject).value(forKey: "profile_thumb")! as? String)! ), placeholderImage: UIImage(named: "default-user"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, imageUrl) in
+            
+        })
+//        cell.imgpic.image = UIImage(named: ((media?.object(at: 0) as AnyObject).value(forKey: "username")! as? String)!)
+        cell.lblName.text = (media.object(at: 0) as AnyObject).value(forKey: "username")! as? String
 
         return cell
         
@@ -117,7 +125,7 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.setUpCustom(tableView: tableView, indexPath: indexPath, CustomDelegate: self)
         let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
         let contacts = self.contactListGrouped[sectionTitle]
-            cell.lblName?.text = contacts![(indexPath as NSIndexPath).row]
+            cell.lblName?.text = (contacts?.object(at: 0) as AnyObject).value(forKey: "username")! as? String
        
         return cell
     }
@@ -137,69 +145,24 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     //MARK:- Custom Method 
     
     fileprivate func splitDataInToSection() {
-        
         var sectionTitle: String = ""
-        for i in 0..<self.contactList.count {
-            
-            let currentRecord = self.contactList[i]
-            let firstChar = currentRecord[currentRecord.startIndex]
-            let firstCharString = "\(firstChar)"
-            if firstCharString != sectionTitle {
-                sectionTitle = firstCharString
-                self.contactListGrouped[sectionTitle] = [String]()
-                self.sectionTitleList.append(sectionTitle)
+            for i in 0..<self.contactList.count {
+                
+                let currentRecord = self.contactList.object(at: i)
+                let firstChar = ((currentRecord as AnyObject).value(forKey: "username")! as! String).characters.first
+                let firstCharString = "\(String(describing: firstChar!))"
+                if firstCharString != sectionTitle {
+                    sectionTitle = firstCharString
+                    self.contactListGrouped[sectionTitle] = NSArray()
+                    self.sectionTitleList.append(sectionTitle)
+                }
+                self.contactListGrouped[firstCharString] = self.contactListGrouped[firstCharString]?.adding(currentRecord) as NSArray?
             }
-            self.contactListGrouped[firstCharString]?.append(currentRecord)
+        
+        DispatchQueue.main.async {
+            self.tblContactList.reloadData()
+            
         }
-        self.tblContactList.reloadData()
-        
-    }
-    
-    func getContact() {
-        
-        store.requestAccess(for: .contacts, completionHandler: {
-            granted, error in
-            
-            guard granted else {
-                let alert = UIAlertController(title: "Can't access contact", message: "Please go to Settings -> MyApp to enable contact permission", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            
-            
-            let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey] as [Any]
-            let request = CNContactFetchRequest(keysToFetch: keysToFetch as! [CNKeyDescriptor])
-            var cnContacts = [CNContact]()
-            
-            do {
-                try self.store.enumerateContacts(with: request){
-                    (contact, cursor) -> Void in
-                    cnContacts.append(contact)
-                }
-            } catch let error {
-                NSLog("Fetch contact error: \(error)")
-            }
-            
-            for contact in cnContacts {
-                self.contactList.append(contact.givenName)
-                self.count! += 1
-                var MobNumVar: [String] = []
-                for ContctNumVar: CNLabeledValue in contact.phoneNumbers
-                {
-                    let FulMobNumVar  = ContctNumVar.value
-                    let MccNamVar = FulMobNumVar.value(forKey: "countryCode") as? String
-                    MobNumVar.append((FulMobNumVar.value(forKey: "digits") as? String)!)
-                }
-                if(!MobNumVar.isEmpty) {
-                    self.user.append(User(id: String(describing:self.count), name: contact.givenName, number: MobNumVar[0]))
-                }
-            }
-            self.contactList = self.contactList.sorted()
-            DispatchQueue.main.async {
-                self.splitDataInToSection()
-            }
-        })
     }
     
     func nextpage() {
@@ -210,7 +173,7 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func cancel() {
-        
+        self.navigationController?.popViewController(animated: true)
     }
     
     //Custom Delegate
@@ -218,28 +181,30 @@ class NewGroupController: UIViewController, UICollectionViewDelegate, UICollecti
         let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
         
         let contacts = self.contactListGrouped[sectionTitle]
-        let name = contacts![(indexPath as NSIndexPath).row]
+        let name = contacts?.object(at: indexPath.row)
         if type == "Checked" {
-            self.media.append(name)
+            self.media = self.media.adding(name!) as NSArray
             self.selectedIndex.append(indexPath)
             self.label1.text = "\(media.count) / 256"
         } else {
             self.selectedIndex = self.selectedIndex.filter{$0 != indexPath}
-            self.media = self.media.filter{$0 != name}
+            self.media = self.media.filter({ (a) -> Bool in
+                (a as! NSDictionary)["username"]! as! String != (name as! NSDictionary)["username"]! as! String
+            }) as NSArray
             self.label1.text = "\(media.count) / 256"
         }
         self.collectionPerson.reloadData()
     }
     
     func SettingsDidSelectCollectionViewCell(collectionView: UICollectionView, didSelectRowAtIndexPath indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! GroupAddCell
-        let name = cell.lblName.text
         let index = selectedIndex[indexPath.item]
         let cell1 = self.tblContactList.cellForRow(at: index) as! GroupTableCell
         cell1.btnRight.tag = 0
         cell1.btnRight.setImage(UIImage(named: ""), for: .normal)
         cell1.Celldelegate.SettingsDidSelectTableViewCell!(tableView: self.tblContactList, didSelectRowAtIndexPath: index, type: "unChecked")
-        self.media = self.media.filter{$0 != name}
+        self.media = self.media.filter({ (a) -> Bool in
+            (a as! NSDictionary)["username"]! as! String != (self.media.object(at: indexPath.item) as! NSDictionary)["username"]! as! String
+        }) as NSArray
         self.tblContactList.reloadData()
         self.collectionPerson.reloadData()
     }

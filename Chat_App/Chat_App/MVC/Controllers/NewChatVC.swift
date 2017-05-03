@@ -8,8 +8,8 @@
 
 import UIKit
 import Contacts
-
-class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+import SDWebImage
+class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SDWebImageManagerDelegate {
     
     @IBOutlet var tblNewContact: UITableView!
     @IBOutlet var searchContact: UISearchBar!
@@ -17,15 +17,17 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     @IBOutlet var btnCancel: UIBarButtonItem!
     @IBOutlet var tblHeader: UITableView!
     
-    var caller: String!
+    var caller: String = "ChatListController"
     let store = CNContactStore()
-    var contactList: [String] = Array()
-    var contactListGrouped = NSDictionary() as! [String : [String]]
+    var contactList: NSArray!
+    var contactListGrouped = NSDictionary() as! [String : NSArray]
     var sectionTitleList = [String]()
-    var filteredContactList: [String] = Array()
-    var filtercontactListGrouped = NSDictionary() as! [String : [String]]
+    var filteredContactList: NSArray!
+    var filtercontactListGrouped = NSDictionary() as! [String : NSArray]
     var filtersectionTitleList = [String]()
     var isSearch:Bool = false
+
+    var tap:UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +58,22 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         statusBarBackground.backgroundColor = statusBarColor
         view.addSubview(statusBarBackground)
         self.tblNewContact.tableHeaderView = self.vwHeader
-        self.getContact()
+//        self.getContact()
         self.searchContact.placeholder = "Search"
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print("")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+       self.contactList = NSArray(array: ModelManager.getInstance().getAllData("user"))
+       self.contactList = self.contactList.sorted(by: { (a, b) -> Bool in
+            return ((a as! NSDictionary)["username"]! as! String) < ((b as! NSDictionary)["username"]! as! String)
+       }) as NSArray
+        splitDataInToSection()
+        print(contactList!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,10 +81,11 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         self.tblHeader.register(UINib(nibName: "NewChatHeaderCell", bundle: nil), forCellReuseIdentifier: "NewChatHeaderCell")
         self.tblNewContact.register(UINib(nibName: "CallCell", bundle: nil), forCellReuseIdentifier: "CallCell")
     }
+    
     // MARK: - Table Delegate Method
     func numberOfSections(in tableView: UITableView) -> Int {
         if !(self.caller.isEmpty) {
-            if self.caller! == "ChatListController" {
+            if self.caller == "ChatListController" {
                 if tableView == tblHeader {
                     return 1
                 } else {
@@ -116,16 +133,29 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                 return cell
             } else {
                 let cell:NewChatCell = (tableView.dequeueReusableCell(withIdentifier: "NewChatCell", for: indexPath) as? NewChatCell)!
+                
                 if isSearch {
                     let sectionTitle = self.filtersectionTitleList[(indexPath as NSIndexPath).section]
                     let contacts = self.filtercontactListGrouped[sectionTitle]
-                    cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
-                    cell.lblStatus.text = ""
+                    cell.lblContact?.text = (contacts?.object(at: 0) as AnyObject).value(forKey: "username")! as? String
+                    cell.lblStatus.text = (contacts?.object(at: 0) as AnyObject).value(forKey: "status_user")! as? String
+                    cell.imgContact.sd_setImage(with: URL(string: ((contacts?.object(at: 0) as AnyObject).value(forKey: "profile_thumb")! as? String)! ), placeholderImage: UIImage(named: "default-user"), options: .progressiveDownload, completed: { (image, error, memory, imageUrl) in
+                        
+                    })
+                    cell.imageURL = URL(string:((contacts?.object(at: 0) as AnyObject).value(forKey: "profile_thumb")! as? String)!)
+                    cell.parent = self
                 } else {
                     let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
                     let contacts = self.contactListGrouped[sectionTitle]
-                    cell.lblContact?.text = contacts![(indexPath as NSIndexPath).row]
-                    cell.lblStatus.text = ""
+                    cell.lblContact?.text = (contacts?.object(at: 0) as AnyObject).value(forKey: "username")! as? String
+                    cell.lblStatus.text = (contacts?.object(at: 0) as AnyObject).value(forKey: "status_user")! as? String
+                    var url = ((contacts?.object(at: 0) as AnyObject).value(forKey: "profile_thumb")! as? String)!
+                    let fileURL = URL(string: url)
+                    cell.imgContact.sd_setImage(with: fileURL, placeholderImage: UIImage(named: "default-user"), options: .progressiveDownload, completed: { (image, error, memory, imageUrl) in
+                        
+                    })
+                    cell.imageURL = URL(string:((contacts?.object(at: 0) as AnyObject).value(forKey: "profile_thumb")! as? String)!)
+                    cell.parent = self
                 }
                 
                 return cell
@@ -136,8 +166,12 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             self.tblNewContact.tableHeaderView = nil
             let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
             let contacts = self.contactListGrouped[sectionTitle]
-            cell.lblCallPerson?.text = contacts![(indexPath as NSIndexPath).row]
+            cell.lblCallPerson?.text = (contacts?.object(at: 0) as AnyObject).value(forKey: "username")! as? String
+            
             cell.lblLastCallStatus.text = ""
+            cell.imgCall.sd_setImage(with: URL(string: ((contacts?.object(at: 0) as AnyObject).value(forKey: "profile_thumb")! as? String)! ), placeholderImage: UIImage(named: "default-user"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, imageUrl) in
+                
+            })
             
             cell.imgCalltype.image = UIImage(named: "incomingcall")
             cell.imgCalltype.image = cell.imgCalltype.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
@@ -207,11 +241,15 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     
     func filt()
     {
-        filteredContactList.removeAll(keepingCapacity: false)
+        filteredContactList = NSArray()
         
-        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", self.searchContact.text!)
-        let array = (contactList as NSArray).filtered(using: searchPredicate)
-        filteredContactList = array as! [String]
+//        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", self.searchContact.text!)
+//        let array = contactList.filtered(using: searchPredicate)
+//        filteredContactList = array as NSArray
+        
+        filteredContactList = contactList.filter({ (a) -> Bool in
+            ((a as! NSDictionary)["username"]! as! String).lowercased().contains((self.searchContact.text!).lowercased())
+        }) as NSArray
 
     }
     //MARK:- Outlet Method
@@ -230,29 +268,30 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             self.filtercontactListGrouped.removeAll()
             self.filtersectionTitleList.removeAll()
             for i in 0..<self.filteredContactList.count {
-                let currentRecord = self.filteredContactList[i]
-                let firstChar = currentRecord[currentRecord.startIndex]
-                let firstCharString = "\(firstChar)"
+                
+                let currentRecord = self.filteredContactList.object(at: i)
+                let firstChar = ((currentRecord as AnyObject).value(forKey: "username")! as! String).characters.first
+                let firstCharString = "\(String(describing: firstChar!))"
                 if firstCharString != sectionTitle {
                     sectionTitle = firstCharString
-                    self.filtercontactListGrouped[sectionTitle] = [String]()
+                    self.filtercontactListGrouped[sectionTitle] = NSArray()
                     self.filtersectionTitleList.append(sectionTitle)
                 }
-                self.filtercontactListGrouped[firstCharString]?.append(currentRecord)
+                self.filtercontactListGrouped[firstCharString] = self.filtercontactListGrouped[firstCharString]?.adding(currentRecord) as NSArray?
             }
         } else {
             
             for i in 0..<self.contactList.count {
                 
-                let currentRecord = self.contactList[i]
-                let firstChar = currentRecord[currentRecord.startIndex]
-                let firstCharString = "\(firstChar)"
+                let currentRecord = self.contactList.object(at: i)
+                let firstChar = ((currentRecord as AnyObject).value(forKey: "username")! as! String).characters.first
+                let firstCharString = "\(String(describing: firstChar!))"
                 if firstCharString != sectionTitle {
                     sectionTitle = firstCharString
-                    self.contactListGrouped[sectionTitle] = [String]()
+                    self.contactListGrouped[sectionTitle] = NSArray()
                     self.sectionTitleList.append(sectionTitle)
                 }
-                self.contactListGrouped[firstCharString]?.append(currentRecord)
+                self.contactListGrouped[firstCharString] = self.contactListGrouped[firstCharString]?.adding(currentRecord) as NSArray?
             }
         }
         DispatchQueue.main.async {
@@ -261,44 +300,12 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         }
     }
     
-    func getContact() {
-        
-        store.requestAccess(for: .contacts, completionHandler: {
-            granted, error in
-            
-            guard granted else {
-                let alert = UIAlertController(title: "Can't access contact", message: "Please go to Settings -> MyApp to enable contact permission", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            
-            
-            let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey] as [Any]
-            let request = CNContactFetchRequest(keysToFetch: keysToFetch as! [CNKeyDescriptor])
-            var cnContacts = [CNContact]()
-            
-            do {
-                try self.store.enumerateContacts(with: request){
-                    (contact, cursor) -> Void in
-                    cnContacts.append(contact)
-                }
-            } catch let error {
-                NSLog("Fetch contact error: \(error)")
-            }
-            
-            for contact in cnContacts {
-                self.contactList.append(contact.givenName)
-                
-                for ContctNumVar: CNLabeledValue in contact.phoneNumbers
-                {
-                    let FulMobNumVar  = ContctNumVar.value
-                    let MccNamVar = FulMobNumVar.value(forKey: "countryCode") as? String
-                    let MobNumVar = FulMobNumVar.value(forKey: "digits") as? String
-                }
-            }
-            self.contactList = self.contactList.sorted()
-            self.splitDataInToSection()
-        })
+    func taphandler()
+    {
+        self.view.subviews.last?.removeFromSuperview()
+        self.view.removeGestureRecognizer(tap)
     }
+
+    
+    
 }

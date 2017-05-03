@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class GroupNameController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CheckedCollectionviewDelegate{
     
@@ -19,7 +20,7 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet var lblParticipant: UILabel!
     var count:Int = 25
     var txt:String!
-    var media: [String] = []
+    var media: NSArray!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -112,8 +113,10 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionGroup.dequeueReusableCell(withReuseIdentifier: "GroupAddCell", for: indexPath) as! GroupAddCell
         cell.setUpCustom(collectionView: collectionView, indexPath: indexPath, CustomDelegate: self)
-        
-        cell.imgpic.image = UIImage(named: media[indexPath.item])
+        cell.imgpic.sd_setImage(with: URL(string: ((media?.object(at: 0) as AnyObject).value(forKey: "profile_thumb")! as? String)! ), placeholderImage: UIImage(named: "default-user"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, imageUrl) in
+            
+        })
+//        cell.imgpic.image = UIImage(named: media[indexPath.item])
         self.lblCount.text = "PARTICIPANTS: \(media.count) OF 256"
         return cell
         
@@ -153,7 +156,7 @@ class GroupNameController: UIViewController, UICollectionViewDelegate, UICollect
     
     //MARK:- Custom Delegate
     func SettingsDidSelectCollectionViewCell(collectionView: UICollectionView, didSelectRowAtIndexPath indexPath: IndexPath) {
-        self.media.remove(at: indexPath.row)
+        (self.media as AnyObject).removeObject(at: indexPath.row)
         self.collectionGroup.reloadData()
         self.lblCount.text = "PARTICIPANTS: \(media.count) OF 256"
     }
