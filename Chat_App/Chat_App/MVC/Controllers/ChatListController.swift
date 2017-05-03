@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class ChatListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+import SDWebImage
+class ChatListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SDWebImageManagerDelegate {
     
     @IBOutlet weak var tblvw: UITableView!
     
@@ -31,13 +31,13 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         search.delegate = self
         tblvw.delegate = self
         tblvw.dataSource = self
-
+        
         self.navigationController?.isToolbarHidden = true
         tblvw.register(UINib(nibName: "ChatArchCell", bundle: nil), forCellReuseIdentifier: "ChatArchCell")
         tblvw.register(UINib(nibName: "ChatListCell", bundle: nil), forCellReuseIdentifier: "ChatListCell")
         self.tblvw.tableHeaderView = self.vwHeader
         self.search.placeholder = "Search"
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +55,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 60
+        return 60
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,30 +66,34 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             contact = contactNumber.object(at: indexPath.row) as! (Any,Any)
         }
         
-            let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
-            cell.prflpic.image = UIImage(named : "Gradient")
-            let id = String(describing: (contact.0 as AnyObject).value(forKey: "user_id")!)
-            if(AppDelegate.senderId !=  id){
-                
-                cell.cnctname.text = String(describing: (contact.0 as AnyObject).value(forKey: "user_id") as! Int)
-                latest = ModelManager.getInstance().getlatest("chat" , Int(AppDelegate.senderId)! , (contact.0 as AnyObject).value(forKey: "user_id")! as! Int)
-                cell.timestmp.text = (contact.0 as AnyObject).value(forKey: "lastseen")! as? String
-                var lastMsg: String!
+        let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
+        let url = "http://192.168.200.15:8085/download?url=uploads/user8454644/img1_1493450432015_1493721534286.jpg"
+        cell.prflpic.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.cacheMemoryOnly, completed: { (image, error, memory, imageUrl) in
+            
+        })
+        //            cell.prflpic.image = UIImage(named : "Gradient")
+        let id = String(describing: (contact.0 as AnyObject).value(forKey: "user_id")!)
+        if(AppDelegate.senderId !=  id){
+            
+            cell.cnctname.text = String(describing: (contact.0 as AnyObject).value(forKey: "user_id") as! Int)
+            latest = ModelManager.getInstance().getlatest("chat" , Int(AppDelegate.senderId)! , (contact.0 as AnyObject).value(forKey: "user_id")! as! Int)
+            cell.timestmp.text = (contact.0 as AnyObject).value(forKey: "lastseen")! as? String
+            var lastMsg: String!
             var obj: AnyObject!
-                if latest.count > 0 {
-                    if (latest.lastObject as AnyObject).count != 0 {
-                        obj = latest.lastObject as AnyObject
-                        lastMsg = obj.value(forKey: "message") as! String
-                        
-                    }
-                }
-                if obj != nil && ((contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "sender_id")! as? Int || (contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "receiver_id")! as? Int) {
+            if latest.count > 0 {
+                if (latest.lastObject as AnyObject).count != 0 {
+                    obj = latest.lastObject as AnyObject
+                    lastMsg = obj.value(forKey: "message") as! String
                     
-                        cell.lstmsg.text = lastMsg
                 }
-                cell.msgcount.text = String(describing: contact.1)
             }
-            return cell
+            if obj != nil && ((contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "sender_id")! as? Int || (contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "receiver_id")! as? Int) {
+                
+                cell.lstmsg.text = lastMsg
+            }
+            cell.msgcount.text = String(describing: contact.1)
+        }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -104,11 +108,11 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         let a = ModelManager.getInstance().getack("chat", "\(ChatController.reciever_id!)", "status = \'false\'")
         if(a > 0 && AppDelegate.websocket.readyState == .OPEN) {
             do {
-            let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
-            AppDelegate.websocket.send(NSData(data:jsonData))
+                let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
+                AppDelegate.websocket.send(NSData(data:jsonData))
                 _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
             } catch {
-            
+                
             }
         }
         self.navigationController?.pushViewController(ChatController(), animated: true)
@@ -118,14 +122,14 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         isSearch = true
-
+        
         var r = self.view.frame
         r.origin.y = -44
         r.size.height += 44
         self.view.frame = r
         searchBar.setShowsCancelButton(true, animated: true)
     }
-
+    
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
@@ -140,7 +144,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         r.origin.y = 0
         r.size.height -= 44
         self.view.frame = r
-
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -157,11 +161,11 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     {
         filtercontactNumber.removeAllObjects()
         let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", self.search.text!)
-        let array = (contactNumber as NSArray).filtered(using: searchPredicate)
+        let array = (contactNumber.value(forKey: "username") as! NSArray).filtered(using: searchPredicate)
         filtercontactNumber = array as! NSMutableArray
         
     }
-
+    
     //MARK:- Outlet Methods
     @IBAction func handleArchieve(_ sender: Any) {
         
@@ -190,24 +194,6 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             return a.1 > b.1
         }) as! NSMutableArray
         tblvw.reloadData()
-    }
-    
-    func edt(_ sender: AnyObject) {
-        self.navigationController?.pushViewController(ChatController(), animated: true)
-        
-    }
-    
-    func push() {
-        self.navigationController?.pushViewController(NewGroupController(), animated: true)
-    }
-    
-    func filterContentForSearchText() {
-        
-        self.tblvw.reloadData()
-    }
-    
-    func abcd() {
-        print("Jaadu")
     }
     
     func typing(_ notification : NSNotification) {

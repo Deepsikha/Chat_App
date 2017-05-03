@@ -329,7 +329,7 @@ var dict = [String: String]()
                 for i in arr {
                     let a = i as AnyObject
                     let no = String(describing :a.value(forKey: "number")!)
-                    _ = ModelManager.getInstance().addData("user", "user_id,nick_name,status_user,lastseen,country,time_zone,profile_pic,profile_thumb,username", "\(String(describing: a.value(forKey: "number")!)),\'\(String(describing: a.value(forKey: "nick_name")!))\',\'\(String(describing: a.value(forKey: "status_user")!))\',\(String(describing: a.value(forKey: "lastseen")!)),\'\(String(describing: a.value(forKey: "country")!))\',\'\(String(describing: a.value(forKey: "time_zone")!))\',\'nil\',\'nil\',\'\(String(describing: self.dict[no]!))\'")
+                    _ = ModelManager.getInstance().addData("user", "user_id,nick_name,status_user,lastseen,country,time_zone,profile_pic,profile_thumb,username", "\(String(describing: a.value(forKey: "number")!)),\'\(String(describing: a.value(forKey: "nick_name")!))\',\'\(String(describing: a.value(forKey: "status_user")!))\',\(String(describing: a.value(forKey: "lastseen")!)),\'\(String(describing: a.value(forKey: "country")!))\',\'\(String(describing: a.value(forKey: "time_zone")!))\',\'\(String(describing: a.value(forKey: "profile_pic")!))\',\'\(String(describing: a.value(forKey: "profile_thumb")!))\',\'\(String(describing: self.dict[no]!))\'")
                     
                 }
             }, isTokenEmbeded: false)
