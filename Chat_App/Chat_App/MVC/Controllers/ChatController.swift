@@ -36,6 +36,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var i = 4
     var frame : CGRect!
     static var reciever_id : Int!
+    static var recname : String!
     var frame1 : CGRect!
     var messages : NSMutableArray!
     var chatboxConstant : CGFloat!
@@ -46,16 +47,16 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "\(ChatController.reciever_id!)"
-        if (self.title?.lengthOfBytes(using: .ascii))! > maxStringLength {
-            let index = self.title?.index((self.title?.startIndex)!, offsetBy: 5)
-            self.title = self.title?.substring(to: index!).appending("...")
-        }
-        else {
-            navigationItem.backBarButtonItem?.title = self.title
-        }
+        self.title = ChatController.recname!
+//        if (self.title?.lengthOfBytes(using: .ascii))! > maxStringLength {
+//            let index = self.title?.index((self.title?.startIndex)!, offsetBy: 5)
+//            self.title = self.title?.substring(to: index!).appending("...")
+//        }
+//        else {
+//            navigationItem.backBarButtonItem?.title = self.title
+//        }
         if(ChatController.type == "single") {
-            self.cnctnm.text = String(describing : ChatController.reciever_id!)
+            self.cnctnm.text = ChatController.recname
             let btn1 = UIButton(type: .custom)
             let origImage = UIImage(named: "Calls");
             let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
@@ -87,6 +88,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
+        
         self.navigationItem.titleView = navvw
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
@@ -140,7 +142,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         self.chatbox.backgroundColor = UIColor.white
-        self.navprof.image = UIImage(named: "Gradient")
+//        let path = UserDefaults.standard.url(forKey: "img")
+//        let url1 = NSURL(string: ((path as AnyObject).absoluteString)!!)
+//        let data = NSData(contentsOf: url1! as URL)
+//        self.navprof.image = UIImage(data: data! as Data)
         self.navprof.layer.cornerRadius = self.navprof.frame.width / 2
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
@@ -182,16 +187,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.messageBackground.backgroundColor = UIColor.clear
                 cell.message.isHidden = true
                 return cell
-            } else if(ob.value(forKey: "location") as! String != "nil") {
+            }
+            else if(ob.value(forKey: "location") as! String != "nil") {
                 cell.messageBackground.image = UIImage(named: "location")
                 return cell
-            } else {
+            }
+            else {
                 cell.message.text = ob.value(forKey: "message") as? String
                 cell.messageBackground.image = nil
                 return cell
             }
 
-        case String(describing:ChatController.reciever_id):
+        case String(describing:ChatController.reciever_id!):
             let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             if(ob.value(forKey: "message") as? UIImage != nil) {
                 cell.messageBackground.image = ob.value(forKey: "image") as? UIImage
