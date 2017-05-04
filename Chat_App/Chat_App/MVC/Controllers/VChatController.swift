@@ -8,10 +8,10 @@
 
 import UIKit
 import AVFoundation
-//import WebRTC
+import QuickbloxWebRTC
+import Quickblox
 
-
-class VChatController: UIViewController/*, ARDAppClientDelegate, RTCEAGLVideoViewDelegate 9*/{
+class VChatController: UIViewController, QBRTCClientDelegate{
     
 //    func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
 //        
@@ -29,10 +29,10 @@ class VChatController: UIViewController/*, ARDAppClientDelegate, RTCEAGLVideoVie
 //
 //    
 //    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        QBRTCClient.initializeRTC()
+    }
 //
 //    override func didReceiveMemoryWarning() {
 //        super.didReceiveMemoryWarning()

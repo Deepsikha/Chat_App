@@ -37,6 +37,25 @@
 		5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80591EA5FBF900B88F3F /* Starred Messages.png */; };
 		5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */; };
 		5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */; };
+		5CEBBE5B1EB882BE00046E7F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE5A1EB882BD00046E7F /* libc++.tbd */; };
+		5CEBBE5D1EB882C800046E7F /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE5C1EB882C800046E7F /* libicucore.tbd */; };
+		5CEBBE5F1EB882D400046E7F /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE5E1EB882D400046E7F /* libresolv.tbd */; };
+		5CEBBE611EB882DD00046E7F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE601EB882DD00046E7F /* libxml2.tbd */; };
+		5CEBBE631EB882E400046E7F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE621EB882E400046E7F /* libz.tbd */; };
+		5CEBBE651EB882EA00046E7F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE641EB882EA00046E7F /* CFNetwork.framework */; };
+		5CEBBE671EB882F200046E7F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE661EB882F200046E7F /* GLKit.framework */; };
+		5CEBBE691EB882F900046E7F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE681EB882F900046E7F /* MobileCoreServices.framework */; };
+		5CEBBE6B1EB882FF00046E7F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE6A1EB882FF00046E7F /* SystemConfiguration.framework */; };
+		5CEBBE6D1EB8830600046E7F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE6C1EB8830600046E7F /* VideoToolbox.framework */; };
+		5CEBBE6F1EB8830D00046E7F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE6E1EB8830D00046E7F /* Accelerate.framework */; };
+		5CEBBE701EB8832B00046E7F /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE561EB8827C00046E7F /* Quickblox.framework */; };
+		5CEBBE751EB8834200046E7F /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE561EB8827C00046E7F /* Quickblox.framework */; };
+		5CEBBE761EB8834200046E7F /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE561EB8827C00046E7F /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5CEBBE771EB8834200046E7F /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE571EB8827C00046E7F /* QuickbloxWebRTC.framework */; };
+		5CEBBE781EB8834200046E7F /* QuickbloxWebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE571EB8827C00046E7F /* QuickbloxWebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5CEBBE7E1EB8873B00046E7F /* location@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEBBE7B1EB8873B00046E7F /* location@1x.png */; };
+		5CEBBE7F1EB8873B00046E7F /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEBBE7C1EB8873B00046E7F /* location@2x.png */; };
+		5CEBBE801EB8873B00046E7F /* location@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CEBBE7D1EB8873B00046E7F /* location@3x.png */; };
 		5CEF5A821EA4A80000E92BF8 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A801EA4A80000E92BF8 /* HomeController.swift */; };
 		5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEF5A841EA4A84300E92BF8 /* HomeController.xib */; };
 		5CEF5A881EA4AA9800E92BF8 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */; };
@@ -165,6 +184,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5CEBBE791EB8834200046E7F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5CEBBE781EB8834200046E7F /* QuickbloxWebRTC.framework in Embed Frameworks */,
+				5CEBBE761EB8834200046E7F /* Quickblox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		09321A4FB2B425702074C58E /* Pods_Chat_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD9839A1DC8F4B5621C6EFB /* Pods-Chat_AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat_AppUITests/Pods-Chat_AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -200,6 +234,22 @@
 		5CCE80591EA5FBF900B88F3F /* Starred Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Starred Messages.png"; sourceTree = "<group>"; };
 		5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tell a Friend.png"; sourceTree = "<group>"; };
 		5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Web:Desktop.png"; sourceTree = "<group>"; };
+		5CEBBE561EB8827C00046E7F /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
+		5CEBBE571EB8827C00046E7F /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuickbloxWebRTC.framework; sourceTree = "<group>"; };
+		5CEBBE5A1EB882BD00046E7F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		5CEBBE5C1EB882C800046E7F /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		5CEBBE5E1EB882D400046E7F /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		5CEBBE601EB882DD00046E7F /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		5CEBBE621EB882E400046E7F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		5CEBBE641EB882EA00046E7F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5CEBBE661EB882F200046E7F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		5CEBBE681EB882F900046E7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5CEBBE6A1EB882FF00046E7F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5CEBBE6C1EB8830600046E7F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		5CEBBE6E1EB8830D00046E7F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		5CEBBE7B1EB8873B00046E7F /* location@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@1x.png"; sourceTree = "<group>"; };
+		5CEBBE7C1EB8873B00046E7F /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
+		5CEBBE7D1EB8873B00046E7F /* location@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@3x.png"; sourceTree = "<group>"; };
 		5CEF5A801EA4A80000E92BF8 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5CEF5A841EA4A84300E92BF8 /* HomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeController.xib; sourceTree = "<group>"; };
 		5CEF5A861EA4AA9800E92BF8 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
@@ -334,7 +384,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CEBBE6F1EB8830D00046E7F /* Accelerate.framework in Frameworks */,
+				5CEBBE701EB8832B00046E7F /* Quickblox.framework in Frameworks */,
+				5CEBBE6D1EB8830600046E7F /* VideoToolbox.framework in Frameworks */,
+				5CEBBE6B1EB882FF00046E7F /* SystemConfiguration.framework in Frameworks */,
+				5CEBBE691EB882F900046E7F /* MobileCoreServices.framework in Frameworks */,
+				5CEBBE671EB882F200046E7F /* GLKit.framework in Frameworks */,
+				5CEBBE651EB882EA00046E7F /* CFNetwork.framework in Frameworks */,
+				5CEBBE631EB882E400046E7F /* libz.tbd in Frameworks */,
+				5CEBBE611EB882DD00046E7F /* libxml2.tbd in Frameworks */,
+				5CEBBE5F1EB882D400046E7F /* libresolv.tbd in Frameworks */,
+				5CEBBE5D1EB882C800046E7F /* libicucore.tbd in Frameworks */,
+				5CEBBE751EB8834200046E7F /* Quickblox.framework in Frameworks */,
+				5CEBBE5B1EB882BE00046E7F /* libc++.tbd in Frameworks */,
 				7D0617B11EA73687004CB6B2 /* libsqlite3.0.tbd in Frameworks */,
+				5CEBBE771EB8834200046E7F /* QuickbloxWebRTC.framework in Frameworks */,
 				DF00F00EA5FB3EAC66FB856D /* Pods_Chat_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +460,8 @@
 		7D202D721EA49BEF0018FCAD = {
 			isa = PBXGroup;
 			children = (
+				5CEBBE561EB8827C00046E7F /* Quickblox.framework */,
+				5CEBBE571EB8827C00046E7F /* QuickbloxWebRTC.framework */,
 				7D202D7D1EA49BEF0018FCAD /* Chat_App */,
 				7D202D921EA49BEF0018FCAD /* Chat_AppTests */,
 				7D202D9D1EA49BEF0018FCAD /* Chat_AppUITests */,
@@ -538,6 +604,9 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				5CEBBE7B1EB8873B00046E7F /* location@1x.png */,
+				5CEBBE7C1EB8873B00046E7F /* location@2x.png */,
+				5CEBBE7D1EB8873B00046E7F /* location@3x.png */,
 				7D3BE66A1EB0CABD00CEE25E /* close-button.png */,
 				5C1179901EAF1AEC004BBF8E /* Down@3x.png */,
 				5C11798C1EAF1A60004BBF8E /* Down@1x.png */,
@@ -653,6 +722,17 @@
 		98E71D75CDD3C3242020B53D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5CEBBE6E1EB8830D00046E7F /* Accelerate.framework */,
+				5CEBBE6C1EB8830600046E7F /* VideoToolbox.framework */,
+				5CEBBE6A1EB882FF00046E7F /* SystemConfiguration.framework */,
+				5CEBBE681EB882F900046E7F /* MobileCoreServices.framework */,
+				5CEBBE661EB882F200046E7F /* GLKit.framework */,
+				5CEBBE641EB882EA00046E7F /* CFNetwork.framework */,
+				5CEBBE621EB882E400046E7F /* libz.tbd */,
+				5CEBBE601EB882DD00046E7F /* libxml2.tbd */,
+				5CEBBE5E1EB882D400046E7F /* libresolv.tbd */,
+				5CEBBE5C1EB882C800046E7F /* libicucore.tbd */,
+				5CEBBE5A1EB882BD00046E7F /* libc++.tbd */,
 				7D0617B01EA73687004CB6B2 /* libsqlite3.0.tbd */,
 				F77C88991DD33768CA723214 /* Pods_Chat_App.framework */,
 				BCF755678030EE112DC03A06 /* Pods_Chat_AppTests.framework */,
@@ -675,6 +755,8 @@
 				F0148C4B7B67624B9463AD10 /* [CP] Embed Pods Frameworks */,
 				4C938A17CF83ED7547E6C15B /* [CP] Copy Pods Resources */,
 				7DFFB83A1EAB6A430070C108 /* ShellScript */,
+				5CEBBE791EB8834200046E7F /* Embed Frameworks */,
+				5CEBBE7A1EB8838F00046E7F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -782,8 +864,10 @@
 				5CEF5AAC1EA4B9CD00E92BF8 /* Settings.png in Resources */,
 				7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */,
 				5CCE805E1EA5FBF900B88F3F /* Data and Storage Usage.png in Resources */,
+				5CEBBE7E1EB8873B00046E7F /* location@1x.png in Resources */,
 				7DC797A51EAB17CE00EFD39D /* Send@1x.png in Resources */,
 				5CEF5A9E1EA4B7EE00E92BF8 /* Camera.png in Resources */,
+				5CEBBE7F1EB8873B00046E7F /* location@2x.png in Resources */,
 				7D21AD871EA9C14B00087864 /* ChatListController.xib in Resources */,
 				7DC797AE1EAB17CE00EFD39D /* cancel.png in Resources */,
 				7DC797A01EAB17CE00EFD39D /* pending@2x.png in Resources */,
@@ -806,6 +890,7 @@
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
 				5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */,
 				7D7151F91EA8D504006A9D4B /* Gradient@2x.png in Resources */,
+				5CEBBE801EB8873B00046E7F /* location@3x.png in Resources */,
 				7D7151EA1EA88183006A9D4B /* NewChatCell.xib in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
 				7DC7979C1EAB17CE00EFD39D /* green@1x.png in Resources */,
@@ -974,6 +1059,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		5CEBBE7A1EB8838F00046E7F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework/strip-framework.sh\"";
 		};
 		7DFFB83A1EAB6A430070C108 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1234,6 +1332,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Chat_App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "lanet.Chat-App";
@@ -1250,6 +1352,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Chat_App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "lanet.Chat-App";
