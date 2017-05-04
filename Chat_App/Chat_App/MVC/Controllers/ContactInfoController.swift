@@ -39,7 +39,7 @@ class ContactInfoController: UIViewController, UITableViewDataSource, UITableVie
         if(indexPath.row == 0) {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ContactInfoCell", for: indexPath) as!ContactInfoCell
             cell.imgvw.image = UIImage(named: "Gradient")
-            cell.username.text = String(describing :ChatController.reciever_id!)
+            cell.username.text = ChatController.recname
             return cell
         } else if(indexPath.row == 1) {
             let cell1 = tblvw.dequeueReusableCell(withIdentifier: "contactInfoBottomCell", for: indexPath) as! contactInfoBottomCell
