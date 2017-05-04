@@ -36,6 +36,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var i = 4
     var frame : CGRect!
     static var reciever_id : Int!
+    static var recname : String!
     var frame1 : CGRect!
     var messages : NSMutableArray!
     var chatboxConstant : CGFloat!
@@ -46,16 +47,16 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "\(ChatController.reciever_id!)"
-        if (self.title?.lengthOfBytes(using: .ascii))! > maxStringLength {
-            let index = self.title?.index((self.title?.startIndex)!, offsetBy: 5)
-            self.title = self.title?.substring(to: index!).appending("...")
-        }
-        else {
-            navigationItem.backBarButtonItem?.title = self.title
-        }
+        self.title = ChatController.recname!
+//        if (self.title?.lengthOfBytes(using: .ascii))! > maxStringLength {
+//            let index = self.title?.index((self.title?.startIndex)!, offsetBy: 5)
+//            self.title = self.title?.substring(to: index!).appending("...")
+//        }
+//        else {
+//            navigationItem.backBarButtonItem?.title = self.title
+//        }
         if(ChatController.type == "single") {
-            self.cnctnm.text = String(describing : ChatController.reciever_id!)
+            self.cnctnm.text = ChatController.recname
             let btn1 = UIButton(type: .custom)
             let origImage = UIImage(named: "Calls");
             let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
@@ -87,6 +88,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
+        
         self.navigationItem.titleView = navvw
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
@@ -95,6 +97,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tap1.cancelsTouchesInView = false
         self.navvw.addGestureRecognizer(tap1)
         self.locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         getMsg()
         
     }
@@ -139,7 +142,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         self.chatbox.backgroundColor = UIColor.white
-        self.navprof.image = UIImage(named: "Gradient")
+//        let path = UserDefaults.standard.url(forKey: "img")
+//        let url1 = NSURL(string: ((path as AnyObject).absoluteString)!!)
+//        let data = NSData(contentsOf: url1! as URL)
+//        self.navprof.image = UIImage(data: data! as Data)
         self.navprof.layer.cornerRadius = self.navprof.frame.width / 2
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
@@ -150,9 +156,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let ob = (self.messages.object(at: indexPath.row) as! NSObject)
         
-        if ob.value(forKey: "sender_id") as! String == AppDelegate.senderId {
+        switch  ob.value(forKey: "sender_id") as! String {
+        case AppDelegate.senderId:
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
             cell.messageBackground.layer.borderWidth = 2
+            
             switch Int.init((ob.value(forKey: "ack") as! String))! {
             case 0:
                 cell.messageBackground.layer.borderColor = UIColor.black.cgColor
@@ -169,26 +177,39 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             default:
                 print("ABCD")
             }
+            
             if(ob.value(forKey: "image") as! String != "nil") {
+                
                     let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
-                    let data = NSData(contentsOf: url! as URL)
+                    let url1 = NSURL(string: (url?.absoluteString)!)
+                    let data = NSData(contentsOf: url1! as URL)
                     cell.messageBackground.image = UIImage(data: data! as Data)
-                    cell.messageBackground.backgroundColor = UIColor.clear
-                    cell.message.isHidden = true
-                    return cell
-            } else {
-            cell.message.text = ob.value(forKey: "message") as? String
-            cell.messageBackground.image = nil
-            return cell
+                cell.messageBackground.backgroundColor = UIColor.clear
+                cell.message.isHidden = true
+                return cell
             }
-        } else {
-            let cell1 = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            else if(ob.value(forKey: "location") as! String != "nil") {
+                cell.messageBackground.image = UIImage(named: "location")
+                return cell
+            }
+            else {
+                cell.message.text = ob.value(forKey: "message") as? String
+                cell.messageBackground.image = nil
+                return cell
+            }
+
+        case String(describing:ChatController.reciever_id!):
+            let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             if(ob.value(forKey: "message") as? UIImage != nil) {
-                cell1.messageBackground.image = ob.value(forKey: "image") as? UIImage
-                return cell1
+                cell.messageBackground.image = ob.value(forKey: "image") as? UIImage
+                return cell
             }
-            cell1.message.text = ob.value(forKey: "message") as? String
-            return cell1
+            cell.message.text = ob.value(forKey: "message") as? String
+            return cell
+        default :
+            print("ABCD")
+            let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            return cell
         }
     }
     
@@ -322,11 +343,39 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         let locationAction = UIAlertAction(title: "Send location", style: .default) { (action) in
-            if self.checkLocationPermission() {
-                self.locationManager.startUpdatingLocation()
-            } else {
-                self.locationManager.requestWhenInUseAuthorization()
-            }
+            self.locationManager.stopUpdatingLocation()
+            
+                let cord = String(describing : self.locationManager.location?.coordinate.latitude) + " " + String(describing :
+            self.locationManager.location?.coordinate.longitude)
+                
+                //        let staticMapUrl: String = "http://maps.google.com/maps/api/staticmap?markers=color:red|\(21.1702),\(72.8311)&\("zoom=10&size=175x175")&sensor=true"
+                //        let mapUrl = URL(string: staticMapUrl.addingPercentEscapes(using: String.Encoding.utf8)!)
+                //            let data = NSData(contentsOf: mapUrl!)
+                //        let image = UIImage(data: data! as Data)
+                //
+                //            let documentsDirectoryURL = try! FileManager().url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                //            let fileURL = documentsDirectoryURL.appendingPathComponent("\(arc4random()).png")
+                //
+                //            if !FileManager.default.fileExists(atPath: fileURL.path) {
+                //                 let data = UIImageJPEGRepresentation(image!, 0.8)
+                //                 try? data?.write(to: fileURL)
+                //            }
+                //
+                var dic:[String:Any]!
+                dic = ["senderId":Int(AppDelegate.senderId)!,"message": "" ,"recieverId":ChatController.reciever_id!,"type":"location","location" : cord]
+                self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":self.chatbox.text!,"time":Date(),"status":"0"])
+                
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,location,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["location"]!))\',0")
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+                    if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+                        AppDelegate.websocket.send(NSData(data: jsonData))
+                    }
+                } catch {
+                    
+                }
+                UIGraphicsEndImageContext()
+                self.getMsg()
         }
         
         let audioAction = UIAlertAction(title: "Send audio", style: .default) { (action) in
@@ -378,45 +427,16 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- Location Methods
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.locationManager.stopUpdatingLocation()
-        if let lastloc = locations.last{
-        let cord = (CLLocationCoordinate2DMake(lastloc.coordinate.latitude, lastloc.coordinate.longitude))
-        let options = MKMapSnapshotOptions()
-        let region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(lastloc.coordinate.latitude, lastloc.coordinate.longitude), 500, 500)
-        options.region = region
-        options.scale = UIScreen.main.scale
-            options.size = CGSize(width : 500,height :500)
         
-        let snapshotter = MKMapSnapshotter(options: options)
-        snapshotter.start() {
-            snapshot, error in
-            
-            
-            let image = snapshot?.image
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = cord
-            annotation.title = "Your Title"
-            
-            let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
-            let pinImage = annotationView.image
-            
-            UIGraphicsBeginImageContextWithOptions((image?.size)!, true, (image?.scale)!);
-            
-            image?.draw(at: CGPoint.zero) //map
-            
-            //            pinImage!.drawAtPoint(snapshot.pointForCoordinate(coordinates[0]))
-            
-            annotationView.drawHierarchy(in: CGRect(x: (snapshot?.point(for: cord).x)!, y: (snapshot?.point(for: cord).y)!, width: annotationView.frame.width, height: annotationView.frame.height), afterScreenUpdates: true)
-            
-            
-            let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
         }
-    }
-    }
-    
+   
     //MARK:- Custom Method
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
     
     func menu() {
         
@@ -424,7 +444,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func addphoto() {
-        var dic:[String:Any]!
         
         self.present(pickerController, animated: true) {}
         pickerController.didSelectAssets = { (assets: [DKAsset]) in
@@ -469,7 +488,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     })
                 }
             }
-            
         }
     }
             

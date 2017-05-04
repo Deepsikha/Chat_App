@@ -86,7 +86,7 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
             
         }
 //        self.imgProfile.image = selectedImage
-        UserDefaults.standard.set(info[UIImagePickerControllerReferenceURL] as? URL, forKey: "img")
+        UserDefaults.standard.set(info[UIImagePickerControllerReferenceURL] as? String, forKey: "img")
 
 //        self.imgProfile.image = imageFromAssetURL(assetURL: info[UIImagePickerControllerReferenceURL] as! NSURL)
         self.imgProfile.image = self.imageFromAssetURL(assetURL: info[UIImagePickerControllerReferenceURL] as! NSURL)

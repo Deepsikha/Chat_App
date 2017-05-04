@@ -133,7 +133,7 @@ class ModelManager: NSObject {
         else {
             return false
         }
-        
+        sharedInstance.database?.close()
     }
     
     
