@@ -16,14 +16,14 @@ class server_API {
     static let sharedObject = server_API()
     
 
-    let Base_url = "http://192.168.200.15:8085"
+    static let Base_url = "http://192.168.200.15:8085"
 
     
     let int_gone_msg = "You are disconnected from the internet.".capitalized
     
     func requestFor_NSMutableDictionary(Str_Request_Url:String , Request_parameter:[String: String]? , Request_parameter_Images:[String: UIImage]? ,status: @escaping (_ result: Calling_Status) -> Void , response_Dictionary: @escaping (_ results: NSMutableDictionary) -> Void , response_Array: @escaping (_ results: NSMutableArray) -> Void,isTokenEmbeded:Bool){
-        let myurl = NSURL(string: "\(Base_url)\(Str_Request_Url)")
-        let obj_of_status = Calling_Status(Status: false, Message: "Request Failed",Request_Url: "\(Base_url)\(Str_Request_Url)")
+        let myurl = NSURL(string: "\(server_API.Base_url)\(Str_Request_Url)")
+        let obj_of_status = Calling_Status(Status: false, Message: "Request Failed",Request_Url: "\(server_API.Base_url)\(Str_Request_Url)")
         print(myurl!)
         let req = NSMutableURLRequest(url: myurl! as URL)
         if(isTokenEmbeded == false){
@@ -142,8 +142,8 @@ class server_API {
     }
     
     func requestFor_NSMutableDictionaryMine(Str_Request_Url:String , Request_parameter:[String: Any]? , Request_parameter_Images:[String: UIImage]? ,status: @escaping (_ result: Calling_Status) -> Void , response_Dictionary: @escaping (_ results: NSMutableDictionary) -> Void , response_Array: @escaping (_ results: NSMutableArray) -> Void,isTokenEmbeded:Bool){
-        let myurl = NSURL(string: "\(Base_url)\(Str_Request_Url)")
-        let obj_of_status = Calling_Status(Status: false, Message: "Request Failed",Request_Url: "\(Base_url)\(Str_Request_Url)")
+        let myurl = NSURL(string: "\(server_API.Base_url)\(Str_Request_Url)")
+        let obj_of_status = Calling_Status(Status: false, Message: "Request Failed",Request_Url: "\(server_API.Base_url)\(Str_Request_Url)")
         print(myurl!)
         let req = NSMutableURLRequest(url: myurl! as URL)
         if(isTokenEmbeded == false){
@@ -351,7 +351,7 @@ class server_API {
     func requestFor_Upload_image_With_Data_And_Progress(delegate: URLSessionDelegate,Str_Request_Url:String , Request_parameter:[String: String]? , Request_parameter_Images:[String: UIImage]? , sessionDescription:String? , Compression_Ratio:Float?){
         
         DispatchQueue.global().async {
-            let myurl = NSURL(string: "\(self.Base_url)\(Str_Request_Url)")
+            let myurl = NSURL(string: "\(server_API.Base_url)\(Str_Request_Url)")
             print(myurl!)
             let req = NSMutableURLRequest(url: myurl! as URL)
             if Request_parameter_Images != nil {

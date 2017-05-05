@@ -44,6 +44,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var maxStringLength = 5
     var canSendLocation = true
     let locationManager = CLLocationManager()
+    static var img:UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +58,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        }
         if(ChatController.type == "single") {
             self.cnctnm.text = ChatController.recname
+            self.navprof.image = ChatController.img
             let btn1 = UIButton(type: .custom)
             let origImage = UIImage(named: "Calls");
             let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
@@ -87,6 +89,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
+        
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
         
         self.navigationItem.titleView = navvw
@@ -110,6 +113,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         do {
+            lastseen()
     let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "userstatus" , "userId" : ChatController.reciever_id!], options: .prettyPrinted)
         AppDelegate.websocket.send(NSData(data:jsonData))
     } catch {
@@ -142,10 +146,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         self.chatbox.backgroundColor = UIColor.white
-//        let path = UserDefaults.standard.url(forKey: "img")
-//        let url1 = NSURL(string: ((path as AnyObject).absoluteString)!!)
-//        let data = NSData(contentsOf: url1! as URL)
-//        self.navprof.image = UIImage(data: data! as Data)
         self.navprof.layer.cornerRadius = self.navprof.frame.width / 2
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
@@ -154,11 +154,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- Table Delegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let ob = (self.messages.object(at: indexPath.row) as! NSObject)
         
         switch  ob.value(forKey: "sender_id") as! String {
         case AppDelegate.senderId:
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
+            cell.clearCellData()
             cell.messageBackground.layer.borderWidth = 2
             
             switch Int.init((ob.value(forKey: "ack") as! String))! {
@@ -178,6 +180,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("ABCD")
             }
             
+            
+            
             if(ob.value(forKey: "image") as! String != "nil") {
                 
                     let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
@@ -186,31 +190,33 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.messageBackground.image = UIImage(data: data! as Data)
                 cell.messageBackground.backgroundColor = UIColor.clear
                 cell.message.isHidden = true
-                return cell
             }
             else if(ob.value(forKey: "location") as! String != "nil") {
                 cell.messageBackground.image = UIImage(named: "location")
-                return cell
             }
             else {
                 cell.message.text = ob.value(forKey: "message") as? String
                 cell.messageBackground.image = nil
-                return cell
-            }
-
+                }
+            
+            return cell
         case String(describing:ChatController.reciever_id!):
             let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            cell.clearCellData()
             if(ob.value(forKey: "message") as? UIImage != nil) {
                 cell.messageBackground.image = ob.value(forKey: "image") as? UIImage
-                return cell
+                
             }
             cell.message.text = ob.value(forKey: "message") as? String
             return cell
         default :
-            print("ABCD")
             let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             return cell
-        }
+            }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -266,7 +272,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 switch dic!["msgAck"] as! Int {
                 case 1:
                    _ = ModelManager.getInstance().updateData("chat", "ack = 2","ack = 1 and receiver_id = \(String(describing: dic?["senderId"]! as! Int))")
-                    
+                   
                     break
                 case 3:
                    _ = ModelManager.getInstance().updateData("chat", "ack = 3","ack = 2 or ack = 1 and receiver_id = \(String(describing: dic?["senderId"]! as! Int))")
@@ -301,19 +307,24 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             case "userStatus":
                 switch dic?["online"]! as! Int {
                 case 0:
-                    self.lstseen.text = "Offline"
+                    lastseen()
                     break
                 case 1:
                     self.lstseen.text = "Online"
                     break
                 case 2:
                     self.lstseen.text = "Typing..."
+                    break
                 case 3:
                     self.lstseen.text = "Online"
                     break
+                
+             
                 default:
                     print("asds")
                 }
+                break
+            case "image":
                 break
             default: break
             }
@@ -468,12 +479,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             
                             
                             dic = ["senderId":Int(AppDelegate.senderId)!,"message": self.chatbox.text! ,"recieverId":ChatController.reciever_id,"type":"message","image" : imgurl!]
-                            
-                            
                             self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":self.chatbox.text!,"time":Date(),"status":"0"])
                                 _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,image,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["image"]!))\',0")
-                            
-                            
                             server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/uploads", Request_parameter: ["senderId" : AppDelegate.senderId,"receiver_id" : String(describing:ChatController.reciever_id!)], Request_parameter_Images: ["file" : image!], status: { (status) in
                                     
                                 }, response_Dictionary: { (dic) in
@@ -490,8 +497,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
     }
-            
-
             
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
@@ -596,4 +601,29 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return state
     }
     
+    func lastseen() {
+        let a = ModelManager.getInstance().exec("SELECT * FROM user where user_id = \(ChatController.reciever_id!)")
+        let i = a as AnyObject
+        var dt = Double((i.value(forKey: "lastseen") as! NSObject) as! String)
+        dt = dt! / 1000
+        _ = String(describing : NSDate(timeIntervalSince1970: dt!))
+        let date = NSDate(timeIntervalSince1970: dt!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd, MMMM yyyy HH:mm:a"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
+        let dateString = dateFormatter.string(from: date as Date)
+        print(dateString)
+        self.lstseen.lineBreakMode   = .byClipping
+        self.lstseen.textAlignment   = .left
+        self.lstseen.text  = "Last seen : \(dateString)"
+        
+//        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+//            
+//            if let text = self.lstseen.text, !text.isEmpty {
+//                let index = text.index(after: text.startIndex)
+//                self.lstseen.text = self.lstseen.text?.substring(from: index)
+//            }
+//        }
+    }
+   
 }
