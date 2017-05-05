@@ -23,6 +23,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     var filtercontactNumber = NSMutableArray()
     static var searchText : String!
     var isSearch:Bool = false
+    var imageCache : SDImageCache!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +38,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         tblvw.register(UINib(nibName: "ChatListCell", bundle: nil), forCellReuseIdentifier: "ChatListCell")
         self.tblvw.tableHeaderView = self.vwHeader
         self.search.placeholder = "Search"
-        
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue : "load"), object: nil)
     }
     
     
@@ -48,6 +48,9 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        countmsg()
+    }
     //MARK: Table Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.isSearch) {
@@ -70,12 +73,12 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         let cell = tblvw.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
-        let url = "http://192.168.200.15:8085/download?url=uploads/user8454644/img1_1493450432015_1493721534286.jpg"
-        cell.prflpic.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.cacheMemoryOnly, completed: { (image, error, memory, imageUrl) in
+
+        let url = server_API.Base_url.appending(String(describing: (contact.0 as AnyObject).value(forKey: "profile_pic") as! String))
         
-            
+        cell.prflpic.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, imageUrl) in
         })
-        //            cell.prflpic.image = UIImage(named : "Gradient")
+        
         let id = String(describing: (contact.0 as AnyObject).value(forKey: "user_id")!)
         if(AppDelegate.senderId !=  id){
             
@@ -108,9 +111,13 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             contact = contactNumber.object(at: indexPath.row) as! (Any,Any)
         }
+         let cell:ChatListCell? = tblvw.cellForRow(at: indexPath) as? ChatListCell
         ChatController.recname = String(describing: (contact.0 as AnyObject).value(forKey: "username") as! String)
+        ContactInfoController.status = String(describing: (contact.0 as AnyObject).value(forKey: "status_user") as! String)
         ChatController.reciever_id = (contact.0 as AnyObject).value(forKey: "user_id") as! Int
         ChatController.type = "single"
+        ChatController.img = cell?.prflpic.image
+        ContactInfoController.img = cell?.prflpic.image
         let a = ModelManager.getInstance().getack("chat", "\(ChatController.reciever_id!)", "status = \'false\'")
         if(a > 0 && AppDelegate.websocket.readyState == .OPEN) {
             do {

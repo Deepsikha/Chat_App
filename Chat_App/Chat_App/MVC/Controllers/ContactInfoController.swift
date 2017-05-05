@@ -12,6 +12,8 @@ class ContactInfoController: UIViewController, UITableViewDataSource, UITableVie
 
     @IBOutlet weak var tblvw: UITableView!
     var list = ["Media Links and Docs"]
+    static var status : String!
+    static var img : UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +40,7 @@ class ContactInfoController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.row == 0) {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "ContactInfoCell", for: indexPath) as!ContactInfoCell
-            cell.imgvw.image = UIImage(named: "Gradient")
+            cell.imgvw.image = ContactInfoController.img
             cell.username.text = ChatController.recname
             return cell
         } else if(indexPath.row == 1) {
@@ -48,7 +50,7 @@ class ContactInfoController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             let cell = self.tblvw.dequeueReusableCell(withIdentifier: "statusCell", for: indexPath) as! statusCell
             cell.phonenumber.text = String(describing: ChatController.reciever_id!)
-            cell.status.text = "Sample Status"
+            cell.status.text = ContactInfoController.status
             return cell
         }
         
