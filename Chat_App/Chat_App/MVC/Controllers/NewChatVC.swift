@@ -14,7 +14,6 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     @IBOutlet var tblNewContact: UITableView!
     @IBOutlet var searchContact: UISearchBar!
     @IBOutlet var vwHeader: UIView!
-    @IBOutlet var btnCancel: UIBarButtonItem!
     @IBOutlet var tblHeader: UITableView!
     
     var caller: String = "ChatListController"
@@ -42,7 +41,6 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             self.title = "New Call"
  
         }
-        self.navigationController?.isNavigationBarHidden = true
         
         self.tblNewContact.register(UINib(nibName: "NewChatCell", bundle: nil), forCellReuseIdentifier: "NewChatCell")
         self.tblHeader.register(UINib(nibName: "NewChatHeaderCell", bundle: nil), forCellReuseIdentifier: "NewChatHeaderCell")
@@ -51,14 +49,8 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
-        
-        //status bar color
-        let statusBarBackground = UIView(frame: UIApplication.shared.statusBarFrame)
-        let statusBarColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 0.7)
-        statusBarBackground.backgroundColor = statusBarColor
-        view.addSubview(statusBarBackground)
+    
         self.tblNewContact.tableHeaderView = self.vwHeader
-//        self.getContact()
         self.searchContact.placeholder = "Search"
         
     }
@@ -68,6 +60,7 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleBtncancel(_:)))
        self.contactList = NSArray(array: ModelManager.getInstance().getAllData("user"))
        self.contactList = self.contactList.sorted(by: { (a, b) -> Bool in
             return ((a as! NSDictionary)["username"]! as! String) < ((b as! NSDictionary)["username"]! as! String)
@@ -178,6 +171,16 @@ class NewChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             cell.imgCalltype.tintColor = UIColor.green
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sectionTitle = self.sectionTitleList[(indexPath as NSIndexPath).section]
+        let contacts = self.contactListGrouped[sectionTitle]
+        ChatController.reciever_id = (contacts?.object(at: 0) as AnyObject).value(forKey: "user_id")! as? Int
+        ChatController.recname = (contacts?.object(at: 0) as AnyObject).value(forKey: "username")! as? String
+        ChatController.type = "single"
+        self.navigationController?.pushViewController(ChatController(), animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

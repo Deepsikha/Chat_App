@@ -18,6 +18,7 @@ class SenderCell: UITableViewCell {
         self.message.text = nil
         self.message.isHidden = false
         self.messageBackground.image = nil
+
     }
     
     override func awakeFromNib() {
@@ -27,4 +28,7 @@ class SenderCell: UITableViewCell {
         self.messageBackground.layer.cornerRadius = 15
         self.messageBackground.clipsToBounds = true
     }
+    
+    
+    
 }

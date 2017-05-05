@@ -158,6 +158,23 @@ class ModelManager: NSObject {
         return marrStudentInfo
     }
     
+    func exec(_ query :String) -> [String:Any] {
+        sharedInstance.database?.open()
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsIn: nil)
+        var dic = [String:Any]()
+
+        if (resultSet != nil) {
+            while resultSet.next() {
+                
+                for i in 0..<resultSet.columnCount() {
+                    dic[resultSet.columnName(for: i)] = resultSet.string(forColumn: resultSet.columnName(for: i))
+                }
+            }
+        }
+        sharedInstance.database!.close()
+        return dic
+    }
+    
     func getCount(_ tblName: String,_ condition: String,_ countCol: String) -> [String:Any] {
         sharedInstance.database!.open()
         let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT COUNT(\(countCol)) FROM \(tblName) WHERE \(condition)", withArgumentsIn: nil)

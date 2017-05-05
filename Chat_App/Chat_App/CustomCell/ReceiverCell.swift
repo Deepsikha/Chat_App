@@ -14,6 +14,7 @@ class ReceiverCell: UITableViewCell {
     @IBOutlet weak var stamp: UILabel!
     @IBOutlet weak var message: UITextView!
     @IBOutlet weak var messageBackground: UIImageView!
+    
     func clearCellData()  {
         self.message.text = nil
         self.message.isHidden = false
@@ -29,5 +30,7 @@ class ReceiverCell: UITableViewCell {
         self.messageBackground.layer.borderWidth = 1
         self.messageBackground.clipsToBounds = true
     }
+ 
+    
     
 }
