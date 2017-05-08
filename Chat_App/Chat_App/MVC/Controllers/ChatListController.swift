@@ -100,6 +100,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.lstmsg.text = lastMsg
             }
             cell.msgcount.text = String(describing: contact.1)
+            
         }
         return cell
     }
@@ -123,7 +124,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             do {
                 let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
                 AppDelegate.websocket.send(NSData(data:jsonData))
-                _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(((contact.0) as AnyObject).value(forKey: "user_id") as! Int)")
+                
             } catch {
                 
             }

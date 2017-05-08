@@ -45,6 +45,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var canSendLocation = true
     let locationManager = CLLocationManager()
     static var img:UIImage!
+    static var bool : Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +89,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tblvw.rowHeight = UITableViewAutomaticDimension
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
+        tblvw.register(UINib(nibName: "UnreadMessageCell", bundle: nil), forCellReuseIdentifier: "UnreadMessageCell")
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
         
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
@@ -120,6 +122,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     } catch {
     
     }
+        
     Answers.logContentView(withName: "Content event",contentType: "Testing", contentId: "1",customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
         
         //purchase
@@ -137,6 +140,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         chatboxConstant = chatboxTrailingConstraint.constant
         self.sendmsg.isHidden = true
         self.scrlbtn.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        _ = ModelManager.getInstance().updateData("chat","status = \'true\'","status = \'false\' and sender_id = \(ChatController.reciever_id!)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -181,8 +188,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("ABCD")
             }
             
-            
-            
             if(ob.value(forKey: "image") as! String != "nil") {
                 
                     let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
@@ -202,7 +207,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             return cell
         case String(describing:ChatController.reciever_id!):
-            let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            if(ob.value(forKey: "status") as! String == "false") {
+                let cell = tblvw.dequeueReusableCell(withIdentifier: "UnreadMessageCell", for: indexPath) as! UnreadMessageCell
+                return cell
+            } else {
+            let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath ) as! SenderCell
             cell.clearCellData()
             if(ob.value(forKey: "image") as! String != "") {
                 let url = server_API.Base_url.appending(ob.value(forKey: "image") as! String)
@@ -213,6 +222,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.message.text = ob.value(forKey: "message") as? String
             }
             return cell
+            }
         default :
             let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             return cell
@@ -224,7 +234,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+            return messages.count
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -240,6 +250,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.lastContentOffset = scrollView.contentOffset.y
     }
    
+    //MARK:- Websocket Methods
+    
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         self.lstseen.text = "Offline"
     }
@@ -328,6 +340,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 break
             case "image":
+
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
                     _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,message", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "url")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\'")
@@ -346,6 +359,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                     }
                 }
+
                 break
             default: break
             }
@@ -506,8 +520,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                     
                                 }, response_Dictionary: { (dic) in
                                     
-                                }, response_Array: { (arr) in
+                                    self.sendimg(dic)
                                     
+                                }, response_Array: { (arr) in
+                                    print(arr)
                                 }, isTokenEmbeded: false)
                             
                         }
@@ -620,6 +636,21 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         default: break
         }
         return state
+    }
+    
+    func sendimg(_ dic : NSMutableDictionary) {
+        do {
+            if((dic["downloadUrl"]! as! String) != "") {
+                var dic1:[String:Any]!
+                dic1 = ["senderId":Int(AppDelegate.senderId)!,"url": dic["downloadUrl"]! as! String ,"recieverId":ChatController.reciever_id,"type":"imageMsg"]
+                let jsonData = try JSONSerialization.data(withJSONObject: dic1, options: .prettyPrinted)
+                if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+                    AppDelegate.websocket.send(NSData(data: jsonData))
+                }
+            }
+        } catch {
+        
+        }
     }
     
     func lastseen() {

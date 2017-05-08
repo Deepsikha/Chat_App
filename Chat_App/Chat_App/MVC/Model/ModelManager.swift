@@ -7,7 +7,7 @@ let sharedInstance = ModelManager()
 class ModelManager: NSObject {
     
     var database: FMDatabase? = nil
-    
+
     class func getInstance() -> ModelManager
     {
         if(sharedInstance.database == nil)
@@ -18,18 +18,18 @@ class ModelManager: NSObject {
     }
     
     func addData(_ tblName: String,_ columns: String,_ values : String) -> Bool {
-        sharedInstance.database!.open()
+        sharedInstance.database?.open()
         let val = String(values.characters.filter { !"\n".characters.contains($0) })
         let isInserted = sharedInstance.database!.executeStatements("INSERT OR REPLACE INTO \(tblName) (\(columns)) VALUES (\(val))")
-        sharedInstance.database!.close()
+        sharedInstance.database?.close()
         return isInserted
         
     }
     
     func updateData(_ tblName: String,_ changeField: String,_ condition: String) -> Bool {
-        sharedInstance.database!.open()
+        sharedInstance.database?.open()
         let isUpdated = sharedInstance.database!.executeStatements("UPDATE \(tblName) set \(changeField) WHERE \(condition)")
-        sharedInstance.database!.close()
+        sharedInstance.database?.close()
         return isUpdated
     }
     
@@ -61,7 +61,7 @@ class ModelManager: NSObject {
                 marrStudentInfo.add(dic)
             }
         }
-        sharedInstance.database!.close()
+        sharedInstance.database?.close()
         return marrStudentInfo
     }
     
@@ -83,7 +83,8 @@ class ModelManager: NSObject {
                 marrStudentInfo.add(dic)
             }
         }
-        sharedInstance.database!.close()
+        sharedInstance.database?.close()
+
         return marrStudentInfo
     }
     
@@ -100,6 +101,7 @@ class ModelManager: NSObject {
         return c
     }
     
+
     func getData(_ tableName : String,_ sender_id : String,_ reciever_id : String) -> NSMutableArray {
         sharedInstance.database!.open()
         let q = "SELECT * FROM \(tableName) where sender_id = \(sender_id) and receiver_id = \(reciever_id) or sender_id = \(reciever_id) and receiver_id = \(sender_id)"
@@ -119,13 +121,12 @@ class ModelManager: NSObject {
                 //                }
             }
         }
-        sharedInstance.database!.close()
+        sharedInstance.database?.close()
         return marrStudentInfo
     }
     
     func check(_ tableName: String,_ param : String,_ id: Int) -> Bool{
-        sharedInstance.database!.open()
-        
+        sharedInstance.database?.open()
         let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT * FROM \(tableName) where \(param) = \(id)",withArgumentsIn: nil)
         if (resultSet.next() == true) {
             return true
@@ -134,11 +135,12 @@ class ModelManager: NSObject {
             return false
         }
         sharedInstance.database?.close()
+
     }
     
     
     func getAllData(_ tableName : String) -> NSMutableArray {
-        sharedInstance.database!.open()
+        sharedInstance.database?.open()
         let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT * FROM \(tableName) where user_id <> \(AppDelegate.senderId)", withArgumentsIn: nil)
         let marrStudentInfo : NSMutableArray = NSMutableArray()
         if (resultSet != nil) {
@@ -154,12 +156,13 @@ class ModelManager: NSObject {
                 marrStudentInfo.add(dic!)
             }
         }
-        sharedInstance.database!.close()
+        sharedInstance.database?.close()
         return marrStudentInfo
     }
     
     func exec(_ query :String) -> [String:Any] {
         sharedInstance.database?.open()
+
         let resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsIn: nil)
         var dic = [String:Any]()
 
@@ -171,12 +174,13 @@ class ModelManager: NSObject {
                 }
             }
         }
-        sharedInstance.database!.close()
+        sharedInstance.database?.close()
         return dic
     }
     
     func getCount(_ tblName: String,_ condition: String,_ countCol: String) -> [String:Any] {
-        sharedInstance.database!.open()
+        sharedInstance.database?.open()
+
         let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT COUNT(\(countCol)) FROM \(tblName) WHERE \(condition)", withArgumentsIn: nil)
         var dic = [String:Any]()
         if (resultSet != nil) {
@@ -187,9 +191,8 @@ class ModelManager: NSObject {
                 }
             }
         }
-        sharedInstance.database!.close()
+        sharedInstance.database?.close()
         return dic
     }
     
-   
 }
