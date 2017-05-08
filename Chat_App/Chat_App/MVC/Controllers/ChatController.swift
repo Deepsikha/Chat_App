@@ -102,7 +102,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tap1.cancelsTouchesInView = false
         self.navvw.addGestureRecognizer(tap1)
         self.locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         getMsg()
         
     }
@@ -245,7 +245,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         self.lastContentOffset = scrollView.contentOffset.y
     }
-   
+       
+        
     //MARK:- Websocket Methods
     
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
@@ -411,25 +412,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         let locationAction = UIAlertAction(title: "Send location", style: .default) { (action) in
-            self.locationManager.stopUpdatingLocation()
-            
+            self.locationManager.startUpdatingLocation()
                 let cord = String(describing : self.locationManager.location?.coordinate.latitude) + " " + (String(describing :
             self.locationManager.location?.coordinate.longitude))
                 
-                        let staticMapUrl: String = "http://maps.google.com/maps/api/staticmap?markers=color:red|\(21.1702),\(72.8311)&\("zoom=10&size=175x175")&sensor=true"
+                        let staticMapUrl: String = "http://maps.google.com/maps/api/staticmap?markers=color:red|\(String(describing: self.locationManager.location!.coordinate.latitude)),\(String(describing: self.locationManager.location!.coordinate.longitude))&\("zoom=10&size=175x175")&sensor=true"
                         let mapUrl = URL(string: staticMapUrl.addingPercentEscapes(using: String.Encoding.utf8)!)
             
-                //            let data = NSData(contentsOf: mapUrl!)
-                //        let image = UIImage(data: data! as Data)
-                //
-                //            let documentsDirectoryURL = try! FileManager().url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                //            let fileURL = documentsDirectoryURL.appendingPathComponent("\(arc4random()).png")
-                //
-                //            if !FileManager.default.fileExists(atPath: fileURL.path) {
-                //                 let data = UIImageJPEGRepresentation(image!, 0.8)
-                //                 try? data?.write(to: fileURL)
-                //            }
-                //
                 var dic:[String:Any]!
             dic = ["senderId":Int(AppDelegate.senderId)!,"message": "" ,"recieverId":ChatController.reciever_id!,"type":"location","location" : cord,"image" : mapUrl!]
                 self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":self.chatbox.text!,"time":Date(),"status":"0"])
