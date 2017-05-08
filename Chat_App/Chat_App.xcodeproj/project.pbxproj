@@ -37,6 +37,8 @@
 		5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80591EA5FBF900B88F3F /* Starred Messages.png */; };
 		5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */; };
 		5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */; };
+		5CDD22F41EBDE25B002D10FB /* UnreadMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD22F21EBDE25B002D10FB /* UnreadMessageCell.swift */; };
+		5CDD22F51EBDE25B002D10FB /* UnreadMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CDD22F31EBDE25B002D10FB /* UnreadMessageCell.xib */; };
 		5CEBBE5B1EB882BE00046E7F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE5A1EB882BD00046E7F /* libc++.tbd */; };
 		5CEBBE5D1EB882C800046E7F /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE5C1EB882C800046E7F /* libicucore.tbd */; };
 		5CEBBE5F1EB882D400046E7F /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE5E1EB882D400046E7F /* libresolv.tbd */; };
@@ -234,6 +236,8 @@
 		5CCE80591EA5FBF900B88F3F /* Starred Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Starred Messages.png"; sourceTree = "<group>"; };
 		5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tell a Friend.png"; sourceTree = "<group>"; };
 		5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Web:Desktop.png"; sourceTree = "<group>"; };
+		5CDD22F21EBDE25B002D10FB /* UnreadMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnreadMessageCell.swift; sourceTree = "<group>"; };
+		5CDD22F31EBDE25B002D10FB /* UnreadMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnreadMessageCell.xib; sourceTree = "<group>"; };
 		5CEBBE561EB8827C00046E7F /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
 		5CEBBE571EB8827C00046E7F /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuickbloxWebRTC.framework; sourceTree = "<group>"; };
 		5CEBBE5A1EB882BD00046E7F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -453,6 +457,8 @@
 				5C0719AF1EB341C9005B0B36 /* contactInfoBottomCell.xib */,
 				5C0719B21EB35325005B0B36 /* statusCell.swift */,
 				5C0719B31EB35325005B0B36 /* statusCell.xib */,
+				5CDD22F21EBDE25B002D10FB /* UnreadMessageCell.swift */,
+				5CDD22F31EBDE25B002D10FB /* UnreadMessageCell.xib */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -935,6 +941,7 @@
 				7BCB7A141EB34624006E3C6C /* default-user@2x.png in Resources */,
 				5CEF5A851EA4A84300E92BF8 /* HomeController.xib in Resources */,
 				7DC797AA1EAB17CE00EFD39D /* videocall.png in Resources */,
+				5CDD22F51EBDE25B002D10FB /* UnreadMessageCell.xib in Resources */,
 				7D21AD7D1EA9C04C00087864 /* ReceiverCell.xib in Resources */,
 				7D7151FA1EA8D504006A9D4B /* Gradient@3x.png in Resources */,
 				7DC797A71EAB17CE00EFD39D /* Send@3x.png in Resources */,
@@ -1139,6 +1146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D8BBBAD1EA61BC7006A60DA /* Verification.swift in Sources */,
+				5CDD22F41EBDE25B002D10FB /* UnreadMessageCell.swift in Sources */,
 				7D202DC81EA4BFC50018FCAD /* Register.swift in Sources */,
 				5CEF5A981EA4B78800E92BF8 /* CameraController.swift in Sources */,
 				7D38D83B1EAF177000CA3C73 /* RTCICECandidate+JSON.m in Sources */,
