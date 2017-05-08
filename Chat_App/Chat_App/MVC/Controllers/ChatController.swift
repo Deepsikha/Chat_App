@@ -14,7 +14,7 @@ import DKImagePickerController
 import CoreLocation
 import Photos
 import MapKit
-
+import SDWebImage
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, SRWebSocketDelegate, UITextViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var chatboxTrailingConstraint: NSLayoutConstraint!
@@ -108,7 +108,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func getMsg() {
-        self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)", "message")
+        
+        self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)")
         
         self.tblvw.reloadData()
     }
@@ -212,11 +213,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else {
             let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath ) as! SenderCell
             cell.clearCellData()
-            if(ob.value(forKey: "message") as? UIImage != nil) {
-                cell.messageBackground.image = ob.value(forKey: "image") as? UIImage
-                
-            }
+            if(ob.value(forKey: "image") as! String != "") {
+                let url = server_API.Base_url.appending(ob.value(forKey: "image") as! String)
+                cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                    
+                })
+            } else  {
             cell.message.text = ob.value(forKey: "message") as? String
+            }
             return cell
             }
         default :
@@ -296,8 +300,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 getMsg()
                 break
             case "message":
-                for i in dic!["data"] as! NSArray {
-                    let a = i as AnyObject
+                for i in dic!["data"] as! NSArray {                     let a = i as AnyObject
                     _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,status", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "message")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\'")
                     
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
@@ -337,7 +340,26 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 break
             case "image":
-                
+
+                for i in dic!["data"] as! NSArray {
+                    let a = i as AnyObject
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,message", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "url")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\'")
+                    
+                    ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
+                    getMsg()
+                    let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+                    let indexPath = IndexPath(row: lastRow, section: 0);
+                    self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+                    if (a.value(forKey: "sender_id") as! Int) == ChatController.reciever_id {
+                        do{
+                            let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
+                            AppDelegate.websocket.send(NSData(data:jsonData))
+                        } catch {
+                            
+                        }
+                    }
+                }
+
                 break
             default: break
             }

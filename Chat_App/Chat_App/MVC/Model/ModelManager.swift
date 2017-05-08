@@ -101,8 +101,9 @@ class ModelManager: NSObject {
         return c
     }
     
-    func getData(_ tableName : String,_ sender_id : String,_ reciever_id : String, _ data : String) -> NSMutableArray {
-        sharedInstance.database?.open()
+
+    func getData(_ tableName : String,_ sender_id : String,_ reciever_id : String) -> NSMutableArray {
+        sharedInstance.database!.open()
         let q = "SELECT * FROM \(tableName) where sender_id = \(sender_id) and receiver_id = \(reciever_id) or sender_id = \(reciever_id) and receiver_id = \(sender_id)"
         print(q)
         let resultSet: FMResultSet! = sharedInstance.database!.executeQuery(q, withArgumentsIn: nil)
