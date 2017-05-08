@@ -188,32 +188,28 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("ABCD")
             }
             
-            if(ob.value(forKey: "image") as! String != "nil") {
-                
+            if(ob.value(forKey: "image") as! String != "nil" ) {
+                if(ob.value(forKey: "location") as! String != "nil") {
+                    cell.messageBackground.sd_setImage(with: URL(string : ob.value(forKey: "image") as! String), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload)
+                } else {
                     let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
                     let url1 = NSURL(string: (url?.absoluteString)!)
                     let data = NSData(contentsOf: url1! as URL)
                     cell.messageBackground.image = UIImage(data: data! as Data)
                 cell.messageBackground.backgroundColor = UIColor.clear
                 cell.message.isHidden = true
-            }
-            else if(ob.value(forKey: "location") as! String != "nil") {
-                cell.messageBackground.image = UIImage(named: "location")
-            }
-            else {
+                }
+            } else {
                 cell.message.text = ob.value(forKey: "message") as? String
                 cell.messageBackground.image = nil
-                }
-            
+            }
             return cell
+            
         case String(describing:ChatController.reciever_id!):
-            if(ob.value(forKey: "status") as! String == "false") {
-                let cell = tblvw.dequeueReusableCell(withIdentifier: "UnreadMessageCell", for: indexPath) as! UnreadMessageCell
-                return cell
-            } else {
+            
             let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath ) as! SenderCell
             cell.clearCellData()
-            if(ob.value(forKey: "image") as! String != "") {
+            if(ob.value(forKey: "image") as! String != "nil") {
                 let url = server_API.Base_url.appending(ob.value(forKey: "image") as! String)
                 cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                     
@@ -222,7 +218,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.message.text = ob.value(forKey: "message") as? String
             }
             return cell
-            }
+            
         default :
             let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             return cell
@@ -300,7 +296,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 getMsg()
                 break
             case "message":
-                for i in dic!["data"] as! NSArray {                     let a = i as AnyObject
+                for i in dic!["data"] as! NSArray {
+                    let a = i as AnyObject
                     _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,status", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "message")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\'")
                     
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
@@ -361,6 +358,29 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
 
                 break
+                
+            case "location":
+                
+                for i in dic!["data"] as! NSArray {
+                    let a = i as AnyObject
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,location", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "locationUrl")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\(String(describing: a.value(forKey: "coordinate")!))\'")
+                    
+                    ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
+                    getMsg()
+                    let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+                    let indexPath = IndexPath(row: lastRow, section: 0);
+                    self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+                    if (a.value(forKey: "sender_id") as! Int) == ChatController.reciever_id {
+                        do{
+                            let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
+                            AppDelegate.websocket.send(NSData(data:jsonData))
+                        } catch {
+                            
+                        }
+                    }
+                }
+                
+                break
             default: break
             }
         } catch {
@@ -388,14 +408,17 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
         
+        
+        
         let locationAction = UIAlertAction(title: "Send location", style: .default) { (action) in
             self.locationManager.stopUpdatingLocation()
             
-                let cord = String(describing : self.locationManager.location?.coordinate.latitude) + " " + String(describing :
-            self.locationManager.location?.coordinate.longitude)
+                let cord = String(describing : self.locationManager.location?.coordinate.latitude) + " " + (String(describing :
+            self.locationManager.location?.coordinate.longitude))
                 
-                //        let staticMapUrl: String = "http://maps.google.com/maps/api/staticmap?markers=color:red|\(21.1702),\(72.8311)&\("zoom=10&size=175x175")&sensor=true"
-                //        let mapUrl = URL(string: staticMapUrl.addingPercentEscapes(using: String.Encoding.utf8)!)
+                        let staticMapUrl: String = "http://maps.google.com/maps/api/staticmap?markers=color:red|\(21.1702),\(72.8311)&\("zoom=10&size=175x175")&sensor=true"
+                        let mapUrl = URL(string: staticMapUrl.addingPercentEscapes(using: String.Encoding.utf8)!)
+            
                 //            let data = NSData(contentsOf: mapUrl!)
                 //        let image = UIImage(data: data! as Data)
                 //
@@ -408,18 +431,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 //            }
                 //
                 var dic:[String:Any]!
-                dic = ["senderId":Int(AppDelegate.senderId)!,"message": "" ,"recieverId":ChatController.reciever_id!,"type":"location","location" : cord]
+            dic = ["senderId":Int(AppDelegate.senderId)!,"message": "" ,"recieverId":ChatController.reciever_id!,"type":"location","location" : cord,"image" : mapUrl!]
                 self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":self.chatbox.text!,"time":Date(),"status":"0"])
                 
-                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,location,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["location"]!))\',0")
-                do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
-                    if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
-                        AppDelegate.websocket.send(NSData(data: jsonData))
-                    }
-                } catch {
-                    
-                }
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,location,ack,image", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["location"]!))\',0,\'\(String(describing: dic!["image"]!))\'")
+//                do {
+//                    let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+//                    if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+//                        AppDelegate.websocket.send(NSData(data: jsonData))
+//                    }
+//                } catch {
+//                    
+//                }
                 UIGraphicsEndImageContext()
                 self.getMsg()
         }
