@@ -38,6 +38,7 @@ class Verification: UIViewController, UITextFieldDelegate {
         self.navigationController?.isNavigationBarHidden = false
         self.lblCall.textColor = UIColor.lightGray
         self.lblSendotp.textColor = UIColor.lightGray
+        self.indicator.isHidden = true
         self.timerStart()
         
     }
