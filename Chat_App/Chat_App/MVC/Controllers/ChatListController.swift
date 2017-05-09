@@ -82,22 +82,23 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         let id = String(describing: (contact.0 as AnyObject).value(forKey: "user_id")!)
         if(AppDelegate.senderId !=  id){
             
-            cell.cnctname.text = String(describing: (contact.0 as AnyObject).value(forKey: "username") as! String)
+            cell.cnctname.text = String(describing: (contact?.0 as AnyObject).value(forKey: "username") as! String)
             latest = ModelManager.getInstance().getlatest("chat" , Int(AppDelegate.senderId)! , (contact.0 as AnyObject).value(forKey: "user_id")! as! Int)
-            cell.timestmp.text = (contact.0 as AnyObject).value(forKey: "lastseen")! as? String
-//            cell.timestmp.text = NSDate(timeIntervalSince1970: ts)
+            
+            
             var lastMsg: String!
             var obj: AnyObject!
             if latest.count > 0 {
                 if (latest.lastObject as AnyObject).count != 0 {
                     obj = latest.lastObject as AnyObject
-                    lastMsg = obj.value(forKey: "message") as! String
+//                    lastMsg = obj.value(forKey: "message") as! String
                     
                 }
             }
             if obj != nil && ((contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "sender_id")! as? Int || (contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "receiver_id")! as? Int) {
-                
-                cell.lstmsg.text = lastMsg
+                    var a = (obj.value(forKey: "time") as? String)?.components(separatedBy: " ")
+//                    cell.timestmp.text = a?[4]
+//                    cell.lstmsg.text = lastMsg
             }
             cell.msgcount.text = String(describing: contact.1)
             

@@ -210,10 +210,17 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let cell = tblvw.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath ) as! SenderCell
             cell.clearCellData()
             if(ob.value(forKey: "image") as! String != "nil") {
+                if(ob.value(forKey: "location") as! String != "nil") {
+                    let url = (ob.value(forKey: "image") as! String)
+                    cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                        
+                    })
+                } else {
                 let url = server_API.Base_url.appending(ob.value(forKey: "image") as! String)
                 cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                     
                 })
+                }
             } else  {
             cell.message.text = ob.value(forKey: "message") as? String
             }
@@ -318,6 +325,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 break
             case "userStatus":
+                if(dic?["Id"] as! Int == ChatController.reciever_id) {
+
                 switch dic?["online"]! as! Int {
                 case 0:
                     lastseen()
@@ -331,12 +340,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 case 3:
                     self.lstseen.text = "Online"
                     break
-                
-             
                 default:
                     print("asds")
+                    }
                 }
                 break
+                    
             case "image":
 
                 for i in dic!["data"] as! NSArray {
@@ -364,7 +373,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
-                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,location", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "locationUrl")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\(String(describing: a.value(forKey: "coordinate")!))\'")
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,location,message", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "locationUrl")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\(String(describing: a.value(forKey: "coordinate")!))\',\'Location\'")
                     
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
                     getMsg()
@@ -413,25 +422,26 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let locationAction = UIAlertAction(title: "Send location", style: .default) { (action) in
             self.locationManager.startUpdatingLocation()
-                let cord = String(describing : self.locationManager.location?.coordinate.latitude) + " " + (String(describing :
-            self.locationManager.location?.coordinate.longitude))
+            let cord =  String(describing :self.locationManager.location!.coordinate.latitude) + " " + String(describing : self.locationManager.location!.coordinate.longitude)
+            
                 
                         let staticMapUrl: String = "http://maps.google.com/maps/api/staticmap?markers=color:red|\(String(describing: self.locationManager.location!.coordinate.latitude)),\(String(describing: self.locationManager.location!.coordinate.longitude))&\("zoom=10&size=175x175")&sensor=true"
                         let mapUrl = URL(string: staticMapUrl.addingPercentEscapes(using: String.Encoding.utf8)!)
+            let url = String(describing : mapUrl!)
             
                 var dic:[String:Any]!
-            dic = ["senderId":Int(AppDelegate.senderId)!,"message": "" ,"recieverId":ChatController.reciever_id!,"type":"location","location" : cord,"image" : mapUrl!]
-                self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":self.chatbox.text!,"time":Date(),"status":"0"])
+            dic = ["senderId":Int(AppDelegate.senderId)! ,"recieverId":ChatController.reciever_id!,"type":"location","coordinate" : cord,"locationUrl" : url]
+                self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":"Location","time":Date(),"status":"0"])
                 
-                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,location,ack,image", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["location"]!))\',0,\'\(String(describing: dic!["image"]!))\'")
-//                do {
-//                    let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
-//                    if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
-//                        AppDelegate.websocket.send(NSData(data: jsonData))
-//                    }
-//                } catch {
-//                    
-//                }
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,ack,image,message", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(Date())\',\'\(String(describing: dic!["coordinate"]!))\',0,\'\(String(describing: dic!["locationUrl"]!))\',\'Location\'")
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+                    if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+                        AppDelegate.websocket.send(NSData(data: jsonData))
+                    }
+                } catch {
+                    
+                }
                 UIGraphicsEndImageContext()
                 self.getMsg()
         }
@@ -466,7 +476,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',1")
             } else if(self.chatbox.text != "") {
             messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":chatbox.text!,"time":Date(),"status":"0"])
-                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',0")
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date())\',0")
             }
         } catch {
             print(error.localizedDescription)
