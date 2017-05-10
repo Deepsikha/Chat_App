@@ -540,9 +540,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             var dic:[String:Any]!
                             
                             
-                            dic = ["senderId":Int(AppDelegate.senderId)!,"message": self.chatbox.text! ,"recieverId":ChatController.reciever_id,"type":"message","image" : imgurl!]
-                            self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":self.chatbox.text!,"time":Date(),"status":"0"])
-                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,image,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["image"]!))\',0")
+                            dic = ["senderId":Int(AppDelegate.senderId)!,"message": self.chatbox.text! ,"recieverId":ChatController.reciever_id,"image" : imgurl!]
+                            self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0"])
+                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,image,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["image"]!))\',0")
                             server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/uploads", Request_parameter: ["senderId" : AppDelegate.senderId,"receiver_id" : String(describing:ChatController.reciever_id!)], Request_parameter_Images: ["file" : image!], status: { (status) in
                                     
                                 }, response_Dictionary: { (dic) in

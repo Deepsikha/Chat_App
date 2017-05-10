@@ -162,6 +162,7 @@ var dict = [String: String]()
                 break
             case "connected":
                 let a = ModelManager.getInstance().senddataserver("chat")
+                
                 for i in a {
                     let ob = i as AnyObject
                     var dic:[String:Any]!
@@ -196,6 +197,16 @@ var dict = [String: String]()
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                 break
+            case "image":
+                for i in dic!["data"] as! NSArray {
+                    let a = i as AnyObject
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,status,image", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "time")!))\',\'false\',\'\(String(describing: a.value(forKey: "url")!))\'")
+                    ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
+                }
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                break
+                
             case "userStatus":
                 if(dic?["online"] as! Int == 2) {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue : "type"), object: nil, userInfo: dic)
@@ -203,6 +214,7 @@ var dict = [String: String]()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue : "type"), object: nil, userInfo: nil)
                 }
                 break
+                
             default: break
             }
         } catch {
