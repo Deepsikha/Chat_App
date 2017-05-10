@@ -49,6 +49,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = ChatController.recname!
 //        if (self.title?.lengthOfBytes(using: .ascii))! > maxStringLength {
 //            let index = self.title?.index((self.title?.startIndex)!, offsetBy: 5)
@@ -115,6 +116,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         do {
             lastseen()
     let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "userstatus" , "userId" : ChatController.reciever_id!], options: .prettyPrinted)
@@ -236,6 +238,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return messages.count
     }
@@ -310,9 +316,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
                     getMsg()
-                    let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
-                    let indexPath = IndexPath(row: lastRow, section: 0);
-                    self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+                    self.scrolltolast()
+
                     if (a.value(forKey: "sender_id") as! Int) == ChatController.reciever_id {
                         do{
                     let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
@@ -354,9 +359,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
                     getMsg()
-                    let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
-                    let indexPath = IndexPath(row: lastRow, section: 0);
-                    self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+                    self.scrolltolast()
+
                     if (a.value(forKey: "sender_id") as! Int) == ChatController.reciever_id {
                         do{
                             let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
@@ -377,9 +381,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
                     getMsg()
-                    let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
-                    let indexPath = IndexPath(row: lastRow, section: 0);
-                    self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
+                    self.scrolltolast()
+
                     if (a.value(forKey: "sender_id") as! Int) == ChatController.reciever_id {
                         do{
                             let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "readMsgAck" , "senderId" : ChatController.reciever_id!], options: .prettyPrinted)
@@ -430,10 +433,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let url = String(describing : mapUrl!)
             
                 var dic:[String:Any]!
-            dic = ["senderId":Int(AppDelegate.senderId)! ,"recieverId":ChatController.reciever_id!,"type":"location","coordinate" : cord,"locationUrl" : url]
-                self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":"Location","time":Date(),"status":"0"])
+            dic = ["senderId":Int(AppDelegate.senderId)! ,"recieverId":ChatController.reciever_id!,"type":"location","coordinate" : cord,"locationUrl" : url,"message":self.chatbox.text!]
+                self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0","message":self.chatbox.text!])
                 
-                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,ack,image,message", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(Date())\',\'\(String(describing: dic!["coordinate"]!))\',0,\'\(String(describing: dic!["locationUrl"]!))\',\'Location\'")
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,ack,image,message", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(Date())\',\'\(String(describing: dic!["coordinate"]!))\',0,\'\(String(describing: dic!["locationUrl"]!))\',\'\(String(describing: dic!["message"]!))\'")
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
                     if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
@@ -442,8 +445,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 } catch {
                     
                 }
-                UIGraphicsEndImageContext()
-                self.getMsg()
+            self.getMsg()
+            self.scrolltolast()
+            
         }
         
         let audioAction = UIAlertAction(title: "Send audio", style: .default) { (action) in
@@ -517,12 +521,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         pickerController.didSelectAssets = { (assets: [DKAsset]) in
             print("didSelectAssets")
             print(assets)
+            var video : AVAsset!
+            var videoURL : NSURL!
             for i in assets {
                 if(i.isVideo) {
-                    i.fetchAVAsset(nil, completeBlock: { (data, info) in
-                        if let urlAsset = data as? AVURLAsset {
-                            
-                        }
+                    i.fetchAVAsset(.none, completeBlock: { video, info in
+                        //AVAsset(url: info)
+                        print(info!)
                     })
                     self.tblvw.reloadData()
                 } else {
@@ -550,7 +555,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             
                         }
                         self.getMsg()
-
+                        self.scrolltolast()
                     })
                 }
             }
@@ -673,6 +678,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } catch {
         
         }
+    }
+    
+    func scrolltolast() {
+        let lastRow: Int = self.tblvw.numberOfRows(inSection: 0) - 1
+        let indexPath = IndexPath(row: lastRow, section: 0);
+        self.tblvw.scrollToRow(at: indexPath, at: .top, animated: false)
     }
     
     func lastseen() {
