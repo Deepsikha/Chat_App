@@ -166,7 +166,17 @@ var dict = [String: String]()
                 for i in a {
                     let ob = i as AnyObject
                     var dic:[String:Any]!
+                    if(ob.value(forKey: "image")! as? String != nil) {
+                        if(ob.value(forKey: "location")! as? String != nil) {
+                            dic = ["senderId": ob.value(forKey: "sender_id")! as! Int,"locationUrl": ob.value(forKey: "image")! as! String,"recieverId": ob.value(forKey: "receiver_id")! as! Int,"coordinate": ob.value(forKey: "location")! as! String,"type":"locaion"]
+                        } else {
+                            dic = ["senderId": ob.value(forKey: "sender_id")! as! Int,"url": ob.value(forKey: "image")! as! String,"recieverId": ob.value(forKey: "receiver_id")! as! Int,"type":"imageMsg"]
+                        }
+                        
+                    } else {
                     dic = ["senderId": ob.value(forKey: "sender_id")! as! Int,"message": ob.value(forKey: "message")! as! String,"recieverId": ob.value(forKey: "receiver_id")! as! Int,"type":"message"]
+                    
+                    }
                     let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
                     if(AppDelegate.websocket.readyState != SRReadyState.CLOSED) {
                         AppDelegate.websocket.send(NSData(data:jsonData))
@@ -200,13 +210,22 @@ var dict = [String: String]()
             case "image":
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
-                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,status,image", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "time")!))\',\'false\',\'\(String(describing: a.value(forKey: "url")!))\'")
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,status,image", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "time")!))\',\'false\',\'\(String(describing: a.value(forKey: "image")!))\'")
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
                 }
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                 break
+            case "location":
+                for i in dic!["data"] as! NSArray {
+                    let a = i as AnyObject
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,status,image,location", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "time")!))\',\'false\',\'\(String(describing: a.value(forKey: "image")!))\',\'\(String(describing: a.value(forKey: "location")!))\'")
+                    ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
+                }
                 
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                break
+   
             case "userStatus":
                 if(dic?["online"] as! Int == 2) {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue : "type"), object: nil, userInfo: dic)
