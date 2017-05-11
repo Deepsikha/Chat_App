@@ -4,5 +4,16 @@
 
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import <Quickblox/Quickblox.h>
-#import <QuickbloxWebRTC/QuickbloxWebRTC.h>
+#import <Foundation/Foundation.h>
+#import "ARDAppClient.h"
+#import "ARDMessageResponse.h"
+#import "ARDRegisterResponse.h"
+#import "ARDSignalingMessage.h"
+#import "ARDUtilities.h"
+#import "ARDSettingsModel.h"
+#import "ARDWebSocketChannel.h"
+#import "ARDCaptureController.h"
+#import <WebRTC/RTCPeerConnection.h>
+#import <WebRTC/RTCEAGLVideoView.h>
+#import <WebRTC/RTCVideoTrack.h>
+
