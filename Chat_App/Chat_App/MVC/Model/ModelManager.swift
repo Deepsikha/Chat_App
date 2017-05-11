@@ -21,7 +21,7 @@ class ModelManager: NSObject {
         sharedInstance.database?.open()
         let val = String(values.characters.filter { !"\n".characters.contains($0) })
         let isInserted = sharedInstance.database!.executeStatements("INSERT OR REPLACE INTO \(tblName) (\(columns)) VALUES (\(val))")
-        sharedInstance.database?.close()
+//        sharedInstance.database?.close()
         return isInserted
         
     }
@@ -29,7 +29,7 @@ class ModelManager: NSObject {
     func updateData(_ tblName: String,_ changeField: String,_ condition: String) -> Bool {
         sharedInstance.database?.open()
         let isUpdated = sharedInstance.database!.executeStatements("UPDATE \(tblName) set \(changeField) WHERE \(condition)")
-        sharedInstance.database?.close()
+//        sharedInstance.database?.close()
         return isUpdated
     }
     
@@ -61,7 +61,7 @@ class ModelManager: NSObject {
                 marrStudentInfo.add(dic)
             }
         }
-        sharedInstance.database?.close()
+//        sharedInstance.database?.close()
         return marrStudentInfo
     }
     
@@ -83,7 +83,7 @@ class ModelManager: NSObject {
                 marrStudentInfo.add(dic)
             }
         }
-        sharedInstance.database?.close()
+//        sharedInstance.database?.close()
 
         return marrStudentInfo
     }
@@ -97,7 +97,7 @@ class ModelManager: NSObject {
             c = c + 1
         }
         print(resultSet!)
-        sharedInstance.database?.close()
+//        sharedInstance.database?.close()
         return c
     }
     
@@ -121,7 +121,7 @@ class ModelManager: NSObject {
                 //                }
             }
         }
-        sharedInstance.database?.close()
+//        sharedInstance.database?.close()
         return marrStudentInfo
     }
     
@@ -134,7 +134,7 @@ class ModelManager: NSObject {
         else {
             return false
         }
-        sharedInstance.database?.close()
+//        sharedInstance.database?.close()
 
     }
     
@@ -156,7 +156,6 @@ class ModelManager: NSObject {
                 marrStudentInfo.add(dic!)
             }
         }
-        sharedInstance.database?.close()
         return marrStudentInfo
     }
     
@@ -174,7 +173,6 @@ class ModelManager: NSObject {
                 }
             }
         }
-        sharedInstance.database?.close()
         return dic
     }
     
@@ -191,7 +189,7 @@ class ModelManager: NSObject {
                 }
             }
         }
-        sharedInstance.database?.close()
+//        sharedInstance.database?.close()
         return dic
     }
     
