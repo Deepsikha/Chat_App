@@ -355,7 +355,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
-                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,message", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "url")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\'")
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,message", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "image")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\'")
                     
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
                     getMsg()
@@ -377,7 +377,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
-                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,location,message", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "locationUrl")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\(String(describing: a.value(forKey: "coordinate")!))\',\'Location\'")
+                    _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,image,time,status,location", "\(String(describing: a.value(forKey: "sender_id") as! Int)),\(AppDelegate.senderId),\'\(String(describing: a.value(forKey: "image")!))\',\'\(String(describing: a.value(forKey: "time")!))\',\'true\',\'\(String(describing: a.value(forKey: "location")!))\'")
                     
                     ChatListController.sender = (a.value(forKey: "sender_id") as! Int)
                     getMsg()
@@ -433,10 +433,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let url = String(describing : mapUrl!)
             
                 var dic:[String:Any]!
-            dic = ["senderId":Int(AppDelegate.senderId)! ,"recieverId":ChatController.reciever_id!,"type":"location","coordinate" : cord,"locationUrl" : url,"message":self.chatbox.text!]
-                self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0","message":self.chatbox.text!])
-                
-                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,ack,image,message", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(Date())\',\'\(String(describing: dic!["coordinate"]!))\',0,\'\(String(describing: dic!["locationUrl"]!))\',\'\(String(describing: dic!["message"]!))\'")
+            dic = ["senderId":Int(AppDelegate.senderId)! ,"recieverId":ChatController.reciever_id!,"type":"location","location" : cord,"image" : url]
+            self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0","message" : self.chatbox.text])
+            
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,ack,image", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(Date())\',\'\(String(describing: dic!["location"]!))\',0,\'\(String(describing: dic!["image"]!))\'")
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
                     if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
@@ -669,7 +669,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         do {
             if((dic["downloadUrl"]! as! String) != "") {
                 var dic1:[String:Any]!
-                dic1 = ["senderId":Int(AppDelegate.senderId)!,"url": dic["downloadUrl"]! as! String ,"recieverId":ChatController.reciever_id,"type":"imageMsg"]
+                dic1 = ["senderId":Int(AppDelegate.senderId)!,"image": dic["downloadUrl"]! as! String ,"recieverId":ChatController.reciever_id,"type":"imageMsg"]
                 let jsonData = try JSONSerialization.data(withJSONObject: dic1, options: .prettyPrinted)
                 if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
                     AppDelegate.websocket.send(NSData(data: jsonData))
