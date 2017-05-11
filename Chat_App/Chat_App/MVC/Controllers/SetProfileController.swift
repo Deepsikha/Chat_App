@@ -8,6 +8,7 @@
 
 import UIKit
 import PhotosUI
+import Contacts
 
 class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -19,10 +20,13 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet var btnFacebook: UIButton!
     @IBOutlet var txfName: UITextField!
     
+    var dict = [String: String]()
+    var store = CNContactStore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        
+        self.getContact()
         self.imgProfile.layer.borderWidth = 1
         self.imgProfile.layer.borderColor = UIColor.groupTableViewBackground.cgColor
         txfName.delegate = self
@@ -129,26 +133,92 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     @IBAction func handleBtndone(_ sender: Any) {
-        AppDelegate.senderDisplayName = self.txfName.text
-        AppDelegate.pic = self.imgProfile.image
-        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/profilecreation", Request_parameter: ["senderId" : AppDelegate.senderId , "username" : (txfName.text)!], Request_parameter_Images: ["file":self.imgProfile.image!] ,status: { (status) in
-            
-        }, response_Dictionary: { (dict) in
-            if dict.value(forKey: "resp") as! String == "success" {
-                UserDefaults.standard.set(self.txfName.text!,forKey: "nickName")
-                let nav = HomeController()
-                self.navigationController?.pushViewController(nav, animated: true)
-            } else {
-                Util.invokeAlertMethod("Failed", strBody: "Failed to update profile", delegate: self)
-            }
-            
-        }, response_Array: { (arr) in
-            
-        }, isTokenEmbeded: false)
+//        AppDelegate.senderDisplayName = self.txfName.text
+//        AppDelegate.pic = self.imgProfile.image
+//        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/profilecreation", Request_parameter: ["senderId" : AppDelegate.senderId , "username" : (txfName.text)!], Request_parameter_Images: ["file":self.imgProfile.image!] ,status: { (status) in
+//            
+//        }, response_Dictionary: { (dict) in
+//            if dict.value(forKey: "resp") as! String == "success" {
+//                UserDefaults.standard.set(self.txfName.text!,forKey: "nickName")
+//                let nav = HomeController()
+//                self.navigationController?.pushViewController(nav, animated: true)
+//            } else {
+//                Util.invokeAlertMethod("Failed", strBody: "Failed to update profile", delegate: self)
+//            }
+//            
+//        }, response_Array: { (arr) in
+//            
+//        }, isTokenEmbeded: false)
+        self.navigationController?.pushViewController(HomeController(), animated: true)
+
     }
     
     //MARK:- Custom Method
     func tapHandler() {
         self.txfName.resignFirstResponder()
+    }
+    
+    func getContact() {
+        var contactNumber:[String] = []
+        store.requestAccess(for: .contacts, completionHandler: {
+            granted, error in
+            
+            guard granted else {
+                let alert = UIAlertController(title: "Can't access contact", message: "Please go to Settings -> MyApp to enable contact permission", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            
+            let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey] as [Any]
+            let request = CNContactFetchRequest(keysToFetch: keysToFetch as! [CNKeyDescriptor])
+            var cnContacts = [CNContact]()
+            
+            do {
+                try self.store.enumerateContacts(with: request){
+                    (contact, cursor) -> Void in
+                    cnContacts.append(contact)
+                }
+            } catch let error {
+                NSLog("Fetch contact error: \(error)")
+            }
+            
+            for contact in cnContacts {
+                var MobNumVar:String!
+                for ContctNumVar: CNLabeledValue in contact.phoneNumbers
+                {
+                    
+                    let FulMobNumVar  = ContctNumVar.value
+                    let MccNamVar = FulMobNumVar.value(forKey: "countryCode") as? String
+                    let code = Countries.countryInfoDictionary[MccNamVar!.uppercased()]?["phoneExtension"] as! String
+                    MobNumVar = FulMobNumVar.value(forKey: "digits") as? String
+                    contactNumber.append(MobNumVar!)
+                }
+                if(MobNumVar != nil) {
+                    
+                    self.dict[MobNumVar] = contact.givenName
+                }
+            }
+            self.register(contactNumber)
+        })
+        
+    }
+    
+    func register(_ Arr : [String])
+    {
+        server_API.sharedObject.requestFor_NSMutableDictionaryMine(Str_Request_Url: "/contactCheck", Request_parameter: ["users" : Arr], Request_parameter_Images: nil, status: { (status) in
+            print(status)
+        }, response_Dictionary: { (resp) in
+            print("resp:\(resp)")
+        }, response_Array: { (arr) in
+            print(arr)
+            
+            for i in arr {
+                let a = i as AnyObject
+                let no = String(describing :a.value(forKey: "number")!)
+                _ = ModelManager.getInstance().addData("user", "user_id,nick_name,status_user,lastseen,country,time_zone,profile_pic,profile_thumb,username", "\(String(describing: a.value(forKey: "number")!)),\'\(String(describing: a.value(forKey: "nick_name")!))\',\'\(String(describing: a.value(forKey: "status_user")!))\',\(String(describing: a.value(forKey: "lastseen")!)),\'\(String(describing: a.value(forKey: "country")!))\',\'\(String(describing: a.value(forKey: "time_zone")!))\',\'\(String(describing: a.value(forKey: "profile_pic")!))\',\'\(String(describing: a.value(forKey: "profile_thumb")!))\',\'\(String(describing: self.dict[no]!))\'")
+            }
+        }, isTokenEmbeded: false)
     }
 }
