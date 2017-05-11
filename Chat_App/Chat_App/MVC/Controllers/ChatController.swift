@@ -436,11 +436,16 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             dic = ["senderId":Int(AppDelegate.senderId)! ,"recieverId":ChatController.reciever_id!,"type":"location","location" : cord,"image" : url]
             self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0","message" : self.chatbox.text])
             
-                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,ack,image", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(Date())\',\'\(String(describing: dic!["location"]!))\',0,\'\(String(describing: dic!["image"]!))\'")
+            
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
                     if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+                        
+                        _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["location"]!))\',\'\(String(describing: dic["image"]!))\',1")
                         AppDelegate.websocket.send(NSData(data: jsonData))
+                    } else {
+                        self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0"])
+                        _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["location"]!))\',\'\(String(describing: dic["image"]!))\',0")
                     }
                 } catch {
                     
@@ -536,18 +541,34 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         var imgurl : NSURL?
                         if let data = data {
                             image = UIImage(data: data)
-                                imgurl = info!["PHImageFileURLKey"]! as? NSURL
+                            imgurl = info!["PHImageFileURLKey"]! as? NSURL
+                            
                             var dic:[String:Any]!
                             
-                            
                             dic = ["senderId":Int(AppDelegate.senderId)!,"message": self.chatbox.text! ,"recieverId":ChatController.reciever_id,"image" : imgurl!]
-                            self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0"])
-                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,image,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic!["image"]!))\',0")
+                            
                             server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/uploads", Request_parameter: ["senderId" : AppDelegate.senderId,"receiver_id" : String(describing:ChatController.reciever_id!)], Request_parameter_Images: ["file" : image!], status: { (status) in
                                     
-                                }, response_Dictionary: { (dic) in
+                                }, response_Dictionary: { (dic2) in
                                     
-                                    self.sendimg(dic)
+                                    do {
+                                        if((dic2["downloadUrl"]! as! String) != "") {
+                                            var dic1:[String:Any]!
+                                            dic1 = ["senderId":Int(AppDelegate.senderId)!,"image": dic2["downloadUrl"]! as! String ,"recieverId":ChatController.reciever_id,"type":"imageMsg"]
+                                            let jsonData = try JSONSerialization.data(withJSONObject: dic1, options: .prettyPrinted)
+                                            if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+                                                //self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"1"])
+                                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["image"]!))\',1")
+                                                AppDelegate.websocket.send(NSData(data: jsonData))
+                                            } else {
+                                                self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0"])
+                                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["image"]!))\',0")
+                                            }
+                                        }
+                                        
+                                    } catch {
+                                        
+                                    }
                                     
                                 }, response_Array: { (arr) in
                                     print(arr)
@@ -555,7 +576,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             
                         }
                         self.getMsg()
-                        self.scrolltolast()
+                        //self.scrolltolast()
                     })
                 }
             }
@@ -663,21 +684,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         default: break
         }
         return state
-    }
-    
-    func sendimg(_ dic : NSMutableDictionary) {
-        do {
-            if((dic["downloadUrl"]! as! String) != "") {
-                var dic1:[String:Any]!
-                dic1 = ["senderId":Int(AppDelegate.senderId)!,"image": dic["downloadUrl"]! as! String ,"recieverId":ChatController.reciever_id,"type":"imageMsg"]
-                let jsonData = try JSONSerialization.data(withJSONObject: dic1, options: .prettyPrinted)
-                if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
-                    AppDelegate.websocket.send(NSData(data: jsonData))
-                }
-            }
-        } catch {
-        
-        }
     }
     
     func scrolltolast() {
