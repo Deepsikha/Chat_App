@@ -11,6 +11,7 @@ import SocketRocket
 import Fabric
 import Crashlytics
 import PhotosUI
+import WebRTC
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var nickName: String!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+        RTCInitializeSSL()
         window = UIWindow()
         Util.copyFile("Socket_chat.sqlite")
         Fabric.with([Crashlytics.self()])
@@ -37,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
-            let rootVC = HomeController()
+            let rootVC = VChatController()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()

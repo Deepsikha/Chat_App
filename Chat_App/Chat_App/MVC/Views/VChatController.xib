@@ -1,48 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VChatController" customModule="Chat_App" customModuleProvider="target">
             <connections>
-                <outlet property="localview" destination="6H4-d4-cIg" id="IkS-GM-qJI"/>
-                <outlet property="remote" destination="I4G-ll-fzh" id="sJQ-Zx-wjl"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="audioButton" destination="sot-iE-iAg" id="eCX-YY-i5R"/>
+                <outlet property="buttonContainerView" destination="19h-ez-ehB" id="LOx-ef-YMv"/>
+                <outlet property="buttonContainerViewLeftConstraint" destination="hCH-gd-C7Z" id="Dot-9v-EZ5"/>
+                <outlet property="footerView" destination="Ks9-t7-83s" id="7d4-8f-4xK"/>
+                <outlet property="footerViewBottomConstraint" destination="wq0-Oc-mX2" id="wk0-a8-DpL"/>
+                <outlet property="hangupButton" destination="wn6-Fx-rW6" id="2uz-BP-SLm"/>
+                <outlet property="localView" destination="BmT-Ab-jgN" id="Q4G-Ov-1xc"/>
+                <outlet property="localViewBottomConstraint" destination="O8J-V0-v9g" id="Snd-4i-9kv"/>
+                <outlet property="localViewHeightConstraint" destination="jDg-Bl-Oy6" id="R73-Vn-LAo"/>
+                <outlet property="localViewRightConstraint" destination="YWy-PC-kkX" id="Tf2-vz-ZhG"/>
+                <outlet property="localViewWidthConstraint" destination="Fy7-Qc-eP6" id="A9H-SB-NPz"/>
+                <outlet property="remoteView" destination="2C7-oK-e0N" id="CRh-f1-nxn"/>
+                <outlet property="remoteViewBottomConstraint" destination="NvQ-9t-5nI" id="V1G-Sl-Roj"/>
+                <outlet property="remoteViewLeftConstraint" destination="oCd-hC-g92" id="WkA-h0-GjS"/>
+                <outlet property="remoteViewRightConstraint" destination="sFB-oU-8B6" id="K0d-oP-aja"/>
+                <outlet property="remoteViewTopConstraint" destination="9la-3u-eA9" id="igQ-Et-XrQ"/>
+                <outlet property="urlLabel" destination="QOZ-MU-t7v" id="aGY-7Y-hNQ"/>
+                <outlet property="videoButton" destination="08v-CQ-bXO" id="ewa-hP-Hya"/>
+                <outlet property="view" destination="jZH-a9-oXH" id="OCU-Kv-i5V"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="jZH-a9-oXH">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I4G-ll-fzh">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="2C7-oK-e0N" userLabel="Remote View" customClass="RTCEAGLVideoView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.32584697010000002" green="0.32583719490000002" blue="0.32584273819999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="BmT-Ab-jgN" userLabel="Local View" customClass="RTCEAGLVideoView">
+                    <rect key="frame" x="227" y="519" width="120" height="120"/>
+                    <color key="backgroundColor" red="0.15056313569999999" green="0.15055863559999999" blue="0.15056121350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="Fy7-Qc-eP6"/>
+                        <constraint firstAttribute="height" constant="120" id="jDg-Bl-Oy6"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ks9-t7-83s" userLabel="Footer View">
+                    <rect key="frame" x="0.0" y="587" width="375" height="80"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfW-nz-wvv">
-                            <rect key="frame" x="147" y="686" width="30" height="42"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for someone to join this room: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1eH-ck-GTf">
+                            <rect key="frame" x="10" y="10" width="355" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="D3y-AK-kqO"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://apprtc.appspot.com/r/room" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOZ-MU-t7v">
+                            <rect key="frame" x="10" y="32" width="355" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="7ws-Ef-SIT"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                            <color key="textColor" red="0.2047472894" green="0.42595943809999998" blue="0.94441002610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.15056313569999999" green="0.15055863559999999" blue="0.15056121350000001" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="0DI-kD-5mN"/>
+                        <constraint firstItem="1eH-ck-GTf" firstAttribute="leading" secondItem="Ks9-t7-83s" secondAttribute="leading" constant="10" id="Bgm-w0-nFC"/>
+                        <constraint firstItem="QOZ-MU-t7v" firstAttribute="leading" secondItem="Ks9-t7-83s" secondAttribute="leading" constant="10" id="CDE-fb-u60"/>
+                        <constraint firstItem="1eH-ck-GTf" firstAttribute="top" secondItem="Ks9-t7-83s" secondAttribute="top" constant="10" id="L7H-iU-OaN"/>
+                        <constraint firstItem="QOZ-MU-t7v" firstAttribute="top" secondItem="1eH-ck-GTf" secondAttribute="bottom" constant="1" id="Wu6-a1-dJf"/>
+                        <constraint firstAttribute="trailing" secondItem="1eH-ck-GTf" secondAttribute="trailing" constant="10" id="a77-v7-Ibz"/>
+                        <constraint firstAttribute="trailing" secondItem="QOZ-MU-t7v" secondAttribute="trailing" constant="10" id="y2h-Fn-YNi"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19h-ez-ehB" userLabel="Button Container View">
+                    <rect key="frame" x="20" y="253.5" width="40" height="160"/>
+                    <subviews>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sot-iE-iAg" userLabel="Audio Button">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="End"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" image="audioOn">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected" image="audioOff"/>
                             <connections>
-                                <action selector="endbtn:" destination="-1" eventType="touchUpInside" id="lFd-9f-qGk"/>
+                                <action selector="audioButtonPressed:" destination="-1" eventType="touchUpInside" id="fkj-tQ-LBC"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08v-CQ-bXO" userLabel="Video Button">
+                            <rect key="frame" x="0.0" y="60" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" image="videoOn">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected" image="videoOff"/>
+                            <connections>
+                                <action selector="videoButtonPressed:" destination="-1" eventType="touchUpInside" id="hb9-w1-7G2"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wn6-Fx-rW6" userLabel="Hangup Button">
+                            <rect key="frame" x="0.0" y="120" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" image="hangup">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="hangupButtonPressed:" destination="-1" eventType="touchUpInside" id="s2K-CD-IwL"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H4-d4-cIg">
-                    <rect key="frame" x="184" y="522" width="210" height="188"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="160" id="9iZ-6q-XN5"/>
+                        <constraint firstAttribute="width" constant="40" id="W4m-cE-Sve"/>
+                    </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="2C7-oK-e0N" firstAttribute="top" secondItem="jZH-a9-oXH" secondAttribute="top" id="9la-3u-eA9"/>
+                <constraint firstAttribute="trailing" secondItem="Ks9-t7-83s" secondAttribute="trailing" id="FmH-Ba-z79"/>
+                <constraint firstAttribute="bottom" secondItem="2C7-oK-e0N" secondAttribute="bottom" id="NvQ-9t-5nI"/>
+                <constraint firstAttribute="bottom" secondItem="BmT-Ab-jgN" secondAttribute="bottom" constant="28" id="O8J-V0-v9g"/>
+                <constraint firstAttribute="trailing" secondItem="BmT-Ab-jgN" secondAttribute="trailing" constant="28" id="YWy-PC-kkX"/>
+                <constraint firstAttribute="centerY" secondItem="19h-ez-ehB" secondAttribute="centerY" id="ax1-6F-ydC"/>
+                <constraint firstItem="19h-ez-ehB" firstAttribute="leading" secondItem="jZH-a9-oXH" secondAttribute="leading" constant="20" id="hCH-gd-C7Z"/>
+                <constraint firstItem="2C7-oK-e0N" firstAttribute="leading" secondItem="jZH-a9-oXH" secondAttribute="leading" id="oCd-hC-g92"/>
+                <constraint firstAttribute="trailing" secondItem="2C7-oK-e0N" secondAttribute="trailing" id="sFB-oU-8B6"/>
+                <constraint firstAttribute="bottom" secondItem="Ks9-t7-83s" secondAttribute="bottom" id="wq0-Oc-mX2"/>
+                <constraint firstItem="Ks9-t7-83s" firstAttribute="leading" secondItem="jZH-a9-oXH" secondAttribute="leading" id="zkH-Rg-7gh"/>
+            </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="audioOff" width="16" height="17"/>
+        <image name="audioOn" width="13" height="17"/>
+        <image name="hangup" width="25" height="9"/>
+        <image name="videoOff" width="19" height="19"/>
+        <image name="videoOn" width="18" height="14"/>
+    </resources>
 </document>
