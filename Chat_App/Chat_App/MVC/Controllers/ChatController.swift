@@ -116,7 +116,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        self.navigationController?.isNavigationBarHidden = false
         do {
             lastseen()
     let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "userstatus" , "userId" : ChatController.reciever_id!], options: .prettyPrinted)
@@ -397,17 +397,17 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
             case "VCall" :
                 
-//                for i in dic!["data"] as! NSArray {
-//                    let a = i as AnyObject
-//                    VChatController.roomName = a.value(forKey: "roomNumber")
-//                }
-//                CallIntermediate.calling = false
-//                self.navigationController?.pushViewController(CallIntermediate(), animated: true)
+                for i in dic!["data"] as! NSArray {
+                    let a = i as AnyObject
+                    VChatController.roomName = String(describing : a.value(forKey: "roomNumber"))
+                }
+                CallIntermediate.calling = false
+                self.navigationController?.pushViewController(CallIntermediate(), animated: true)
                 break
             
             case "VideoCallRoom":
                 if(dic?["roomNumber"] as? Int != nil) {
-                    VChatController.roomName = String(describing : dic?["roomNumber"])
+                    VChatController.roomName = String(describing : dic!["roomNumber"]!)
                     CallIntermediate.calling = true
                 self.navigationController?.pushViewController(CallIntermediate(), animated: true)
                 }
