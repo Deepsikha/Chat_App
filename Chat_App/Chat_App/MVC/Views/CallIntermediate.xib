@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,28 +25,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D50-a6-tOV">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D50-a6-tOV">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8L-mi-JcU">
-                    <rect key="frame" x="135" y="372" width="50" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8L-mi-JcU">
+                    <rect key="frame" x="135" y="357" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="M8L-mi-JcU" secondAttribute="height" multiplier="1:1" id="WZc-G6-rcR"/>
                     </constraints>
                     <state key="normal" image="decline.png"/>
                     <connections>
                         <action selector="rjct:" destination="-1" eventType="touchUpInside" id="FN3-l5-Nws"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPk-tp-OY8">
-                    <rect key="frame" x="56" y="419" width="50" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="WPk-tp-OY8" secondAttribute="height" multiplier="1:1" id="4Um-bc-OqA"/>
-                    </constraints>
-                    <state key="normal" image="accept.png"/>
-                    <connections>
-                        <action selector="accpt:" destination="-1" eventType="touchUpInside" id="uN6-qE-DEl"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calling...." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WjA-Mb-sfb">
@@ -56,8 +45,19 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UXS-Sv-csb">
-                    <rect key="frame" x="220" y="419" width="50" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPk-tp-OY8">
+                    <rect key="frame" x="53" y="405" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="WPk-tp-OY8" secondAttribute="height" multiplier="1:1" id="4Um-bc-OqA"/>
+                        <constraint firstAttribute="height" constant="50" id="yjj-3n-gsc"/>
+                    </constraints>
+                    <state key="normal" image="accept.png"/>
+                    <connections>
+                        <action selector="accpt:" destination="-1" eventType="touchUpInside" id="uN6-qE-DEl"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UXS-Sv-csb">
+                    <rect key="frame" x="217" y="405" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="UXS-Sv-csb" secondAttribute="height" multiplier="1:1" id="bkk-RX-Ino"/>
                     </constraints>
@@ -68,6 +68,20 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="WPk-tp-OY8" firstAttribute="bottom" secondItem="UXS-Sv-csb" secondAttribute="bottom" id="1Ly-aN-a4g"/>
+                <constraint firstAttribute="bottom" secondItem="WPk-tp-OY8" secondAttribute="bottom" constant="25" id="4Y9-ox-via"/>
+                <constraint firstAttribute="trailing" secondItem="UXS-Sv-csb" secondAttribute="trailing" constant="53" id="4Zg-OL-2iK"/>
+                <constraint firstAttribute="bottom" secondItem="D50-a6-tOV" secondAttribute="bottom" id="834-bq-U3C"/>
+                <constraint firstAttribute="trailing" secondItem="D50-a6-tOV" secondAttribute="trailing" id="AUg-9M-KOn"/>
+                <constraint firstItem="M8L-mi-JcU" firstAttribute="leading" secondItem="D50-a6-tOV" secondAttribute="leading" constant="135" id="WHn-4W-jwH"/>
+                <constraint firstItem="D50-a6-tOV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yv5-q2-kd3"/>
+                <constraint firstItem="WPk-tp-OY8" firstAttribute="top" secondItem="UXS-Sv-csb" secondAttribute="top" id="bda-j9-iLH"/>
+                <constraint firstItem="M8L-mi-JcU" firstAttribute="trailing" secondItem="D50-a6-tOV" secondAttribute="trailing" constant="-135" id="eZP-MS-Pta"/>
+                <constraint firstItem="WPk-tp-OY8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="53" id="gNc-7q-VQ7"/>
+                <constraint firstItem="M8L-mi-JcU" firstAttribute="bottom" secondItem="D50-a6-tOV" secondAttribute="bottom" constant="-73" id="ulS-vW-t4u"/>
+                <constraint firstItem="D50-a6-tOV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xTk-X4-ZCR"/>
+            </constraints>
         </view>
     </objects>
     <resources>
