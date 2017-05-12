@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,8 +14,6 @@
                 <outlet property="audioButton" destination="sot-iE-iAg" id="eCX-YY-i5R"/>
                 <outlet property="buttonContainerView" destination="19h-ez-ehB" id="LOx-ef-YMv"/>
                 <outlet property="buttonContainerViewLeftConstraint" destination="hCH-gd-C7Z" id="Dot-9v-EZ5"/>
-                <outlet property="footerView" destination="Ks9-t7-83s" id="7d4-8f-4xK"/>
-                <outlet property="footerViewBottomConstraint" destination="wq0-Oc-mX2" id="wk0-a8-DpL"/>
                 <outlet property="hangupButton" destination="wn6-Fx-rW6" id="2uz-BP-SLm"/>
                 <outlet property="localView" destination="BmT-Ab-jgN" id="Q4G-Ov-1xc"/>
                 <outlet property="localViewBottomConstraint" destination="O8J-V0-v9g" id="Snd-4i-9kv"/>
@@ -27,7 +25,6 @@
                 <outlet property="remoteViewLeftConstraint" destination="oCd-hC-g92" id="WkA-h0-GjS"/>
                 <outlet property="remoteViewRightConstraint" destination="sFB-oU-8B6" id="K0d-oP-aja"/>
                 <outlet property="remoteViewTopConstraint" destination="9la-3u-eA9" id="igQ-Et-XrQ"/>
-                <outlet property="urlLabel" destination="QOZ-MU-t7v" id="aGY-7Y-hNQ"/>
                 <outlet property="videoButton" destination="08v-CQ-bXO" id="ewa-hP-Hya"/>
                 <outlet property="view" destination="jZH-a9-oXH" id="OCU-Kv-i5V"/>
             </connections>
@@ -47,39 +44,6 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="120" id="Fy7-Qc-eP6"/>
                         <constraint firstAttribute="height" constant="120" id="jDg-Bl-Oy6"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ks9-t7-83s" userLabel="Footer View">
-                    <rect key="frame" x="0.0" y="587" width="375" height="80"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for someone to join this room: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1eH-ck-GTf">
-                            <rect key="frame" x="10" y="10" width="355" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="D3y-AK-kqO"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://apprtc.appspot.com/r/room" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOZ-MU-t7v">
-                            <rect key="frame" x="10" y="32" width="355" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="7ws-Ef-SIT"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                            <color key="textColor" red="0.2047472894" green="0.42595943809999998" blue="0.94441002610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.15056313569999999" green="0.15055863559999999" blue="0.15056121350000001" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="80" id="0DI-kD-5mN"/>
-                        <constraint firstItem="1eH-ck-GTf" firstAttribute="leading" secondItem="Ks9-t7-83s" secondAttribute="leading" constant="10" id="Bgm-w0-nFC"/>
-                        <constraint firstItem="QOZ-MU-t7v" firstAttribute="leading" secondItem="Ks9-t7-83s" secondAttribute="leading" constant="10" id="CDE-fb-u60"/>
-                        <constraint firstItem="1eH-ck-GTf" firstAttribute="top" secondItem="Ks9-t7-83s" secondAttribute="top" constant="10" id="L7H-iU-OaN"/>
-                        <constraint firstItem="QOZ-MU-t7v" firstAttribute="top" secondItem="1eH-ck-GTf" secondAttribute="bottom" constant="1" id="Wu6-a1-dJf"/>
-                        <constraint firstAttribute="trailing" secondItem="1eH-ck-GTf" secondAttribute="trailing" constant="10" id="a77-v7-Ibz"/>
-                        <constraint firstAttribute="trailing" secondItem="QOZ-MU-t7v" secondAttribute="trailing" constant="10" id="y2h-Fn-YNi"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19h-ez-ehB" userLabel="Button Container View">
@@ -131,7 +95,6 @@
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="2C7-oK-e0N" firstAttribute="top" secondItem="jZH-a9-oXH" secondAttribute="top" id="9la-3u-eA9"/>
-                <constraint firstAttribute="trailing" secondItem="Ks9-t7-83s" secondAttribute="trailing" id="FmH-Ba-z79"/>
                 <constraint firstAttribute="bottom" secondItem="2C7-oK-e0N" secondAttribute="bottom" id="NvQ-9t-5nI"/>
                 <constraint firstAttribute="bottom" secondItem="BmT-Ab-jgN" secondAttribute="bottom" constant="28" id="O8J-V0-v9g"/>
                 <constraint firstAttribute="trailing" secondItem="BmT-Ab-jgN" secondAttribute="trailing" constant="28" id="YWy-PC-kkX"/>
@@ -139,8 +102,6 @@
                 <constraint firstItem="19h-ez-ehB" firstAttribute="leading" secondItem="jZH-a9-oXH" secondAttribute="leading" constant="20" id="hCH-gd-C7Z"/>
                 <constraint firstItem="2C7-oK-e0N" firstAttribute="leading" secondItem="jZH-a9-oXH" secondAttribute="leading" id="oCd-hC-g92"/>
                 <constraint firstAttribute="trailing" secondItem="2C7-oK-e0N" secondAttribute="trailing" id="sFB-oU-8B6"/>
-                <constraint firstAttribute="bottom" secondItem="Ks9-t7-83s" secondAttribute="bottom" id="wq0-Oc-mX2"/>
-                <constraint firstItem="Ks9-t7-83s" firstAttribute="leading" secondItem="jZH-a9-oXH" secondAttribute="leading" id="zkH-Rg-7gh"/>
             </constraints>
         </view>
     </objects>
