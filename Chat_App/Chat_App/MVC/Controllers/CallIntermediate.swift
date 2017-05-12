@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class CallIntermediate: UIViewController {
 
     @IBOutlet weak var imgvw: UIImageView!
@@ -21,19 +22,25 @@ class CallIntermediate: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(calling) {
+        
+        if(CallIntermediate.calling) {
             self.acpt.isHidden =  true
             self.rjct1.isHidden = true
             self.clng.isHidden = true
+            self.rjct0.isHidden = false
         } else {
+            self.acpt.isHidden =  false
+            self.rjct1.isHidden = false
+            self.clng.isHidden = false
+
             self.rjct0.isHidden = true
         }
         
     }
 
     @IBAction func accpt(_ sender: Any) {
-        self.navigationController?.pushViewController(VChatController(), animated: false)
         
+        self.navigationController?.pushViewController(VChatController(), animated: false)
     }
     
     @IBAction func rjct(_ sender: Any) {

@@ -23,8 +23,12 @@
 		5C1179911EAF1AEC004BBF8E /* Down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1179901EAF1AEC004BBF8E /* Down@3x.png */; };
 		5C2B204C1EC5882B002FCF32 /* CallIntermediate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B204A1EC5882B002FCF32 /* CallIntermediate.swift */; };
 		5C2B204F1EC58848002FCF32 /* CallIntermediate.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B204E1EC58848002FCF32 /* CallIntermediate.xib */; };
-		5C2B20521EC58F85002FCF32 /* call-answer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B20501EC58F85002FCF32 /* call-answer.png */; };
-		5C2B20531EC58F85002FCF32 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B20511EC58F85002FCF32 /* icon.png */; };
+		5C2B205E1EC5A2C2002FCF32 /* accept@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B20581EC5A2C2002FCF32 /* accept@1x.png */; };
+		5C2B205F1EC5A2C2002FCF32 /* accept@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B20591EC5A2C2002FCF32 /* accept@2x.png */; };
+		5C2B20601EC5A2C2002FCF32 /* accept@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B205A1EC5A2C2002FCF32 /* accept@3x.png */; };
+		5C2B20611EC5A2C2002FCF32 /* decline@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B205B1EC5A2C2002FCF32 /* decline@1x.png */; };
+		5C2B20621EC5A2C2002FCF32 /* decline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B205C1EC5A2C2002FCF32 /* decline@2x.png */; };
+		5C2B20631EC5A2C2002FCF32 /* decline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C2B205D1EC5A2C2002FCF32 /* decline@3x.png */; };
 		5C4B997D1EAF6F890046724E /* NewGroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B997B1EAF6F890046724E /* NewGroupController.swift */; };
 		5C4B99811EAF729E0046724E /* GroupAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B997F1EAF729E0046724E /* GroupAddCell.swift */; };
 		5C4B99821EAF729E0046724E /* GroupAddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4B99801EAF729E0046724E /* GroupAddCell.xib */; };
@@ -261,8 +265,12 @@
 		5C1179901EAF1AEC004BBF8E /* Down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Down@3x.png"; sourceTree = "<group>"; };
 		5C2B204A1EC5882B002FCF32 /* CallIntermediate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallIntermediate.swift; sourceTree = "<group>"; };
 		5C2B204E1EC58848002FCF32 /* CallIntermediate.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallIntermediate.xib; sourceTree = "<group>"; };
-		5C2B20501EC58F85002FCF32 /* call-answer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "call-answer.png"; sourceTree = "<group>"; };
-		5C2B20511EC58F85002FCF32 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		5C2B20581EC5A2C2002FCF32 /* accept@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept@1x.png"; sourceTree = "<group>"; };
+		5C2B20591EC5A2C2002FCF32 /* accept@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept@2x.png"; sourceTree = "<group>"; };
+		5C2B205A1EC5A2C2002FCF32 /* accept@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept@3x.png"; sourceTree = "<group>"; };
+		5C2B205B1EC5A2C2002FCF32 /* decline@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decline@1x.png"; sourceTree = "<group>"; };
+		5C2B205C1EC5A2C2002FCF32 /* decline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decline@2x.png"; sourceTree = "<group>"; };
+		5C2B205D1EC5A2C2002FCF32 /* decline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decline@3x.png"; sourceTree = "<group>"; };
 		5C4B997B1EAF6F890046724E /* NewGroupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGroupController.swift; sourceTree = "<group>"; };
 		5C4B997F1EAF729E0046724E /* GroupAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAddCell.swift; sourceTree = "<group>"; };
 		5C4B99801EAF729E0046724E /* GroupAddCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupAddCell.xib; sourceTree = "<group>"; };
@@ -725,8 +733,12 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
-				5C2B20501EC58F85002FCF32 /* call-answer.png */,
-				5C2B20511EC58F85002FCF32 /* icon.png */,
+				5C2B20581EC5A2C2002FCF32 /* accept@1x.png */,
+				5C2B20591EC5A2C2002FCF32 /* accept@2x.png */,
+				5C2B205A1EC5A2C2002FCF32 /* accept@3x.png */,
+				5C2B205B1EC5A2C2002FCF32 /* decline@1x.png */,
+				5C2B205C1EC5A2C2002FCF32 /* decline@2x.png */,
+				5C2B205D1EC5A2C2002FCF32 /* decline@3x.png */,
 				5CEBBE7B1EB8873B00046E7F /* location@1x.png */,
 				5CEBBE7C1EB8873B00046E7F /* location@2x.png */,
 				5CEBBE7D1EB8873B00046E7F /* location@3x.png */,
@@ -1104,13 +1116,13 @@
 				7D202DC31EA4A46B0018FCAD /* welcome.xib in Resources */,
 				5CCE805E1EA5FBF900B88F3F /* Data and Storage Usage.png in Resources */,
 				5CEBBE7E1EB8873B00046E7F /* location@1x.png in Resources */,
-				5C2B20531EC58F85002FCF32 /* icon.png in Resources */,
 				7D2CB2581EC46A6500F1060B /* ic_call_end_black_24dp.png in Resources */,
 				7DC797A51EAB17CE00EFD39D /* Send@1x.png in Resources */,
 				5CEF5A9E1EA4B7EE00E92BF8 /* Camera.png in Resources */,
 				5CEBBE7F1EB8873B00046E7F /* location@2x.png in Resources */,
 				7D21AD871EA9C14B00087864 /* ChatListController.xib in Resources */,
 				7DC797AE1EAB17CE00EFD39D /* cancel.png in Resources */,
+				5C2B205E1EC5A2C2002FCF32 /* accept@1x.png in Resources */,
 				7DC797A01EAB17CE00EFD39D /* pending@2x.png in Resources */,
 				7D21AD7F1EA9C04C00087864 /* ChatListCell.xib in Resources */,
 				7D2CB2641EC46A6500F1060B /* iPhone6p@3x.png in Resources */,
@@ -1121,6 +1133,7 @@
 				7D2CB25E1EC46A6500F1060B /* ic_surround_sound_black_24dp.png in Resources */,
 				5CCE80601EA5FBF900B88F3F /* Notifications.png in Resources */,
 				5C11798E1EAF1A60004BBF8E /* Down@1x.png in Resources */,
+				5C2B20631EC5A2C2002FCF32 /* decline@3x.png in Resources */,
 				5CEF5A8B1EA4AAB500E92BF8 /* ChatController.xib in Resources */,
 				5CEF5A8D1EA4AB9000E92BF8 /* chaticon.png in Resources */,
 				7D2CB25F1EC46A6500F1060B /* ic_surround_sound_black_24dp@2x.png in Resources */,
@@ -1155,11 +1168,11 @@
 				7D2CB25D1EC46A6500F1060B /* ic_settings_black_24dp@2x.png in Resources */,
 				7D2CB2631EC46A6500F1060B /* iPhone6@2x.png in Resources */,
 				7DC797A61EAB17CE00EFD39D /* Send@2x.png in Resources */,
+				5C2B205F1EC5A2C2002FCF32 /* accept@2x.png in Resources */,
 				7D2CB25A1EC46A6500F1060B /* ic_clear_black_24dp.png in Resources */,
 				7D2CB2661EC46A6500F1060B /* Roboto-Regular.ttf in Resources */,
 				7D0617961EA726BF004CB6B2 /* CountryCell.xib in Resources */,
 				5C1179851EAF173B004BBF8E /* GroupCell.xib in Resources */,
-				5C2B20521EC58F85002FCF32 /* call-answer.png in Resources */,
 				7D7151ED1EA89CD2006A9D4B /* contact.png in Resources */,
 				7D7151F21EA89E3C006A9D4B /* NewChatHeaderCell.xib in Resources */,
 				7DC797A91EAB17CE00EFD39D /* SendPhoto.png in Resources */,
@@ -1176,8 +1189,10 @@
 				5CEF5AAA1EA4B8EA00E92BF8 /* StatusController.xib in Resources */,
 				5CEF5A951EA4B73700E92BF8 /* Calls.png in Resources */,
 				7DC797A21EAB17CE00EFD39D /* red@1x.png in Resources */,
+				5C2B20611EC5A2C2002FCF32 /* decline@1x.png in Resources */,
 				5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */,
 				7D7151F81EA8D504006A9D4B /* Gradient@1x.png in Resources */,
+				5C2B20601EC5A2C2002FCF32 /* accept@3x.png in Resources */,
 				7D06178C1EA723ED004CB6B2 /* SettingsCell.xib in Resources */,
 				5C0719B51EB35325005B0B36 /* statusCell.xib in Resources */,
 				7DC7979E1EAB17CE00EFD39D /* green@3x.png in Resources */,
@@ -1194,6 +1209,7 @@
 				7D7151FA1EA8D504006A9D4B /* Gradient@3x.png in Resources */,
 				7D2CB25C1EC46A6500F1060B /* ic_settings_black_24dp.png in Resources */,
 				7DC797A71EAB17CE00EFD39D /* Send@3x.png in Resources */,
+				5C2B20621EC5A2C2002FCF32 /* decline@2x.png in Resources */,
 				7DC7979F1EAB17CE00EFD39D /* pending@1x.png in Resources */,
 				7DC797A41EAB17CE00EFD39D /* red@3x.png in Resources */,
 				7D3BE65D1EB0642600CEE25E /* NewGroupController.xib in Resources */,

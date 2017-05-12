@@ -66,10 +66,10 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         self.client=ARDAppClient(delegate: self)
         //self.client?.serverHostUrl="https://apprtc.appspot.com"
         var settingsModel = ARDSettingsModel()
-        client!.connectToRoom(withId: self.roomName as String!, settings: settingsModel, isLoopback: false, isAudioOnly: false, shouldMakeAecDump: false, shouldUseLevelControl: false)
+        client!.connectToRoom(withId: VChatController.roomName as String!, settings: settingsModel, isLoopback: false, isAudioOnly: false, shouldMakeAecDump: false, shouldUseLevelControl: false)
         
         //self.client!.connectToRoom(withId: self.roomName! as String, options: nil)
-        self.urlLabel?.text=self.roomName as String
+        self.urlLabel?.text = VChatController.roomName as String
     }
     
     override func  viewWillDisappear(_ animated: Bool) {
