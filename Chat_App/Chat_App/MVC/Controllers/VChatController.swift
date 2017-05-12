@@ -69,7 +69,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         client!.connectToRoom(withId: VChatController.roomName as String!, settings: settingsModel, isLoopback: false, isAudioOnly: false, shouldMakeAecDump: false, shouldUseLevelControl: false)
         
         //self.client!.connectToRoom(withId: self.roomName! as String, options: nil)
-        self.urlLabel?.text = VChatController.roomName as String
+        self.urlLabel!.text = VChatController.roomName as String
     }
     
     override func  viewWillDisappear(_ animated: Bool) {
@@ -119,7 +119,9 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
     
     @IBAction func hangupButtonPressed(_ sender:UIButton){
         self.disconnect()
-        let _ = self.navigationController?.popToRootViewController(animated: true)
+        var viewControllers = navigationController?.viewControllers
+        viewControllers?.removeLast(2)
+        navigationController?.setViewControllers(viewControllers!, animated: true)
     }
     
     func disconnect(){
