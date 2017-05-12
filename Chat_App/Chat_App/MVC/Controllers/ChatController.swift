@@ -76,7 +76,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             btn2.setImage(tintedImage1, for: .normal)
             btn2.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
             btn2.frame = CGRect(x: UIScreen.main.bounds.origin.x - 35, y: 20, width: 30, height: 30)
-            btn2.addTarget(self, action: #selector(edit), for: .touchUpInside)
+            btn2.addTarget(self, action: #selector(vcall), for: .touchUpInside)
             let item2 = UIBarButtonItem(customView: btn2)
             self.navigationItem.setRightBarButtonItems([item1,item2], animated: true)
         } else if(ChatController.type == "Group") {
@@ -392,6 +392,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                     }
                 }
+                
+                break
+                
+            case "VCall" :
+                self.navigationController?.pushViewController(CallIntermediate(), animated: true)
+                VChatController.roomName = ""
                 
                 break
             default: break
@@ -717,4 +723,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        }
     }
    
+    func vcall() {
+        do {
+        let json = try JSONSerialization.data(withJSONObject: ["type" : "videoCall","sender_id": AppDelegate.senderId,"receiver_id" : ChatController.reciever_id], options: .prettyPrinted)
+        AppDelegate.websocket.send(json)
+        } catch {
+        
+        }
+    }
+    
 }

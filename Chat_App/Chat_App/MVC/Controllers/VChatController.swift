@@ -5,8 +5,6 @@ import AVFoundation
 import WebRTC
 class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDelegate {
     
-    
-    
     //Views, Labels, and Buttons
     @IBOutlet weak var remoteView:RTCEAGLVideoView?
     @IBOutlet weak var localView:RTCEAGLVideoView?
@@ -31,13 +29,14 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
     var   roomUrl:NSString?;
     var   client:ARDAppClient?;
     var   _roomName:NSString=NSString(format: "")
-    var   roomName = "45478786"
     var   localVideoTrack:RTCVideoTrack?;
     var   remoteVideoTrack:RTCVideoTrack?;
     var   localVideoSize:CGSize?;
     var   remoteVideoSize:CGSize?;
     var   isZoom:Bool = false; //used for double tap remote view
     var   captureController:ARDCaptureController = ARDCaptureController()
+    static var roomName : String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.isZoom = false;
@@ -112,6 +111,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         sender.isSelected = !sender.isSelected
         self.client?.toggleAudioMute()
     }
+    
     @IBAction func videoButtonPressed(_ sender:UIButton){
         sender.isSelected = !sender.isSelected
         self.client?.toggleVideoMute()
