@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 
 class CallIntermediate: UIViewController {
 
@@ -22,6 +22,10 @@ class CallIntermediate: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let a = ModelManager.getInstance().exec("SELECT * from user where user_id = \(ChatController.reciever_id!)")
+        let i = a as AnyObject
+        let url = server_API.Base_url.appending(i.value(forKey: "profile_pic") as! String)
+        self.imgvw.sd_setImage(with: URL(string: url), placeholderImage: nil, options: .progressiveDownload)
         
         if(CallIntermediate.calling) {
             self.acpt.isHidden =  true
