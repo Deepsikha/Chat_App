@@ -8,8 +8,9 @@
 
 import UIKit
 import SDWebImage
+import SocketRocket
 
-class CallIntermediate: UIViewController {
+class CallIntermediate: UIViewController, SRWebSocketDelegate{
 
     @IBOutlet weak var imgvw: UIImageView!
     
@@ -23,6 +24,7 @@ class CallIntermediate: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppDelegate.websocket.delegate = self as! SRWebSocketDelegate
         self.usrname.text = ChatController.recname
         self.navigationController?.isNavigationBarHidden = true
         let a = ModelManager.getInstance().exec("SELECT * from user where user_id = \(ChatController.reciever_id!)")
@@ -45,18 +47,45 @@ class CallIntermediate: UIViewController {
         
     }
 
+    func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
+        let dic = convertToDictionary(text: message as! String)
+        print(dic!)
+        do {
+            var _:[String:Any]!
+            var _: Data!
+            switch dic!["type"] as! String {
+            case "acceptVCall":
+                self.navigationController?.pushViewController(VChatController(), animated: false)
+                break
+            default:
+                break
+            }
+        }
+    }
+    
     @IBAction func accpt(_ sender: Any) {
-        
+        do {
+        let json = try JSONSerialization.data(withJSONObject: ["type":"acceptVideoCall"], options: .prettyPrinted)
+        AppDelegate.websocket.send(json)
         self.navigationController?.pushViewController(VChatController(), animated: false)
+        } catch {
+            
+        }
     }
     
     @IBAction func rjct(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
+
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
     }
 
 }
