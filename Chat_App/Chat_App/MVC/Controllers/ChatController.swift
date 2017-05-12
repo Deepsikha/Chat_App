@@ -396,8 +396,21 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 break
                 
             case "VCall" :
+                
+//                for i in dic!["data"] as! NSArray {
+//                    let a = i as AnyObject
+//                    VChatController.roomName = a.value(forKey: "roomNumber")
+//                }
+//                CallIntermediate.calling = false
+//                self.navigationController?.pushViewController(CallIntermediate(), animated: true)
+                break
+            
+            case "VideoCallRoom":
+                if(dic?["roomNumber"] as? Int != nil) {
+                    VChatController.roomName = String(describing : dic?["roomNumber"])
+                    CallIntermediate.calling = true
                 self.navigationController?.pushViewController(CallIntermediate(), animated: true)
-                VChatController.roomName = ""
+                }
                 
                 break
             default: break
