@@ -399,7 +399,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
-                    VChatController.roomName = String(describing : a.value(forKey: "roomNumber"))
+                    VChatController.roomName = String(describing : a.value(forKey: "roomNumber")!)
                 }
                 CallIntermediate.calling = false
                 self.navigationController?.pushViewController(CallIntermediate(), animated: true)
