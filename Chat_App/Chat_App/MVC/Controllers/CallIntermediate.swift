@@ -65,7 +65,7 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
     
     @IBAction func accpt(_ sender: Any) {
         do {
-        let json = try JSONSerialization.data(withJSONObject: ["type":"acceptVideoCall"], options: .prettyPrinted)
+            let json = try JSONSerialization.data(withJSONObject: ["type":"acceptVideoCall","receiver_id": ChatController.reciever_id], options: .prettyPrinted)
         AppDelegate.websocket.send(json)
         self.navigationController?.pushViewController(VChatController(), animated: false)
         } catch {

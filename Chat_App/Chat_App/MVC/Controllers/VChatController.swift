@@ -3,7 +3,9 @@
 import UIKit
 import AVFoundation
 import WebRTC
-class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDelegate {
+import SocketRocket
+
+class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDelegate,SRWebSocketDelegate {
     
     //Views, Labels, and Buttons
     @IBOutlet weak var remoteView:RTCEAGLVideoView?
@@ -52,6 +54,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         self.remoteView?.delegate=self
         self.localView?.delegate=self
         NotificationCenter.default.addObserver(self, selector: #selector(VChatController.orientationChanged(_:)), name: NSNotification.Name(rawValue: "UIDeviceOrientationDidChangeNotification"), object: nil)
+        AppDelegate.websocket.delegate = self as! SRWebSocketDelegate
         // Do any additional setup after loading the view.
     }
     
@@ -107,64 +110,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func audioButtonPressed (_ sender:UIButton){
-        sender.isSelected = !sender.isSelected
-        self.client?.toggleAudioMute()
-    }
-    
-    @IBAction func videoButtonPressed(_ sender:UIButton){
-        sender.isSelected = !sender.isSelected
-        self.client?.toggleVideoMute()
-    }
-    
-    @IBAction func hangupButtonPressed(_ sender:UIButton){
-        self.disconnect()
-        var viewControllers = navigationController?.viewControllers
-        viewControllers?.removeLast(2)
-        navigationController?.setViewControllers(viewControllers!, animated: true)
-    }
-    
-    func disconnect(){
-        if let _ = self.client{
-            self.localVideoTrack?.remove(self.localView!)
-            self.remoteVideoTrack?.remove(self.remoteView!)
-            self.localView?.renderFrame(nil)
-            self.remoteView?.renderFrame(nil)
-            self.localVideoTrack=nil
-            self.remoteVideoTrack=nil
-            self.client?.disconnect()
-        }
-    }
-    
-    func remoteDisconnected(){
-        self.remoteVideoTrack?.remove(self.remoteView!)
-        self.remoteView?.renderFrame(nil)
-        if self.localVideoSize != nil {
-            self.videoView(self.localView!, didChangeVideoSize: self.localVideoSize!)
-        }
-    }
-    
-    func toggleButtonContainer() {
-        UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            if (self.buttonContainerViewLeftConstraint!.constant <= -40.0) {
-                self.buttonContainerViewLeftConstraint!.constant=20.0
-                self.buttonContainerView!.alpha=1.0;
-            }
-            else {
-                self.buttonContainerViewLeftConstraint!.constant = -40.0;
-                self.buttonContainerView!.alpha=0.0;
-            }
-            self.view.layoutIfNeeded();
-        })
-    }
-    
-    func zoomRemote() {
-        //Toggle Aspect Fill or Fit
-        self.isZoom = !self.isZoom;
-        self.videoView(self.remoteView!, didChangeVideoSize: self.remoteVideoSize!)
-    }
-    
-    
+    //MARK:- Appclient Delegate
     func appClient(_ client: ARDAppClient!, didChange state: ARDAppClientState) {
         switch (state) {
         case .connected:
@@ -210,8 +156,6 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         })
     }
     
-    
-    
     func appclient(_ client: ARDAppClient!, didRotateWithLocal localVideoTrack: RTCVideoTrack!, remoteVideoTrack: RTCVideoTrack!) {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(VChatController.updateUIForRotation), object: nil)
         // Hack for rotation to get the right video size
@@ -226,22 +170,28 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         
     }
     
-    func updateUIForRotation(){
-        let statusBarOrientation:UIInterfaceOrientation = UIApplication.shared.statusBarOrientation;
-        let deviceOrientation:UIDeviceOrientation  = UIDevice.current.orientation
-        if (statusBarOrientation.rawValue==deviceOrientation.rawValue){
-            if let  _ = self.localVideoSize {
-                self.videoView(self.localView!, didChangeVideoSize: self.localVideoSize!)
+    //MARK:- Websocket Delegate
+    func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
+        let dic = convertToDictionary(text: message as! String)
+        print(dic!)
+        do {
+            var _:[String:Any]!
+            var _: Data!
+            switch dic!["type"] as! String {
+            case "declineVCall":
+                self.disconnect()
+                var viewControllers = navigationController?.viewControllers
+                viewControllers?.removeLast(2)
+                navigationController?.setViewControllers(viewControllers!, animated: true)
+                break
+            default:
+                break
             }
-            if let _ = self.remoteVideoSize {
-                self.videoView(self.remoteView!, didChangeVideoSize: self.remoteVideoSize!)
-            }
-        }
-        else{
-            print("Unknown orientation Skipped rotation");
         }
     }
     
+    
+    //MARK:- VideoView Delegate
     func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
         let orientation: UIInterfaceOrientation = UIApplication.shared.statusBarOrientation
         UIView.animate(withDuration: 0.4, animations: { () -> Void in
@@ -288,5 +238,97 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
             self.view.layoutIfNeeded()
         })
         
+    }
+    //MARK:- Outlet Method
+    @IBAction func audioButtonPressed (_ sender:UIButton){
+        sender.isSelected = !sender.isSelected
+        self.client?.toggleAudioMute()
+    }
+    
+    @IBAction func videoButtonPressed(_ sender:UIButton){
+        sender.isSelected = !sender.isSelected
+        self.client?.toggleVideoMute()
+    }
+    
+    @IBAction func hangupButtonPressed(_ sender:UIButton){
+        self.disconnect()
+        var viewControllers = navigationController?.viewControllers
+        viewControllers?.removeLast(2)
+        navigationController?.setViewControllers(viewControllers!, animated: true)
+        do {
+            let json = try JSONSerialization.data(withJSONObject: ["type":"declineVideoCall","receiver_id": ChatController.reciever_id], options: .prettyPrinted)
+            AppDelegate.websocket.send(json)
+        } catch {
+            
+        }
+        
+    }
+    
+    //MARK:- Custom Method
+    func disconnect() {
+        if let _ = self.client{
+            self.localVideoTrack?.remove(self.localView!)
+            self.remoteVideoTrack?.remove(self.remoteView!)
+            self.localView?.renderFrame(nil)
+            self.remoteView?.renderFrame(nil)
+            self.localVideoTrack=nil
+            self.remoteVideoTrack=nil
+            self.client?.disconnect()
+        }
+    }
+    
+    func remoteDisconnected() {
+        self.remoteVideoTrack?.remove(self.remoteView!)
+        self.remoteView?.renderFrame(nil)
+        if self.localVideoSize != nil {
+            self.videoView(self.localView!, didChangeVideoSize: self.localVideoSize!)
+        }
+    }
+    
+    func toggleButtonContainer() {
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            if (self.buttonContainerViewLeftConstraint!.constant <= -40.0) {
+                self.buttonContainerViewLeftConstraint!.constant=20.0
+                self.buttonContainerView!.alpha=1.0;
+            }
+            else {
+                self.buttonContainerViewLeftConstraint!.constant = -40.0;
+                self.buttonContainerView!.alpha=0.0;
+            }
+            self.view.layoutIfNeeded();
+        })
+    }
+    
+    func zoomRemote() {
+        //Toggle Aspect Fill or Fit
+        self.isZoom = !self.isZoom;
+        self.videoView(self.remoteView!, didChangeVideoSize: self.remoteVideoSize!)
+    }
+    
+    func updateUIForRotation(){
+        let statusBarOrientation:UIInterfaceOrientation = UIApplication.shared.statusBarOrientation;
+        let deviceOrientation:UIDeviceOrientation  = UIDevice.current.orientation
+        if (statusBarOrientation.rawValue==deviceOrientation.rawValue){
+            if let  _ = self.localVideoSize {
+                self.videoView(self.localView!, didChangeVideoSize: self.localVideoSize!)
+            }
+            if let _ = self.remoteVideoSize {
+                self.videoView(self.remoteView!, didChangeVideoSize: self.remoteVideoSize!)
+            }
+        }
+        else{
+            print("Unknown orientation Skipped rotation");
+        }
+    }
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
     }
 }
