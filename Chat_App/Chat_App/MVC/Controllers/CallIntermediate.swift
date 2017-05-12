@@ -57,6 +57,9 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
             case "acceptVCall":
                 self.navigationController?.pushViewController(VChatController(), animated: false)
                 break
+            case "declineVCall":
+                self.navigationController?.popViewController(animated: false)
+                break
             default:
                 break
             }
@@ -74,6 +77,11 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
     }
     
     @IBAction func rjct(_ sender: Any) {
+        do {
+            let json = try JSONSerialization.data(withJSONObject: ["type" : "declineVideoCall", "receiver_id" : ChatController.reciever_id!], options: .prettyPrinted)
+        AppDelegate.websocket.send(json)
+        } catch {
+        }
         self.navigationController?.popViewController(animated: false)
     }
 

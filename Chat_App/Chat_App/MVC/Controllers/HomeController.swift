@@ -231,7 +231,29 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue : "type"), object: nil, userInfo: nil)
                 }
                 break
+            case "VCall" :
                 
+                for i in dic!["data"] as! NSArray {
+                    let a = i as AnyObject
+                    VChatController.roomName = String(describing : a.value(forKey: "roomNumber")!)
+                    ChatController.reciever_id = a.value(forKey: "receiver_id")! as! Int
+//                    let d = ModelManager.getInstance().exec("SELECT * from user where user_id = \'\(a.value(forKey: "receiver_id")! as! Int)\' ")
+//                    let c = d as AnyObject
+//                    ChatController.recname = c.value(forKey: "username")
+                    
+                }
+                
+                CallIntermediate.calling = false
+                self.navigationController?.pushViewController(CallIntermediate(), animated: true)
+                break
+                
+            case "VideoCallRoom":
+                if(dic?["roomNumber"] as? Int != nil) {
+                    VChatController.roomName = String(describing : dic!["roomNumber"]!)
+                    CallIntermediate.calling = true
+                    self.navigationController?.pushViewController(CallIntermediate(), animated: true)
+                }
+                break
             default: break
             }
         } catch {
