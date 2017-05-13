@@ -91,7 +91,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tblvw.register(UINib(nibName: "SenderCell", bundle: nil), forCellReuseIdentifier: "SenderCell")
         tblvw.register(UINib(nibName: "ReceiverCell", bundle: nil), forCellReuseIdentifier: "ReceiverCell")
         tblvw.register(UINib(nibName: "UnreadMessageCell", bundle: nil), forCellReuseIdentifier: "UnreadMessageCell")
-        chatbox.layer.cornerRadius = chatbox.frame.height / 2
         
         navvw.frame = CGRect(x : 70, y: 0, width : (self.navigationController?.navigationBar.frame.width)! - 150,height: 44)
         
@@ -116,6 +115,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        chatbox.layer.cornerRadius = chatbox.frame.height / 2
         self.navigationController?.isNavigationBarHidden = false
         do {
             lastseen()
@@ -197,7 +197,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
                     let url1 = NSURL(string: (url?.absoluteString)!)
                     let data = NSData(contentsOf: url1! as URL)
-                    cell.messageBackground.image = UIImage(data: data! as Data)
+                    let myPicture = UIImage(data: data! as Data)!
+                    let myThumb1 = myPicture.resized(withPercentage: 0.1)
+                    cell.messageBackground.image = myThumb1
                 cell.messageBackground.backgroundColor = UIColor.clear
                 cell.message.isHidden = true
                 }
@@ -215,20 +217,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if(ob.value(forKey: "location") as! String != "nil") {
                     let url = (ob.value(forKey: "image") as! String)
                     DispatchQueue.main.async {
-                        
-                    
                     cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                        
-                    })
+                        })
                     }
                 } else {
                 let url = server_API.Base_url.appending(ob.value(forKey: "image") as! String)
                     DispatchQueue.main.async {
-                        
-                    
                     cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                    
-                })
+                        })
                     }
                 }
                 
@@ -561,9 +557,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func addphoto() {
-        
-        self.present(pickerController, animated: true) {}
-        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+    
+        self.present(self.pickerController, animated: true) {}
+        self.pickerController.didSelectAssets = { (assets: [DKAsset]) in
             print("didSelectAssets")
             print(assets)
             var video : AVAsset!
@@ -580,7 +576,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         var image: UIImage?
                         var imgurl : NSURL?
                         if let data = data {
-                            image = UIImage(data: data)
+                            let myPicture = UIImage(data: (data as NSData) as Data)!
+                            let myThumb1 = myPicture.resized(withPercentage: 0.1)
+                            image = myThumb1
                             imgurl = info!["PHImageFileURLKey"]! as? NSURL
                             
                             var dic:[String:Any]!
@@ -613,10 +611,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 }, response_Array: { (arr) in
                                     print(arr)
                                 }, isTokenEmbeded: false)
-                            
                         }
+                        self.scrolltolast()
                         self.getMsg()
-                        //self.scrolltolast()
                     })
                 }
             }
@@ -762,8 +759,23 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let json = try JSONSerialization.data(withJSONObject: ["type" : "videoCall","sender_id": AppDelegate.senderId,"receiver_id" : ChatController.reciever_id], options: .prettyPrinted)
         AppDelegate.websocket.send(json)
         } catch {
-        
         }
     }
-    
+}
+
+extension UIImage {
+    func resized(withPercentage percentage: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    func resized(toWidth width: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
 }
