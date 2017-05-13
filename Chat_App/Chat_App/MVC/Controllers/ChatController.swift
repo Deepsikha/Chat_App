@@ -214,15 +214,24 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if(ob.value(forKey: "image") as! String != "nil") {
                 if(ob.value(forKey: "location") as! String != "nil") {
                     let url = (ob.value(forKey: "image") as! String)
+                    DispatchQueue.main.async {
+                        
+                    
                     cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                         
                     })
+                    }
                 } else {
                 let url = server_API.Base_url.appending(ob.value(forKey: "image") as! String)
-                cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                    DispatchQueue.main.async {
+                        
+                    
+                    cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                     
                 })
+                    }
                 }
+                
             } else  {
             cell.message.text = ob.value(forKey: "message") as? String
             }
@@ -233,6 +242,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return cell
             }
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let ob = (self.messages.object(at: indexPath.row) as! NSObject)
+        if(ob.value(forKey: "image") as! String != "nil" ) {
+            if(ob.value(forKey: "location") as! String != "nil") {
+                return 200
+            }
+            return 300
+        } else {
+        return UITableViewAutomaticDimension
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
