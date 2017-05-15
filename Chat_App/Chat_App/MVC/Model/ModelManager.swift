@@ -141,7 +141,7 @@ class ModelManager: NSObject {
     
     func getAllData(_ tableName : String) -> NSMutableArray {
         sharedInstance.database?.open()
-        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT * FROM \(tableName) where user_id <> \(AppDelegate.senderId)", withArgumentsIn: nil)
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT * FROM \(tableName) where user_id <> \(AppDelegate.senderId) order by username ASC", withArgumentsIn: nil)
         let marrStudentInfo : NSMutableArray = NSMutableArray()
         if (resultSet != nil) {
             while resultSet.next() {
