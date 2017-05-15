@@ -116,6 +116,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         chatbox.layer.cornerRadius = chatbox.frame.height / 2
+        navprof.layer.cornerRadius = navprof.frame.height / 2
         self.navigationController?.isNavigationBarHidden = false
         do {
             lastseen()
@@ -156,7 +157,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         self.chatbox.backgroundColor = UIColor.white
-        self.navprof.layer.cornerRadius = self.navprof.frame.width / 2
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.hideKeyBoard(_ :)), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -192,17 +192,42 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if(ob.value(forKey: "image") as! String != "nil" ) {
                 if(ob.value(forKey: "location") as! String != "nil") {
-                    cell.messageBackground.sd_setImage(with: URL(string : ob.value(forKey: "image") as! String), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload)
-                } else {
+                    cell.messageBackground.sd_setImage(with: URL(string : ob.value(forKey: "image") as! String), placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages)
+                } else  {
                     let url = NSURL(string: (ob.value(forKey: "image")! as? String)!)
                     let url1 = NSURL(string: (url?.absoluteString)!)
                     let data = NSData(contentsOf: url1! as URL)
                     let myPicture = UIImage(data: data! as Data)!
                     let myThumb1 = myPicture.resized(withPercentage: 0.1)
+                    
+                    
                     cell.messageBackground.image = myThumb1
-                cell.messageBackground.backgroundColor = UIColor.clear
-                cell.message.isHidden = true
+                    cell.messageBackground.backgroundColor = UIColor.clear
+                    cell.message.isHidden = true
                 }
+            } else if (ob.value(forKey: "video") as! String != "nil") {
+                let asset = AVURLAsset(url: URL(string: ob.value(forKey: "video") as! String)! , options: nil)
+                let imgGenerator = AVAssetImageGenerator(asset: asset)
+                imgGenerator.appliesPreferredTrackTransform = true
+                do {
+                    let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
+                    let thumbnail = UIImage(cgImage: cgImage)
+                    let bottomImage = thumbnail
+                    let topImage = UIImage(named: "videocall")!
+                    
+                    let newSize = CGSize(width : thumbnail.size.width ,height : thumbnail.size.height)
+                    UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+                    
+                    bottomImage.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
+                    topImage.draw(in: CGRect(origin: CGPoint(x: ((thumbnail.size.width/2)-25), y: ((thumbnail.size.height/2)-25)), size: CGSize(width : 50,height : 50)))
+                    
+                    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
+                    cell.messageBackground.image = newImage
+                } catch {
+                    
+                }
+                
             } else {
                 cell.message.text = ob.value(forKey: "message") as? String
                 cell.messageBackground.image = nil
@@ -217,13 +242,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if(ob.value(forKey: "location") as! String != "nil") {
                     let url = (ob.value(forKey: "image") as! String)
                     DispatchQueue.main.async {
-                    cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                    cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages, completed: { (image, error, memory, url) in
                         })
                     }
                 } else {
                 let url = server_API.Base_url.appending(ob.value(forKey: "image") as! String)
                     DispatchQueue.main.async {
-                    cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                    cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages, completed: { (image, error, memory, url) in
                         })
                     }
                 }
@@ -562,15 +587,32 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.pickerController.didSelectAssets = { (assets: [DKAsset]) in
             print("didSelectAssets")
             print(assets)
-            var video : AVAsset!
+            var _ : AVAsset!
             var videoURL : NSURL!
             for i in assets {
                 if(i.isVideo) {
                     i.fetchAVAsset(.none, completeBlock: { video, info in
-                        //AVAsset(url: info)
+                        videoURL = video!.value(forKey: "URL") as! NSURL
+                        do {
+                            var dic:[String:Any]!
+                            
+                            dic = ["senderId":Int(AppDelegate.senderId)!,"message": self.chatbox.text! ,"recieverId":ChatController.reciever_id,"video" : videoURL]
+                            _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,video,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["video"]!))\',1")
+                            var dic1:[String:Any]!
+                            dic1 = ["senderId":Int(AppDelegate.senderId)!,"video": dic2["downloadUrl"]! as! String ,"recieverId":ChatController.reciever_id,"type":"videoMsg"]
+                            let jsonData = try JSONSerialization.data(withJSONObject: dic1, options: .prettyPrinted)
+                            if(AppDelegate.websocket.readyState == .OPEN) {
+                                AppDelegate.websocket.send(jsonData)
+                            }
+
+                            
+                        } catch let error {
+                            print("*** Error generating thumbnail: \(error.localizedDescription)")
+                        }
+                        
                         print(info!)
                     })
-                    self.tblvw.reloadData()
+                    self.getMsg()
                 } else {
                     i.fetchImageDataForAsset(true, completeBlock: { (data, info) in
                         var image: UIImage?

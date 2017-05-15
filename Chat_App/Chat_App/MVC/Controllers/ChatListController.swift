@@ -76,7 +76,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
 
         let url = server_API.Base_url.appending(String(describing: (contact.0 as AnyObject).value(forKey: "profile_pic") as! String))
         
-        cell.prflpic.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, imageUrl) in
+        cell.prflpic.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages, completed: { (image, error, memory, imageUrl) in
         })
         
         let id = String(describing: (contact.0 as AnyObject).value(forKey: "user_id")!)
