@@ -24,7 +24,7 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AppDelegate.websocket.delegate = self as! SRWebSocketDelegate
+        AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         self.usrname.text = ChatController.recname
         self.navigationController?.isNavigationBarHidden = true
         let a = ModelManager.getInstance().exec("SELECT * from user where user_id = \(ChatController.reciever_id!)")
