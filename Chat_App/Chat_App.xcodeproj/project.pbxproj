@@ -45,6 +45,10 @@
 		5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE80591EA5FBF900B88F3F /* Starred Messages.png */; };
 		5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */; };
 		5CCE80631EA5FBF900B88F3F /* Web:Desktop.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */; };
+		5CD13EB21EC9A5C80030BDB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD13EB11EC9A5C80030BDB5 /* Message.swift */; };
+		5CD13EB71EC9B3690030BDB5 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CD13EB41EC9B3690030BDB5 /* video@2x.png */; };
+		5CD13EBB1EC9C87D0030BDB5 /* video@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CD13EB91EC9C87D0030BDB5 /* video@1x.png */; };
+		5CD13EBC1EC9C87D0030BDB5 /* video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CD13EBA1EC9C87D0030BDB5 /* video@3x.png */; };
 		5CDD22F41EBDE25B002D10FB /* UnreadMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD22F21EBDE25B002D10FB /* UnreadMessageCell.swift */; };
 		5CDD22F51EBDE25B002D10FB /* UnreadMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CDD22F31EBDE25B002D10FB /* UnreadMessageCell.xib */; };
 		5CEBBE5B1EB882BE00046E7F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEBBE5A1EB882BD00046E7F /* libc++.tbd */; };
@@ -288,6 +292,10 @@
 		5CCE80591EA5FBF900B88F3F /* Starred Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Starred Messages.png"; sourceTree = "<group>"; };
 		5CCE805A1EA5FBF900B88F3F /* Tell a Friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tell a Friend.png"; sourceTree = "<group>"; };
 		5CCE805B1EA5FBF900B88F3F /* Web:Desktop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Web:Desktop.png"; sourceTree = "<group>"; };
+		5CD13EB11EC9A5C80030BDB5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		5CD13EB41EC9B3690030BDB5 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@2x.png"; sourceTree = "<group>"; };
+		5CD13EB91EC9C87D0030BDB5 /* video@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@1x.png"; sourceTree = "<group>"; };
+		5CD13EBA1EC9C87D0030BDB5 /* video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@3x.png"; sourceTree = "<group>"; };
 		5CDD22F21EBDE25B002D10FB /* UnreadMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnreadMessageCell.swift; sourceTree = "<group>"; };
 		5CDD22F31EBDE25B002D10FB /* UnreadMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnreadMessageCell.xib; sourceTree = "<group>"; };
 		5CEBBE5A1EB882BD00046E7F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -692,6 +700,7 @@
 				7D0617991EA73290004CB6B2 /* ModelManager.swift */,
 				7D06179A1EA73290004CB6B2 /* Util.swift */,
 				7D7151F31EA8A8DB006A9D4B /* REST-Api.swift */,
+				5CD13EB11EC9A5C80030BDB5 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -733,6 +742,9 @@
 		7D202DB21EA49CB20018FCAD /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				5CD13EB91EC9C87D0030BDB5 /* video@1x.png */,
+				5CD13EBA1EC9C87D0030BDB5 /* video@3x.png */,
+				5CD13EB41EC9B3690030BDB5 /* video@2x.png */,
 				5C2B20581EC5A2C2002FCF32 /* accept@1x.png */,
 				5C2B20591EC5A2C2002FCF32 /* accept@2x.png */,
 				5C2B205A1EC5A2C2002FCF32 /* accept@3x.png */,
@@ -1148,6 +1160,7 @@
 				5CCE80611EA5FBF900B88F3F /* Starred Messages.png in Resources */,
 				5CCE80521EA5EFE500B88F3F /* arrright.png in Resources */,
 				7D7151F91EA8D504006A9D4B /* Gradient@2x.png in Resources */,
+				5CD13EBC1EC9C87D0030BDB5 /* video@3x.png in Resources */,
 				5CEBBE801EB8873B00046E7F /* location@3x.png in Resources */,
 				7D7151EA1EA88183006A9D4B /* NewChatCell.xib in Resources */,
 				7D202D861EA49BEF0018FCAD /* Assets.xcassets in Resources */,
@@ -1193,10 +1206,12 @@
 				5CCE80621EA5FBF900B88F3F /* Tell a Friend.png in Resources */,
 				7D7151F81EA8D504006A9D4B /* Gradient@1x.png in Resources */,
 				5C2B20601EC5A2C2002FCF32 /* accept@3x.png in Resources */,
+				5CD13EBB1EC9C87D0030BDB5 /* video@1x.png in Resources */,
 				7D06178C1EA723ED004CB6B2 /* SettingsCell.xib in Resources */,
 				5C0719B51EB35325005B0B36 /* statusCell.xib in Resources */,
 				7DC7979E1EAB17CE00EFD39D /* green@3x.png in Resources */,
 				7BCB7A131EB34624006E3C6C /* default-user@1x.png in Resources */,
+				5CD13EB71EC9B3690030BDB5 /* video@2x.png in Resources */,
 				7DC797AC1EAB17CE00EFD39D /* yellow@2x.png in Resources */,
 				7D2CB2601EC46A6500F1060B /* ic_switch_video_black_24dp.png in Resources */,
 				7BCB7A151EB34624006E3C6C /* default-user@3x.png in Resources */,
@@ -1438,6 +1453,7 @@
 				7D2CB2431EC46A6500F1060B /* ARDCaptureController.m in Sources */,
 				7D7151E11EA8809E006A9D4B /* NewChatVC.swift in Sources */,
 				7D2CB2411EC46A6500F1060B /* ARDAppEngineClient.m in Sources */,
+				5CD13EB21EC9A5C80030BDB5 /* Message.swift in Sources */,
 				7D2CB24E1EC46A6500F1060B /* ARDUtilities.m in Sources */,
 				7D2CB2501EC46A6500F1060B /* ARDAppDelegate.m in Sources */,
 				5CEF5AA11EA4B86B00E92BF8 /* SettingsController.swift in Sources */,
