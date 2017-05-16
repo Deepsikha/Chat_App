@@ -9,20 +9,22 @@
 import UIKit
 import PhotosUI
 import Contacts
+import FBSDKLoginKit
+import SDWebImage
 
-class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SDWebImageManagerDelegate {
 
     @IBOutlet var imgProfile: UIImageView!
     @IBOutlet var lblAddphoto: UILabel!
     @IBOutlet var btnAddphoto: UIButton!
     @IBOutlet var btnDone: UIBarButtonItem!
     @IBOutlet var LblTitle: UINavigationItem!
-    @IBOutlet var btnFacebook: UIButton!
+    
     @IBOutlet var txfName: UITextField!
     
     var dict = [String: String]()
     var store = CNContactStore()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
@@ -45,6 +47,40 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
         UserDefaults.standard.set("default-user", forKey: "img")
     }
     
+    @IBAction func btnFBLoginPressed(_ sender: AnyObject) {
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                if fbloginresult.grantedPermissions != nil {
+                    if(fbloginresult.grantedPermissions.contains("email"))
+                    {
+                        self.getFBUserData()
+                        fbLoginManager.logOut()
+                    }
+                }
+            }
+        }
+    }
+    
+    func getFBUserData(){
+        var dictInfo : [String : AnyObject]!
+        if((FBSDKAccessToken.current()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                if (error == nil){
+                    dictInfo = result as! [String : AnyObject]
+                    
+                    let url = URL(string: (dictInfo!["picture"]!["data"]!! as AnyObject).value(forKey: "url")! as! String)
+                    self.imgProfile.sd_setImage(with: url!, placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, imageUrl) in
+                        self.lblAddphoto.isHidden = true
+                        self.txfName.text = dictInfo!["name"] as? String
+                        self.btnDone.isEnabled = true
+                    })
+                }
+            })
+        }
+    }
+
     override func viewDidLayoutSubviews() {
         self.imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
     }

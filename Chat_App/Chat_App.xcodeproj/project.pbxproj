@@ -702,11 +702,8 @@
 				7D0617991EA73290004CB6B2 /* ModelManager.swift */,
 				7D06179A1EA73290004CB6B2 /* Util.swift */,
 				7D7151F31EA8A8DB006A9D4B /* REST-Api.swift */,
-<<<<<<< Updated upstream
 				5CD13EB11EC9A5C80030BDB5 /* Message.swift */,
-=======
 				7B918F601EC969BC00D6F469 /* User.swift */,
->>>>>>> Stashed changes
 			);
 			path = Model;
 			sourceTree = "<group>";
