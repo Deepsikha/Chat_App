@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,7 +14,6 @@
                 <outlet property="LblTitle" destination="Vr3-QY-Zbd" id="Q5b-0j-Mlb"/>
                 <outlet property="btnAddphoto" destination="4hy-ll-jdV" id="HdD-iq-eGh"/>
                 <outlet property="btnDone" destination="KHI-yR-Weg" id="ohB-57-cUI"/>
-                <outlet property="btnFacebook" destination="PFo-hQ-yar" id="D6z-9w-vL0"/>
                 <outlet property="imgProfile" destination="Igq-Oo-6aa" id="RUp-GV-STZ"/>
                 <outlet property="lblAddphoto" destination="gR0-ll-9As" id="fkv-jb-djD"/>
                 <outlet property="txfName" destination="MRf-qx-H8m" id="3AT-P6-ZTq"/>
@@ -121,6 +120,9 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                             <state key="normal" title="Use Your facebook Info"/>
+                            <connections>
+                                <action selector="btnFBLoginPressed:" destination="-1" eventType="touchUpInside" id="GXX-QP-GR6"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

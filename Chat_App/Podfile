@@ -12,6 +12,9 @@ target 'Chat_App' do
     pod 'Crashlytics'
     pod 'DKImagePickerController'
     pod 'SDWebImage'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
 
   target 'Chat_AppTests' do
     inherit! :search_paths

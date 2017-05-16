@@ -213,7 +213,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
                     let thumbnail = UIImage(cgImage: cgImage)
                     let bottomImage = thumbnail
-                    let topImage = UIImage(named: "videocall")!
+                    let topImage = UIImage(named: "video")!
                     
                     let newSize = CGSize(width : thumbnail.size.width ,height : thumbnail.size.height)
                     UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
@@ -599,8 +599,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             dic = ["senderId":Int(AppDelegate.senderId)!,"message": self.chatbox.text! ,"recieverId":ChatController.reciever_id,"video" : videoURL]
                             _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,video,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["video"]!))\',1")
                             var dic1:[String:Any]!
-                            dic1 = ["senderId":Int(AppDelegate.senderId)!,"video": dic2["downloadUrl"]! as! String ,"recieverId":ChatController.reciever_id,"type":"videoMsg"]
-                            let jsonData = try JSONSerialization.data(withJSONObject: dic1, options: .prettyPrinted)
+//                            dic1 = ["senderId":Int(AppDelegate.senderId)!,"video": dic2["downloadUrl"]! as! String ,"recieverId":ChatController.reciever_id,"type":"videoMsg"]
+                            let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
                             if(AppDelegate.websocket.readyState == .OPEN) {
                                 AppDelegate.websocket.send(jsonData)
                             }
