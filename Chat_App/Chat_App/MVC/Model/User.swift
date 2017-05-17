@@ -37,7 +37,6 @@ class User: NSObject {
                 }
             }).resume()
         }
-        
     }
     
     init(username: String, user_id: Int,status_user: String, lastseen: String, profile_pic: UIImage, profile_thumb: UIImage) {

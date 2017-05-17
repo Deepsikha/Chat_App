@@ -7,26 +7,30 @@
 //
 
 import UIKit
+import SDWebImage
 
-class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSource, SDWebImageManagerDelegate {
 
     @IBOutlet var tblCalls: UITableView!
     @IBOutlet var lblNoti: UILabel!
     
-    var callList:[String] = []
+    var callList: NSMutableArray!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.lblNoti.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if !(callList.isEmpty) {
+        
+        self.callList = ModelManager.getInstance().getList()
+        
+        if !(callList.count == 0) {
             self.tblCalls.isHidden = false
             self.lblNoti.isHidden = true
             tblCalls.delegate = self
             tblCalls.dataSource = self
             
-            self.tblCalls.register(UINib(nibName: "NewChatCell", bundle: nil), forCellReuseIdentifier: "NewChatCell")
+            self.tblCalls.register(UINib(nibName: "CallCell", bundle: nil), forCellReuseIdentifier: "CallCell")
         } else {
             self.tblCalls.isHidden = true
             self.lblNoti.isHidden = false
@@ -45,9 +49,8 @@ class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !(callList.isEmpty) {
+        if !(callList.count == 0) {
             return callList.count
         } else {
             return 0
@@ -55,11 +58,14 @@ class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : NewChatCell = tableView.dequeueReusableCell(withIdentifier: "NewChatCell", for: indexPath) as! NewChatCell
+        let cell : CallCell = tableView.dequeueReusableCell(withIdentifier: "CallCell", for: indexPath) as! CallCell
+        let a = (callList.object(at: indexPath.row) as AnyObject)
+        let url = server_API.Base_url.appending(String(describing: (a as AnyObject).value(forKey: "profile_pic") as! String))
         
+        cell.imgCall.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages, completed: { (image, error, memory, imageUrl) in
+        })
+        cell.lblCallPerson.text = (a.value(forKey: "username")! as! String)
+        cell.lblLastCallStatus.text = (a.value(forKey: "time")! as! String)
         return cell
     }
-
-    
-
 }

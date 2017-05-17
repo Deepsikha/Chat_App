@@ -19,11 +19,14 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
     @IBOutlet weak var rjct0: UIButton!
     @IBOutlet weak var rjct1: UIButton!
     @IBOutlet weak var acpt: UIButton!
-    
+    var timer : Timer!
     static var calling : Bool!
+    var counter: Int = 25;
+    var total: Int = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.timerStart()
         AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         self.usrname.text = ChatController.recname
         self.navigationController?.isNavigationBarHidden = true
@@ -58,6 +61,7 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
                 self.navigationController?.pushViewController(VChatController(), animated: false)
                 break
             case "declineVCall":
+                            _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(ChatController.reciever_id!)\',\'\(AppDelegate.senderId)\',\'\(Date())\','0'")
                 self.navigationController?.popViewController(animated: false)
                 break
             default:
@@ -85,6 +89,30 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
         self.navigationController?.popViewController(animated: false)
     }
 
+    func timerStart() {
+        
+        if(timer == nil) {
+            timer = Timer.init(timeInterval: 1, target: self, selector: #selector(Verification.timerFunction(_:)), userInfo: nil, repeats: true);
+            let runloop: RunLoop = RunLoop.current;
+            runloop.add(timer, forMode: RunLoopMode.defaultRunLoopMode);
+        }
+    }
+    
+    func timerFunction(_ atimer:Timer) {
+        counter -= 1;
+        if(counter == total) {
+            timer.invalidate();
+            _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(AppDelegate.senderId)\',\'\(ChatController.reciever_id!)\',\'\(Date())\','0'")
+            do {
+                let json = try JSONSerialization.data(withJSONObject: ["type" : "declineVideoCall", "receiver_id" : ChatController.reciever_id!], options: .prettyPrinted)
+                AppDelegate.websocket.send(json)
+            } catch {
+            }
+            self.navigationController?.popViewController(animated: false)
+        }
+    }
+
+    
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {
