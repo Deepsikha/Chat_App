@@ -61,6 +61,7 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
                 self.navigationController?.pushViewController(VChatController(), animated: false)
                 break
             case "declineVCall":
+                            _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(ChatController.reciever_id!)\',\'\(AppDelegate.senderId)\',\'\(Date())\','0'")
                 self.navigationController?.popViewController(animated: false)
                 break
             default:
@@ -101,7 +102,7 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
         counter -= 1;
         if(counter == total) {
             timer.invalidate();
-            _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(AppDelegate.senderId)\',\'\(ChatController.reciever_id!)\',\'\(Date())\','00'")
+            _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(AppDelegate.senderId)\',\'\(ChatController.reciever_id!)\',\'\(Date())\','0'")
             do {
                 let json = try JSONSerialization.data(withJSONObject: ["type" : "declineVideoCall", "receiver_id" : ChatController.reciever_id!], options: .prettyPrinted)
                 AppDelegate.websocket.send(json)
