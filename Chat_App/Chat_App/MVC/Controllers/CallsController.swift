@@ -65,7 +65,7 @@ class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         cell.imgCall.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages, completed: { (image, error, memory, imageUrl) in
         })
         cell.lblCallPerson.text = (a.value(forKey: "username")! as! String)
-        
+        cell.lblLastCallStatus.text = (a.value(forKey: "time")! as! String)
         return cell
     }
 }

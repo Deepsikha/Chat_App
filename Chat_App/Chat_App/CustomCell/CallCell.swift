@@ -17,8 +17,8 @@ class CallCell: UITableViewCell {
     @IBOutlet var imgCalltype: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.imgCall.layer.cornerRadius = self.imgCall.frame.width / 2
         
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
