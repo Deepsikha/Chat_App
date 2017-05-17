@@ -39,6 +39,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         self.tblvw.tableHeaderView = self.vwHeader
         self.search.placeholder = "Search"
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue : "load"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(typing(_:)), name: Notification.Name(rawValue : "type"), object: nil)
     }
     
     
@@ -91,7 +92,8 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             if latest.count > 0 {
                 if (latest.lastObject as AnyObject).count != 0 {
                     obj = latest.lastObject as AnyObject
-//                    lastMsg = obj.value(forKey: "message") as! String
+                    lastMsg = obj.value(forKey: "message") as! String
+                    cell.lstmsg.text = lastMsg
                     
                 }
             }
@@ -212,14 +214,14 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func typing(_ notification : NSNotification) {
-        if let senderId = notification.userInfo?["senderId"]! as? Int {
+        if let senderId = notification.userInfo?["Id"]! as? Int {
             let user = (contactNumber.filter{(($0 as! (Any,Any)).0 as AnyObject).value(forKey: "user_id")! as! Int == senderId} as! NSMutableArray).object(at: 0)
             let index = contactNumber.index(of: user)
-            let indexPath = IndexPath(item: index, section: 0)
+            let indexPath = IndexPath(item: index , section: 0)
             let cell = tblvw.cellForRow(at: indexPath) as! ChatListCell
             cell.lstmsg.text = "Typing..."
-            tblvw.reloadRows(at: [indexPath], with: .none)
         } else {
+            
             self.tblvw.reloadData()
         }
     }

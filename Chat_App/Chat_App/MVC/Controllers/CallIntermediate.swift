@@ -26,7 +26,6 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.timerStart()
         AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         self.usrname.text = ChatController.recname
         self.navigationController?.isNavigationBarHidden = true
@@ -36,6 +35,7 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
         self.imgvw.sd_setImage(with: URL(string: url), placeholderImage: nil, options: .progressiveDownload)
         
         if(CallIntermediate.calling) {
+            self.timerStart()
             self.acpt.isHidden =  true
             self.rjct1.isHidden = true
             self.clng.isHidden = false
