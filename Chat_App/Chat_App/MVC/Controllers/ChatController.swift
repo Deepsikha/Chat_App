@@ -46,6 +46,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let locationManager = CLLocationManager()
     static var img:UIImage!
     static var bool : Bool!
+    static var ctype : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +68,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             btn1.setImage(tintedImage, for: .normal)
             btn1.tintColor = UIColor.init(red: 49/255, green: 192/255, blue: 239/255, alpha: 1)
             btn1.frame = CGRect(x: UIScreen.main.bounds.origin.x - 50, y: 20, width: 30, height: 30)
-            btn1.addTarget(self, action: #selector(edit),for: .touchUpInside)
+            btn1.addTarget(self, action: #selector(acall),for: .touchUpInside)
             let item1 = UIBarButtonItem(customView: btn1)
             
             let btn2 = UIButton(type: .custom)
@@ -797,12 +798,24 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
    
     func vcall() {
+        ChatController.ctype = "Video"
         do {
-        let json = try JSONSerialization.data(withJSONObject: ["type" : "videoCall","sender_id": AppDelegate.senderId,"receiver_id" : ChatController.reciever_id], options: .prettyPrinted)
-        AppDelegate.websocket.send(json)
+            let jsonData = try JSONSerialization.data(withJSONObject: ["type" : "videoCall","sender_id": AppDelegate.senderId,"receiver_id" : ChatController.reciever_id], options: .prettyPrinted)
+            
+            if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
+                                AppDelegate.websocket.send(NSData(data: jsonData))
+            } else {
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,call,time,ack", "\(AppDelegate.senderId),\(ChatController.reciever_id!),\'video\',\'\(Date().addingTimeInterval(5.5))\',0")
+            }
         } catch {
+            
         }
     }
+    
+    func acall() {
+        ChatController.ctype = "Audio"
+    }
+    
 }
 
 extension UIImage {

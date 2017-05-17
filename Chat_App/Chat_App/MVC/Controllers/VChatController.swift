@@ -38,6 +38,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
     var   isZoom:Bool = false; //used for double tap remote view
     var   captureController:ARDCaptureController = ARDCaptureController()
     static var roomName : String!
+    static var duration: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -254,6 +255,8 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         var viewControllers = navigationController?.viewControllers
         viewControllers?.removeLast(2)
         navigationController?.setViewControllers(viewControllers!, animated: true)
+        _ = ModelManager.getInstance().addData("call", "type,sender_id,receiver_id,time,duration", "\'video\',\(AppDelegate.senderId),\(ChatController.reciever_id!),'\(Date().addingTimeInterval(5.5))\',\(VChatController.duration)")
+
         do {
             let json = try JSONSerialization.data(withJSONObject: ["type":"declineVideoCall","receiver_id": ChatController.reciever_id], options: .prettyPrinted)
             AppDelegate.websocket.send(json)

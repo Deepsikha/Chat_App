@@ -176,6 +176,22 @@ class ModelManager: NSObject {
         return dic
     }
     
+    func getList() -> NSMutableArray {
+        sharedInstance.database?.open()
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT u.user_id, u.username, u.profile_pic, c.time FROM chat c JOIN user u ON (c.receiver_id = u.user_id) where c.call = 'video'", withArgumentsIn: nil)
+        let marrStudentInfo : NSMutableArray = NSMutableArray()
+        if (resultSet != nil) {
+            while resultSet.next() {
+                var dic:[String:Any]? = [:]
+                for i in 0..<resultSet.columnCount() {
+                    dic?[String(resultSet.columnName(for: i))] = resultSet.string(forColumn: resultSet.columnName(for: i))
+                }
+                marrStudentInfo.add(dic!)
+            }
+        }
+        return marrStudentInfo
+    }
+    
     func getCount(_ tblName: String,_ condition: String,_ countCol: String) -> [String:Any] {
         sharedInstance.database?.open()
 
