@@ -178,7 +178,7 @@ class ModelManager: NSObject {
     
     func getList() -> NSMutableArray {
         sharedInstance.database?.open()
-        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT u.user_id, u.username, u.profile_pic, c.time FROM chat c JOIN user u ON (c.receiver_id = u.user_id) where c.call = 'video'", withArgumentsIn: nil)
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT c.sender_id,c.duration, u.username, u.profile_pic, c.time FROM calls c JOIN user u ON (c.receiver_id = u.user_id) where c.type = 'Video'", withArgumentsIn: nil)
         let marrStudentInfo : NSMutableArray = NSMutableArray()
         if (resultSet != nil) {
             while resultSet.next() {
