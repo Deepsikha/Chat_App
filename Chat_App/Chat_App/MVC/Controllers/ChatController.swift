@@ -439,7 +439,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 break
                 
             case "VCall" :
-                
+                ChatController.ctype = "Video"
                 for i in dic!["data"] as! NSArray {
                     let a = i as AnyObject
                     VChatController.roomName = String(describing : a.value(forKey: "roomNumber")!)

@@ -38,10 +38,12 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
     var   isZoom:Bool = false; //used for double tap remote view
     var   captureController:ARDCaptureController = ARDCaptureController()
     static var roomName : String!
-    static var duration: Timer!
+    var duration: Timer!
+    var count : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        duration = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(start), userInfo: nil, repeats: true)
         self.isZoom = false;
         self.audioButton?.layer.cornerRadius=20.0
         self.videoButton?.layer.cornerRadius=20.0
@@ -55,7 +57,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         self.remoteView?.delegate=self
         self.localView?.delegate=self
         NotificationCenter.default.addObserver(self, selector: #selector(VChatController.orientationChanged(_:)), name: NSNotification.Name(rawValue: "UIDeviceOrientationDidChangeNotification"), object: nil)
-        AppDelegate.websocket.delegate = self as! SRWebSocketDelegate
+        AppDelegate.websocket.delegate = self as SRWebSocketDelegate
         // Do any additional setup after loading the view.
     }
     
@@ -69,7 +71,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         self.disconnect()
         self.client=ARDAppClient(delegate: self)
         //self.client?.serverHostUrl="https://apprtc.appspot.com"
-        var settingsModel = ARDSettingsModel()
+        let settingsModel = ARDSettingsModel()
         client!.connectToRoom(withId: VChatController.roomName as String!, settings: settingsModel, isLoopback: false, isAudioOnly: false, shouldMakeAecDump: false, shouldUseLevelControl: false)
         
         //self.client!.connectToRoom(withId: self.roomName! as String, options: nil)
@@ -255,7 +257,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         var viewControllers = navigationController?.viewControllers
         viewControllers?.removeLast(2)
         navigationController?.setViewControllers(viewControllers!, animated: true)
-        _ = ModelManager.getInstance().addData("call", "type,sender_id,receiver_id,time,duration", "\'video\',\(AppDelegate.senderId),\(ChatController.reciever_id!),'\(Date().addingTimeInterval(5.5))\',\(VChatController.duration)")
+        _ = ModelManager.getInstance().addData("call", "type,sender_id,receiver_id,time,duration", "\'video\',\(AppDelegate.senderId),\(ChatController.reciever_id!),'\(Date().addingTimeInterval(5.5))\',\(String(describing: count))")
 
         do {
             let json = try JSONSerialization.data(withJSONObject: ["type":"declineVideoCall","receiver_id": ChatController.reciever_id], options: .prettyPrinted)
@@ -268,6 +270,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
     
     //MARK:- Custom Method
     func disconnect() {
+        duration.invalidate()
         if let _ = self.client{
             self.localVideoTrack?.remove(self.localView!)
             self.remoteVideoTrack?.remove(self.remoteView!)
@@ -321,6 +324,10 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         else{
             print("Unknown orientation Skipped rotation");
         }
+    }
+    
+    func start() {
+        count = count! + 1
     }
     
     func convertToDictionary(text: String) -> [String: Any]? {
