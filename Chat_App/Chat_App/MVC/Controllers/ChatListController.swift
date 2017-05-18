@@ -129,15 +129,9 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
                     } else {
                     lastMsg = obj.value(forKey: "message") as! String
                         if(lastMsg.characters.count >= 15) {
-                            let index = lastMsg.index((lastMsg.startIndex), offsetBy: 5)
-                            
-                            lastMsg = lastMsg.substring(to: index).append("...")
-                            //            let index = self.title?.index((self.title?.startIndex)!, offsetBy: 5)
-                            //            self.title = self.title?.substring(to: index!).appending("...")
-                            //        }
-                            //        else {
-                            //            navigationItem.backBarButtonItem?.title = self.title
-                            //        }
+                                let index = lastMsg.index(lastMsg.startIndex, offsetBy: 20)
+                              lastMsg =  lastMsg.substring(to: index).appending("...")
+                            cell.lstmsg.text = lastMsg
                         } else {
                     cell.lstmsg.text = lastMsg
                         }
