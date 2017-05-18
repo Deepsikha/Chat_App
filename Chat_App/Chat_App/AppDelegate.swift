@@ -42,13 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
-            let rootVC = SetProfileController()
+            let rootVC = welcome()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
             return true
         } else {
-//            AppDelegate.senderId = UserDefaults.standard.value(forKey: "id") as! String
+            AppDelegate.senderId = UserDefaults.standard.value(forKey: "id") as! String
             if UserDefaults.standard.value(forKey: "nickName") != nil {
                 let rootVC = HomeController()
                 let nav = UINavigationController(rootViewController: rootVC)
@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window?.makeKeyAndVisible()
                 return true
             } else {
-                let rootVC = HomeController()
+                let rootVC = SetProfileController()
                 let nav = UINavigationController(rootViewController: rootVC)
                 window?.rootViewController = nav
                 window?.makeKeyAndVisible()

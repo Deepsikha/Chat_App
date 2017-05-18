@@ -41,6 +41,7 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
             self.clng.isHidden = false
             self.rjct0.isHidden = false
         } else {
+            self.timerStart()
             self.acpt.isHidden =  false
             self.rjct1.isHidden = false
             self.clng.isHidden = true
@@ -48,6 +49,10 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
             self.rjct0.isHidden = true
         }
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
     }
 
     func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
@@ -58,10 +63,13 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
             var _: Data!
             switch dic!["type"] as! String {
             case "acceptVCall":
+                timer.invalidate()
                 self.navigationController?.pushViewController(VChatController(), animated: false)
                 break
             case "declineVCall":
-                            _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(ChatController.reciever_id!)\',\'\(AppDelegate.senderId)\',\'\(Date())\','0'")
+
+                    _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(ChatController.reciever_id!)\',\'\(AppDelegate.senderId)\',\'\(date())\','0'")
+                
                 self.navigationController?.popViewController(animated: false)
                 break
             default:
@@ -74,6 +82,7 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
         do {
             let json = try JSONSerialization.data(withJSONObject: ["type":"acceptVideoCall","receiver_id": ChatController.reciever_id], options: .prettyPrinted)
         AppDelegate.websocket.send(json)
+            timer.invalidate()
         self.navigationController?.pushViewController(VChatController(), animated: false)
         } catch {
             
@@ -81,6 +90,8 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
     }
     
     @IBAction func rjct(_ sender: Any) {
+        _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(AppDelegate.senderId)\',\'\(ChatController.reciever_id!)\',\'\(date())\','0'")
+        timer.invalidate()
         do {
             let json = try JSONSerialization.data(withJSONObject: ["type" : "declineVideoCall", "receiver_id" : ChatController.reciever_id!], options: .prettyPrinted)
         AppDelegate.websocket.send(json)
@@ -102,7 +113,8 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
         counter -= 1;
         if(counter == total) {
             timer.invalidate();
-            _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'\(ChatController.ctype!)\',\'\(AppDelegate.senderId)\',\'\(ChatController.reciever_id!)\',\'\(Date())\','0'")
+            rjct((Any).self)
+
             do {
                 let json = try JSONSerialization.data(withJSONObject: ["type" : "declineVideoCall", "receiver_id" : ChatController.reciever_id!], options: .prettyPrinted)
                 AppDelegate.websocket.send(json)
@@ -122,6 +134,15 @@ class CallIntermediate: UIViewController, SRWebSocketDelegate{
             }
         }
         return nil
+    }
+    
+    func date() -> String {
+        let dt = NSDate().timeIntervalSince1970
+        let date = NSDate(timeIntervalSince1970: dt)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E d MMM yyyy HH:mm:ss Z"
+        dateFormatter.timeZone = NSTimeZone(name: "IST")! as TimeZone
+        return dateFormatter.string(from: date as Date)
     }
 
 }

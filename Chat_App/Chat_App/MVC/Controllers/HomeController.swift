@@ -104,12 +104,13 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
         case is CallsController:
             temp.accessibilityHint = "Calls"
             self.title = "Calls"
-            let button1 = UIBarButtonItem(image: UIImage(named: "Calls"), style: .plain, target: self, action: #selector(edit(_:)))
-            button1.accessibilityHint = viewController.nibName
-            button1.tag = 0
-            self.navigationItem.rightBarButtonItem = button1
+//            let button1 = UIBarButtonItem(image: UIImage(named: "Calls"), style: .plain, target: self, action: #selector(edit(_:)))
+//            button1.accessibilityHint = viewController.nibName
+//            button1.tag = 0
+//            self.navigationItem.rightBarButtonItem = button1
             let segment: UISegmentedControl = UISegmentedControl(items: ["All", "Missed"])
-        
+            self.navigationItem.leftBarButtonItem = nil
+            self.navigationItem.rightBarButtonItem = nil
             segment.sizeToFit()
             segment.selectedSegmentIndex = 0
             self.navigationItem.titleView = segment

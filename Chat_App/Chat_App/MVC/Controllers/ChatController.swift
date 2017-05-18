@@ -139,6 +139,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         Answers.logStartCheckout(withPrice: 1000, currency: "rupee", itemCount: 3, customAttributes: ["Custom String" : "Mike","Custom Number" : 35])
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue : "load"), object: nil)
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         frame1 = vw.frame
         chatboxConstant = chatboxTrailingConstraint.constant

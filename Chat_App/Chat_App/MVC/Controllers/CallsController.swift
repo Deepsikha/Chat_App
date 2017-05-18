@@ -25,11 +25,11 @@ class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.callList = ModelManager.getInstance().getList()
         
         if !(callList.count == 0) {
+            
             self.tblCalls.isHidden = false
             self.lblNoti.isHidden = true
             tblCalls.delegate = self
             tblCalls.dataSource = self
-            
             self.tblCalls.register(UINib(nibName: "CallCell", bundle: nil), forCellReuseIdentifier: "CallCell")
         } else {
             self.tblCalls.isHidden = true
@@ -47,6 +47,7 @@ class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNoti.attributedText = myString
             
         }
+        self.tblCalls.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,6 +61,11 @@ class CallsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : CallCell = tableView.dequeueReusableCell(withIdentifier: "CallCell", for: indexPath) as! CallCell
         let a = (callList.object(at: indexPath.row) as AnyObject)
+        if(a.value(forKey: "sender_id") as! String == AppDelegate.senderId) {
+            cell.imgCalltype.image = UIImage(named : "outgoingcall")
+        } else {
+            cell.imgCalltype.image = UIImage(named : "incomingcall")
+        }
         let url = server_API.Base_url.appending(String(describing: (a as AnyObject).value(forKey: "profile_pic") as! String))
         
         cell.imgCall.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages, completed: { (image, error, memory, imageUrl) in
