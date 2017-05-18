@@ -40,13 +40,15 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
         self.search.placeholder = "Search"
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg), name: NSNotification.Name(rawValue : "load"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(typing(_:)), name: Notification.Name(rawValue : "type"), object: nil)
+        
     }
     
     
     
     override func viewWillAppear(_ animated: Bool) {
-        countmsg()
-        
+    DispatchQueue.main.async {
+            self.countmsg()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -126,8 +128,19 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
                         cell.lstmsg.attributedText = myString
                     } else {
                     lastMsg = obj.value(forKey: "message") as! String
+                        if(lastMsg.characters.count >= 15) {
+                            let index = lastMsg.index((lastMsg.startIndex), offsetBy: 5)
+                            
+                            lastMsg = lastMsg.substring(to: index).append("...")
+                            //            let index = self.title?.index((self.title?.startIndex)!, offsetBy: 5)
+                            //            self.title = self.title?.substring(to: index!).appending("...")
+                            //        }
+                            //        else {
+                            //            navigationItem.backBarButtonItem?.title = self.title
+                            //        }
+                        } else {
                     cell.lstmsg.text = lastMsg
-                    
+                        }
                 }
             }
             if obj != nil && ((contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "sender_id")! as? Int || (contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "receiver_id")! as? Int) {
@@ -237,18 +250,21 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
     
     //MARK: Custom Methods
     func countmsg() {
-        contactNumber = ModelManager.getInstance().getAllData("user")
-        msgCount.removeAll()
-        for i in contactNumber {
+        
+        
+        self.contactNumber = ModelManager.getInstance().getAllData("user")
+        self.msgCount.removeAll()
+        for i in self.contactNumber {
             let a = i as AnyObject
             let count = ModelManager.getInstance().getCount("chat", "sender_id = \(a.value(forKey: "user_id") as! Int) AND status = \'false\'", "status")
-            msgCount.append(Int(count["COUNT(status)"] as! String)!)
+            self.msgCount.append(Int(count["COUNT(status)"] as! String)!)
             
         }
-        contactNumber = zip(contactNumber, msgCount).sorted(by: { (a, b) -> Bool in
+        self.contactNumber = zip(self.contactNumber, self.msgCount).sorted(by: { (a, b) -> Bool in
             return a.1 > b.1
         }) as! NSMutableArray
-        tblvw.reloadData()
+        self.tblvw.reloadData()
+        
     }
     
     func typing(_ notification : NSNotification) {

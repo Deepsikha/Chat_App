@@ -45,7 +45,7 @@
                         </constraints>
                         <state key="normal" image="Calls.png"/>
                     </button>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomingcall.png" translatesAutoresizingMaskIntoConstraints="NO" id="2Fq-cN-FHX">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Fq-cN-FHX">
                         <rect key="frame" x="85" y="39" width="20" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -85,6 +85,5 @@
     </objects>
     <resources>
         <image name="Calls.png" width="24" height="24"/>
-        <image name="incomingcall.png" width="20" height="20"/>
     </resources>
 </document>

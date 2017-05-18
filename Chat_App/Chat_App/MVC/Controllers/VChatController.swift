@@ -257,7 +257,7 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
         var viewControllers = navigationController?.viewControllers
         viewControllers?.removeLast(2)
         navigationController?.setViewControllers(viewControllers!, animated: true)
-        _ = ModelManager.getInstance().addData("call", "type,sender_id,receiver_id,time,duration", "\'video\',\(AppDelegate.senderId),\(ChatController.reciever_id!),'\(Date().addingTimeInterval(5.5))\',\(String(describing: count))")
+        _ = ModelManager.getInstance().addData("calls", "type,sender_id,receiver_id,time,duration", "\'Video\',\(ChatController.reciever_id!),\(AppDelegate.senderId),'\(date())\','0'")
 
         do {
             let json = try JSONSerialization.data(withJSONObject: ["type":"declineVideoCall","receiver_id": ChatController.reciever_id], options: .prettyPrinted)
@@ -339,5 +339,14 @@ class VChatController: UIViewController,RTCEAGLVideoViewDelegate,ARDAppClientDel
             }
         }
         return nil
+    }
+    
+    func date() -> String {
+        let dt = NSDate().timeIntervalSince1970
+        let date = NSDate(timeIntervalSince1970: dt)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E d MMM yyyy HH:mm:ss Z"
+        dateFormatter.timeZone = NSTimeZone(name: "IST")! as TimeZone
+        return dateFormatter.string(from: date as Date)
     }
 }
