@@ -89,9 +89,42 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             
             var lastMsg: String!
             var obj: AnyObject!
+            let attachment = NSTextAttachment()
+
             if latest.count > 0 {
                 if (latest.lastObject as AnyObject).count != 0 {
                     obj = latest.lastObject as AnyObject
+                    if(obj.value(forKey: "image") as! String != "nil") {
+                        if(obj.value(forKey: "location") as! String != "nil") {
+                            attachment.image = UIImage(named: "location1")
+                            attachment.bounds = CGRect(x: 0, y: -3 , width: 15, height: 15)
+                            let attachmentStr = NSAttributedString(attachment: attachment)
+                            let myString = NSMutableAttributedString(string: "")
+                            myString.append(attachmentStr)
+                            let myString1 = NSMutableAttributedString(string: " Location")
+                            myString.append(myString1)
+                            cell.lstmsg.attributedText = myString
+                        } else {
+                            attachment.image = UIImage(named: "image")
+                            attachment.bounds = CGRect(x: 0, y: -3 , width: 15, height: 15)
+                            let attachmentStr = NSAttributedString(attachment: attachment)
+                            let myString = NSMutableAttributedString(string: "")
+                            myString.append(attachmentStr)
+                            let myString1 = NSMutableAttributedString(string: " Image")
+                            myString.append(myString1)
+                            cell.lstmsg.attributedText = myString
+                        }
+
+                    } else if(obj.value(forKey: "video") as! String != "nil") {
+                        attachment.image = UIImage(named: "video1")
+                        attachment.bounds = CGRect(x: 0, y: -3 , width: 15, height: 15)
+                        let attachmentStr = NSAttributedString(attachment: attachment)
+                        let myString = NSMutableAttributedString(string: "")
+                        myString.append(attachmentStr)
+                        let myString1 = NSMutableAttributedString(string: " Video")
+                        myString.append(myString1)
+                        cell.lstmsg.attributedText = myString
+                    } else {
                     lastMsg = obj.value(forKey: "message") as! String
                     cell.lstmsg.text = lastMsg
                     
@@ -104,6 +137,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             }
             cell.msgcount.text = String(describing: contact.1)
             
+            }
         }
         return cell
     }
@@ -220,6 +254,7 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             let indexPath = IndexPath(item: index , section: 0)
             let cell = tblvw.cellForRow(at: indexPath) as! ChatListCell
             cell.lstmsg.text = "Typing..."
+            //tblvw.reloadRows(at: [indexPath], with: .none)
         } else {
             
             self.tblvw.reloadData()
