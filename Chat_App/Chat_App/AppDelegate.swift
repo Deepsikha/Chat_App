@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     static var websocket: SRWebSocket!
 
-    static var senderId = "8454644"
+    static var senderId = "9610555504"
 //    static var senderId: String!
 
     static var senderDisplayName:String!
@@ -42,13 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if(UserDefaults.standard.value(forKey: "id") == nil) {
             
-            let rootVC = welcome()
+            let rootVC = HomeController()
             let nav = UINavigationController(rootViewController: rootVC)
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
             return true
         } else {
-            AppDelegate.senderId = UserDefaults.standard.value(forKey: "id") as! String
+//            AppDelegate.senderId = UserDefaults.standard.value(forKey: "id") as! String
             if UserDefaults.standard.value(forKey: "nickName") != nil {
                 let rootVC = HomeController()
                 let nav = UINavigationController(rootViewController: rootVC)

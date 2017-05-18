@@ -112,7 +112,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.messages = ModelManager.getInstance().getData("chat", "\(AppDelegate.senderId)", "\(ChatController.reciever_id!)")
         
-        self.tblvw.reloadData()
+        self.tblvw.reloadData() 
     }
     
     override func viewWillAppear(_ animated: Bool) {

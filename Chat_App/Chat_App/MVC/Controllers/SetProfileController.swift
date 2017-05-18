@@ -169,23 +169,23 @@ class SetProfileController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     @IBAction func handleBtndone(_ sender: Any) {
-        AppDelegate.senderDisplayName = self.txfName.text
-        AppDelegate.pic = self.imgProfile.image
-        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/profilecreation", Request_parameter: ["senderId" : AppDelegate.senderId , "username" : (txfName.text)!], Request_parameter_Images: ["file":self.imgProfile.image!] ,status: { (status) in
-            
-        }, response_Dictionary: { (dict) in
-            if dict.value(forKey: "resp") as! String == "success" {
-                UserDefaults.standard.set(self.txfName.text!,forKey: "nickName")
-                let nav = HomeController()
-                self.navigationController?.pushViewController(nav, animated: true)
-            } else {
-                Util.invokeAlertMethod("Failed", strBody: "Failed to update profile", delegate: self)
-            }
-            
-        }, response_Array: { (arr) in
-            
-        }, isTokenEmbeded: false)
-//        self.navigationController?.pushViewController(HomeController(), animated: true)
+//        AppDelegate.senderDisplayName = self.txfName.text
+//        AppDelegate.pic = self.imgProfile.image
+//        server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/profilecreation", Request_parameter: ["senderId" : AppDelegate.senderId , "username" : (txfName.text)!], Request_parameter_Images: ["file":self.imgProfile.image!] ,status: { (status) in
+//            
+//        }, response_Dictionary: { (dict) in
+//            if dict.value(forKey: "resp") as! String == "success" {
+//                UserDefaults.standard.set(self.txfName.text!,forKey: "nickName")
+//                let nav = HomeController()
+//                self.navigationController?.pushViewController(nav, animated: true)
+//            } else {
+//                Util.invokeAlertMethod("Failed", strBody: "Failed to update profile", delegate: self)
+//            }
+//            
+//        }, response_Array: { (arr) in
+//            
+//        }, isTokenEmbeded: false)
+        self.navigationController?.pushViewController(HomeController(), animated: true)
 
     }
     

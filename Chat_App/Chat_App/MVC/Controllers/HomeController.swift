@@ -23,43 +23,38 @@ class HomeController: UITabBarController, UITabBarControllerDelegate , SRWebSock
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        DispatchQueue.main.async {
+            
         
         self.delegate = self
         self.title = "Chat"
 
-        let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit(_:)))
-        editbtn.accessibilityHint = tab4.nibName
+        let editbtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.edit(_:)))
+        editbtn.accessibilityHint = self.tab4.nibName
         editbtn.tag = 0
         
         self.navigationItem.leftBarButtonItem = editbtn
-        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(edit(_:)))
+        let button1 = UIBarButtonItem(image: UIImage(named: "Edit"), style: .plain, target: self, action: #selector(self.edit(_:)))
         
-        button1.accessibilityHint = tab4.nibName
+        button1.accessibilityHint = self.tab4.nibName
         button1.tag = 1
         self.navigationItem.titleView = nil
-        self.navigationItem.rightBarButtonItem = button1     
-        let tabOne = StatusController()
-        tabOne.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
-        
-        let tabTwo = CallsController()
-        tabTwo.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "Calls"), tag: 2)
-        
-        let tabThree = CameraController()
-        tabThree.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(named: "Camera"), tag: 3)
-        
+        self.navigationItem.rightBarButtonItem = button1
 
-        tab1.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
+        self.tab1.tabBarItem = UITabBarItem(title: "Status", image: UIImage(named: ""), tag: 1)
         
-        tab2.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "Calls"), tag: 2)
+        self.tab2.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "Calls"), tag: 2)
         
-        tab3.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(named: "Camera"), tag: 3)
+        self.tab3.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(named: "Camera"), tag: 3)
         
         
-        tab4.tabBarItem = UITabBarItem(title: "Chats", image: UIImage(named: "chaticon"), tag: 4)
+        self.tab4.tabBarItem = UITabBarItem(title: "Chats", image: UIImage(named: "chaticon"), tag: 4)
         
-        tab5.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 5)
-        self.viewControllers = [tab1,tab2,tab3,tab4,tab5]
-        self.selectedViewController = tab4
+        self.tab5.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 5)
+        self.viewControllers = [self.tab1,self.tab2,self.tab3,self.tab4,self.tab5]
+        self.selectedViewController = self.tab4
+        
+        }
         connect()
     }
     

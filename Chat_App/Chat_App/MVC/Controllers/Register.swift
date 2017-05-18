@@ -147,7 +147,7 @@ class Register: UIViewController,UITextFieldDelegate {
             server_API.sharedObject.requestFor_NSMutableDictionary(Str_Request_Url: "/register", Request_parameter: parameters, Request_parameter_Images: nil, status: { (results) in
                 
             }, response_Dictionary: { (res) in
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     print(res)
                     if res.value(forKey: "resp") as! String == "success" {
                         self.indicator.stopAnimating()
@@ -160,7 +160,7 @@ class Register: UIViewController,UITextFieldDelegate {
                     } else {
                         
                     }
-                }
+//                }
             }, response_Array: { (resArr) in
                 
             }, isTokenEmbeded: false)
