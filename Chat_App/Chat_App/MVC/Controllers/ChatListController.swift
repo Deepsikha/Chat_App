@@ -132,11 +132,15 @@ class ChatListController: UIViewController, UITableViewDelegate, UITableViewData
             }
             if obj != nil && ((contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "sender_id")! as? Int || (contact.0 as AnyObject).value(forKey : "user_id") as? Int == obj?.value(forKey: "receiver_id")! as? Int) {
                     var a = (obj.value(forKey: "time") as? String)?.components(separatedBy: " ")
-//                    cell.timestmp.text = a?[4]
+                    let endIndex = a?[4].index((a?[4].endIndex)!, offsetBy: -3)
+                    cell.timestmp.text = a?[4].substring(to: endIndex!)
 //                    cell.lstmsg.text = lastMsg
             }
-            cell.msgcount.text = String(describing: contact.1)
-            
+                if(String(describing: contact.1) == "0") {
+            cell.msgcount.text = ""
+                } else {
+                    cell.msgcount.text = String(describing: contact.1)
+                }
             }
         }
         return cell

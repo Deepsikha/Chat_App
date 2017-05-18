@@ -242,10 +242,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if(ob.value(forKey: "image") as! String != "nil") {
                 if(ob.value(forKey: "location") as! String != "nil") {
                     let url = (ob.value(forKey: "image") as! String)
-                    DispatchQueue.main.async {
-                    cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages, completed: { (image, error, memory, url) in
+                    
+                    cell.messageBackground.sd_setImage(with: URL(string: url), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                        print(image)
                         })
-                    }
+                    
                 } else {
                 let url = server_API.Base_url.appending(ob.value(forKey: "image") as! String)
                     DispatchQueue.main.async {
@@ -496,18 +497,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
                 var dic:[String:Any]!
             dic = ["senderId":Int(AppDelegate.senderId)! ,"recieverId":ChatController.reciever_id!,"type":"location","location" : cord,"image" : url]
-            self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0","message" : self.chatbox.text])
+            self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time": self.date(),"status":"0","message" : self.chatbox.text])
             
             
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
                     if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
                         
-                        _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["location"]!))\',\'\(String(describing: dic["image"]!))\',1")
+                        _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(self.date())\',\'\(String(describing: dic["location"]!))\',\'\(String(describing: dic["image"]!))\',1")
                         AppDelegate.websocket.send(NSData(data: jsonData))
                     } else {
                         self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0"])
-                        _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["location"]!))\',\'\(String(describing: dic["image"]!))\',0")
+                        _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,location,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(self.date())\',\'\(String(describing: dic["location"]!))\',\'\(String(describing: dic["image"]!))\',0")
                     }
                 } catch {
                     
@@ -542,9 +543,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             var dic:[String:Any]!
             dic = ["senderId":Int(AppDelegate.senderId)!,"message": chatbox.text! ,"recieverId":ChatController.reciever_id,"type":"message"]
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+            
             if(AppDelegate.websocket.readyState == SRReadyState.OPEN && self.chatbox.text != "") {
                 AppDelegate.websocket.send(NSData(data: jsonData))
-                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date().addingTimeInterval(5.5))\',1")
+                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(self.date())\',1")
             } else if(self.chatbox.text != "") {
             messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"message":chatbox.text!,"time":Date(),"status":"0"])
                 _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,message,time,ack", "\(String(describing: dic!["senderId"]!)),\(String(describing: dic!["recieverId"]!)),\'\(String(describing: dic!["message"]!))\',\'\(Date())\',0")
@@ -639,11 +641,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                             let jsonData = try JSONSerialization.data(withJSONObject: dic1, options: .prettyPrinted)
                                             if(AppDelegate.websocket.readyState == SRReadyState.OPEN) {
                                                 //self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"1"])
-                                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["image"]!))\',1")
+                                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(self.date())\',\'\(String(describing: dic["image"]!))\',1")
                                                 AppDelegate.websocket.send(NSData(data: jsonData))
                                             } else {
                                                 self.messages.add(["sender_id":AppDelegate.senderId,"receiver_id":ChatController.reciever_id,"time":Date(),"status":"0"])
-                                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(Date().addingTimeInterval(5.5))\',\'\(String(describing: dic["image"]!))\',0")
+                                                _ = ModelManager.getInstance().addData("chat", "sender_id,receiver_id,time,image,ack", "\(String(describing: dic["senderId"]!)),\(String(describing: dic["recieverId"]!)),\'\(self.date())\',\'\(String(describing: dic["image"]!))\',0")
                                             }
                                         }
                                         
@@ -780,8 +782,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         _ = String(describing : NSDate(timeIntervalSince1970: dt!))
         let date = NSDate(timeIntervalSince1970: dt!)
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd, MMMM yyyy HH:mm:a"
-        dateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
+        dateFormatter.dateFormat = "E d MMM yyyy HH:mm Z"
+        dateFormatter.timeZone = NSTimeZone(name: "IST")! as TimeZone
         let dateString = dateFormatter.string(from: date as Date)
         print(dateString)
         self.lstseen.lineBreakMode   = .byClipping
@@ -816,6 +818,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ChatController.ctype = "Audio"
     }
     
+    func date() -> String {
+        let dt = NSDate().timeIntervalSince1970
+        let date = NSDate(timeIntervalSince1970: dt)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E d MMM yyyy HH:mm:ss Z"
+        dateFormatter.timeZone = NSTimeZone(name: "IST")! as TimeZone
+        return dateFormatter.string(from: date as Date)
+    }
 }
 
 extension UIImage {
